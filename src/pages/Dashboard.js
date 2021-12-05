@@ -9,7 +9,7 @@ export default function Dashboard(props) {
       <Grid container spacing={2}>
         <Grid item sm={12} md={8}>
           <Widget theme={props.theme}>
-            <SellerChart />
+            <SellerChart key={props.keyToMountAgain} theme={props.theme} />
           </Widget>
         </Grid>
         <Grid item sm={12} md={4}>

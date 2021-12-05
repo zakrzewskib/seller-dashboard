@@ -8,6 +8,7 @@ import { CssBaseline, FormControlLabel, Switch } from '@mui/material';
 
 function App() {
   const darkTheme = createTheme({
+    name: 'darkTheme',
     palette: {
       primary: {
         main: '#7E57C2',
@@ -26,6 +27,7 @@ function App() {
   });
 
   const lightTheme = createTheme({
+    name: 'lightTheme',
     palette: {
       primary: {
         main: '#FEAC34',
@@ -41,10 +43,14 @@ function App() {
   const [theme, setTheme] = useState(darkTheme);
   const [checked, setChecked] = useState(true);
 
+  const [key, setKey] = useState(1);
+
   const handleChange = (e) => {
     setChecked(e.target.checked);
     const theme = checked ? lightTheme : darkTheme;
     setTheme(theme);
+
+    setKey(Math.random());
   };
 
   return (
@@ -60,7 +66,7 @@ function App() {
         }
         label="Switch theme"
       />
-      <Dashboard theme={theme} />
+      <Dashboard theme={theme} keyToMountAgain={key} />
     </ThemeProvider>
   );
 }
