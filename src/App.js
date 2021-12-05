@@ -1,16 +1,26 @@
 import './App.css';
 
-import Button from '@mui/material/Button';
 import { createTheme } from '@mui/material/styles';
-import { deepPurple } from '@mui/material/colors';
 import { ThemeProvider } from '@emotion/react';
 import { useState } from 'react';
+import Dashboard from './pages/Dashboard';
+import { CssBaseline, FormControlLabel, Switch } from '@mui/material';
 
 function App() {
   const darkTheme = createTheme({
     palette: {
       primary: {
-        main: deepPurple[400],
+        main: '#7E57C2',
+      },
+      background: {
+        default: '#424242',
+      },
+      cardBackground: '#616161',
+      fontColor: '#fff',
+    },
+    typography: {
+      allVariants: {
+        color: '#fff',
       },
     },
   });
@@ -20,14 +30,37 @@ function App() {
       primary: {
         main: '#FEAC34',
       },
+      background: {
+        default: '#fff',
+      },
+      cardBackground: '#bdbdbd',
+      fontColor: '#212121',
     },
   });
 
   const [theme, setTheme] = useState(darkTheme);
+  const [checked, setChecked] = useState(true);
+
+  const handleChange = (e) => {
+    setChecked(e.target.checked);
+    const theme = checked ? lightTheme : darkTheme;
+    setTheme(theme);
+  };
 
   return (
     <ThemeProvider theme={theme}>
-      <Button variant="contained">Change theme</Button>
+      <CssBaseline />
+      <FormControlLabel
+        control={
+          <Switch
+            onChange={handleChange}
+            checked={checked}
+            inputProps={{ 'aria-label': 'controlled' }}
+          />
+        }
+        label="Switch theme"
+      />
+      <Dashboard theme={theme} />
     </ThemeProvider>
   );
 }
