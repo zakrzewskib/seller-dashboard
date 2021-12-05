@@ -1,5 +1,6 @@
 import { Container, Grid } from '@mui/material';
 import React from 'react';
+import SellerChart from '../components/SellerChart';
 import Widget from '../components/Widget';
 
 export default function Dashboard(props) {
@@ -7,7 +8,9 @@ export default function Dashboard(props) {
     <Container maxWidth="xl" sx={{ p: 2 }}>
       <Grid container spacing={2}>
         <Grid item sm={12} md={8}>
-          <Widget theme={props.theme}></Widget>
+          <Widget theme={props.theme}>
+            <SellerChart />
+          </Widget>
         </Grid>
         <Grid item sm={12} md={4}>
           <Widget theme={props.theme}></Widget>
