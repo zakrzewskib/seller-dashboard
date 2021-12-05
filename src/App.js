@@ -1,18 +1,28 @@
 import './App.css';
 
-import Button from '@mui/material/Button';
 import { createTheme } from '@mui/material/styles';
-import { deepPurple } from '@mui/material/colors';
 import { ThemeProvider } from '@emotion/react';
 import { useState } from 'react';
+import Dashboard from './pages/Dashboard';
+import { CssBaseline } from '@mui/material';
 
 function App() {
   const darkTheme = createTheme({
     palette: {
       primary: {
-        main: deepPurple[400],
+        main: '#7E57C2',
       },
+      background: {
+        default: '#424242',
+      },
+      cardBackground: '#616161',
+      fontColor: '#fff',
     },
+    // typography: {
+    //   allVariants: {
+    //     color: '#fff',
+    //   },
+    // },
   });
 
   const lightTheme = createTheme({
@@ -20,6 +30,11 @@ function App() {
       primary: {
         main: '#FEAC34',
       },
+      background: {
+        default: '#fff',
+      },
+      cardBackground: '#bdbdbd',
+      fontColor: '#212121',
     },
   });
 
@@ -27,7 +42,8 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Button variant="contained">Change theme</Button>
+      <CssBaseline />
+      <Dashboard theme={theme} />
     </ThemeProvider>
   );
 }
