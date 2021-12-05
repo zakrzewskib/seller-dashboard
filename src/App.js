@@ -4,7 +4,7 @@ import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 import { useState } from 'react';
 import Dashboard from './pages/Dashboard';
-import { CssBaseline } from '@mui/material';
+import { CssBaseline, FormControlLabel, Switch } from '@mui/material';
 
 function App() {
   const darkTheme = createTheme({
@@ -18,11 +18,11 @@ function App() {
       cardBackground: '#616161',
       fontColor: '#fff',
     },
-    // typography: {
-    //   allVariants: {
-    //     color: '#fff',
-    //   },
-    // },
+    typography: {
+      allVariants: {
+        color: '#fff',
+      },
+    },
   });
 
   const lightTheme = createTheme({
@@ -39,10 +39,27 @@ function App() {
   });
 
   const [theme, setTheme] = useState(darkTheme);
+  const [checked, setChecked] = useState(true);
+
+  const handleChange = (e) => {
+    setChecked(e.target.checked);
+    const theme = checked ? lightTheme : darkTheme;
+    setTheme(theme);
+  };
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <FormControlLabel
+        control={
+          <Switch
+            onChange={handleChange}
+            checked={checked}
+            inputProps={{ 'aria-label': 'controlled' }}
+          />
+        }
+        label="Switch theme"
+      />
       <Dashboard theme={theme} />
     </ThemeProvider>
   );
