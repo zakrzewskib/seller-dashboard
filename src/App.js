@@ -13,15 +13,27 @@ function App() {
       primary: {
         main: '#7E57C2',
       },
+      notActive: {
+        main: '#616161',
+      },
       background: {
         default: '#424242',
       },
       cardBackground: '#616161',
       fontColor: '#fff',
+      lightGrey: '#BDBDBD',
     },
     typography: {
       allVariants: {
         color: '#fff',
+      },
+    },
+
+    overrides: {
+      overrides: {
+        Switch: {
+          // Switch should look different
+        },
       },
     },
   });
@@ -34,6 +46,9 @@ function App() {
       },
       background: {
         default: '#fff',
+      },
+      notActive: {
+        main: '#616161',
       },
       cardBackground: '#bdbdbd',
       fontColor: '#212121',
