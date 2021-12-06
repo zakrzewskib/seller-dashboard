@@ -15,7 +15,11 @@ export default function OffersRanking(props) {
   };
 
   return (
-    <>
+    <Box
+      sx={{
+        height: '650px',
+      }}
+    >
       <Box
         sx={{
           display: 'flex',
@@ -46,6 +50,6 @@ export default function OffersRanking(props) {
           img={x.img}
         />
       ))}
-    </>
+    </Box>
   );
 }

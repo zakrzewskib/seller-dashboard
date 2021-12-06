@@ -14,6 +14,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useState } from 'react';
 import { useMediaQuery } from '@mui/material';
+import { Box } from '@mui/system';
 
 export default function SellerChart(props) {
   const [dataOption, setDataOption] = useState('This week');
@@ -73,7 +74,11 @@ export default function SellerChart(props) {
   };
 
   return (
-    <div>
+    <Box
+      sx={{
+        height: '650px',
+      }}
+    >
       <div
         style={{
           marginBottom: '24px',
@@ -151,7 +156,11 @@ export default function SellerChart(props) {
           </Select>
         </FormControl>
       </div>
-      <HighchartsReact highcharts={Highcharts} options={options} />
-    </div>
+      <HighchartsReact
+        containerProps={{ style: { height: '80%' } }}
+        highcharts={Highcharts}
+        options={options}
+      />
+    </Box>
   );
 }
