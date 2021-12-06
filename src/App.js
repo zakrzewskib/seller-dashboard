@@ -1,26 +1,27 @@
-import './App.css';
+import "./App.css";
 
-import { createTheme } from '@mui/material/styles';
-import { ThemeProvider } from '@emotion/react';
-import { useState } from 'react';
-import Dashboard from './pages/Dashboard';
-import { CssBaseline, FormControlLabel, Switch } from '@mui/material';
+import { createTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@emotion/react";
+import { useState } from "react";
+import Dashboard from "./pages/Dashboard";
+import { CssBaseline, FormControlLabel, Switch } from "@mui/material";
+import Navigation from "./components/Navigation";
 
 function App() {
   const darkTheme = createTheme({
     palette: {
       primary: {
-        main: '#7E57C2',
+        main: "#7E57C2",
       },
       background: {
-        default: '#424242',
+        default: "#424242",
       },
-      cardBackground: '#616161',
-      fontColor: '#fff',
+      cardBackground: "#616161",
+      fontColor: "#fff",
     },
     typography: {
       allVariants: {
-        color: '#fff',
+        color: "#fff",
       },
     },
   });
@@ -28,13 +29,13 @@ function App() {
   const lightTheme = createTheme({
     palette: {
       primary: {
-        main: '#FEAC34',
+        main: "#FEAC34",
       },
       background: {
-        default: '#fff',
+        default: "#fff",
       },
-      cardBackground: '#bdbdbd',
-      fontColor: '#212121',
+      cardBackground: "#bdbdbd",
+      fontColor: "#212121",
     },
   });
 
@@ -49,13 +50,14 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <Navigation />
       <CssBaseline />
       <FormControlLabel
         control={
           <Switch
             onChange={handleChange}
             checked={checked}
-            inputProps={{ 'aria-label': 'controlled' }}
+            inputProps={{ "aria-label": "controlled" }}
           />
         }
         label="Switch theme"

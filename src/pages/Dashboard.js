@@ -1,5 +1,7 @@
 import { Container, Grid } from '@mui/material';
 import React from 'react';
+import OfferItem from '../components/OfferItem';
+import OffersRanking from '../components/OffersRanking';
 import Widget from '../components/Widget';
 
 export default function Dashboard(props) {
@@ -10,7 +12,9 @@ export default function Dashboard(props) {
           <Widget theme={props.theme}></Widget>
         </Grid>
         <Grid item sm={12} md={4}>
-          <Widget theme={props.theme}></Widget>
+          <Widget theme={props.theme}>
+            <OffersRanking theme={props.theme} />
+          </Widget>
         </Grid>
       </Grid>
     </Container>
