@@ -4,19 +4,60 @@ import OfferItem from '../components/OfferItem';
 import OffersRanking from '../components/OffersRanking';
 import Widget from '../components/Widget';
 import SellerChart from '../components/SellerChart';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
 export default function Dashboard(props) {
   return (
-    <Container maxWidth="xl" sx={{ p: 2 }}>
+    <Container maxWidth="xl" sx={{ p: 2, mt: 8 }}>
       <Grid container spacing={2}>
-        <Grid item sm={12} md={8}>
+        <Grid item sm={12} lg={8}>
           <Widget theme={props.theme}>
             <SellerChart key={props.keyToMountAgain} theme={props.theme} />
           </Widget>
         </Grid>
-        <Grid item sm={12} md={4}>
+
+        <Grid item sm={12} lg={4}>
           <Widget theme={props.theme}>
             <OffersRanking theme={props.theme} />
+          </Widget>
+        </Grid>
+
+        <Grid item sm={12} lg={4}>
+          <Widget theme={props.theme}>
+            <Box
+              sx={{
+                height: '700px',
+              }}
+            >
+              <Typography variant="h5" sx={{ mt: 1, fontWeight: 'bold' }}>
+                Your orders
+              </Typography>
+            </Box>
+          </Widget>
+        </Grid>
+
+        <Grid item sm={12} lg={8}>
+          <Widget theme={props.theme}>
+            <Box
+              sx={{
+                height: '700px',
+              }}
+            >
+              <Typography variant="h5" sx={{ mt: 1, fontWeight: 'bold' }}>
+                Feedback
+              </Typography>
+            </Box>
+          </Widget>
+        </Grid>
+
+        <Grid item sm={12} lg={6}>
+          <Widget theme={props.theme}>
+            <Box sx={{ height: '400px' }}>
+              <Typography variant="h5" sx={{ mt: 1, fontWeight: 'bold' }}>
+                Quality
+              </Typography>
+            </Box>
           </Widget>
         </Grid>
       </Grid>

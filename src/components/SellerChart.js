@@ -14,10 +14,12 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useState } from 'react';
 import { useMediaQuery } from '@mui/material';
+import { Box } from '@mui/system';
 
 export default function SellerChart(props) {
   const [dataOption, setDataOption] = useState('This week');
   const upFromXl = useMediaQuery(props.theme.breakpoints.up('xl'));
+  const upFromLg = useMediaQuery(props.theme.breakpoints.up('lg'));
   const upFromMd = useMediaQuery(props.theme.breakpoints.up('md'));
 
   const options = {
@@ -73,7 +75,11 @@ export default function SellerChart(props) {
   };
 
   return (
-    <div>
+    <Box
+      sx={{
+        height: '650px',
+      }}
+    >
       <div
         style={{
           marginBottom: '24px',
@@ -96,7 +102,7 @@ export default function SellerChart(props) {
           color="notActive"
           sx={{
             bgcolor: props.theme.palette.cardBackground,
-            color: props.theme.palette.lightGrey,
+            color: props.theme.palette.notActiveButtonFont,
           }}
         >
           {upFromMd ? (
@@ -108,19 +114,55 @@ export default function SellerChart(props) {
 
         <Stack direction="row" spacing={1} alignItems="center">
           {upFromXl ? (
-            <Typography color={props.theme.palette.lightGrey}>
+            <Typography color={props.theme.palette.notActiveButtonFont}>
               TOTAL PROFIT
             </Typography>
           ) : (
-            <Typography color={props.theme.palette.lightGrey}>
-              PROFIT
-            </Typography>
+            [
+              upFromLg ? (
+                <Typography color={props.theme.palette.notActiveButtonFont}>
+                  PROFIT
+                </Typography>
+              ) : (
+                [
+                  upFromMd ? (
+                    <Typography color={props.theme.palette.notActiveButtonFont}>
+                      TOTAL PROFIT
+                    </Typography>
+                  ) : (
+                    <Typography color={props.theme.palette.notActiveButtonFont}>
+                      PROFIT
+                    </Typography>
+                  ),
+                ]
+              ),
+            ]
           )}
           <Switch defaultChecked />
           {upFromXl ? (
-            <Typography>NUMBER OF ITEMS</Typography>
+            <Typography color={props.theme.palette.notActiveButtonFont}>
+              NUMBER OF ITEMS
+            </Typography>
           ) : (
-            <Typography>ITEMS</Typography>
+            [
+              upFromLg ? (
+                <Typography color={props.theme.palette.notActiveButtonFont}>
+                  ITEMS
+                </Typography>
+              ) : (
+                [
+                  upFromMd ? (
+                    <Typography color={props.theme.palette.notActiveButtonFont}>
+                      NUMBER OF ITEMS
+                    </Typography>
+                  ) : (
+                    <Typography color={props.theme.palette.notActiveButtonFont}>
+                      ITEMS
+                    </Typography>
+                  ),
+                ]
+              ),
+            ]
           )}
         </Stack>
 
@@ -145,16 +187,17 @@ export default function SellerChart(props) {
             onChange={handleChange}
             inputProps={{ 'aria-label': 'Without label' }}
           >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
             <MenuItem value={'Today'}>Today</MenuItem>
             <MenuItem value={'This week'}>This week</MenuItem>
             <MenuItem value={'This year'}>This year</MenuItem>
           </Select>
         </FormControl>
       </div>
-      <HighchartsReact highcharts={Highcharts} options={options} />
-    </div>
+      <HighchartsReact
+        containerProps={{ style: { height: '80%' } }}
+        highcharts={Highcharts}
+        options={options}
+      />
+    </Box>
   );
 }
