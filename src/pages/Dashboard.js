@@ -10,19 +10,19 @@ export default function Dashboard(props) {
   return (
     <Container maxWidth="xl" sx={{ p: 2 }}>
       <Grid container spacing={2}>
-        <Grid item sm={12} md={8}>
+        <Grid item sm={12} lg={8}>
           <Widget theme={props.theme}>
             <SellerChart key={props.keyToMountAgain} theme={props.theme} />
           </Widget>
         </Grid>
 
-        <Grid item sm={12} md={4}>
+        <Grid item sm={12} lg={4}>
           <Widget theme={props.theme}>
             <OffersRanking theme={props.theme} />
           </Widget>
         </Grid>
 
-        <Grid item sm={12} md={4}>
+        <Grid item sm={12} lg={4}>
           <Widget theme={props.theme}>
             <Typography variant="h5" sx={{ mt: 1, fontWeight: 'bold' }}>
               Your orders
@@ -54,7 +54,7 @@ export default function Dashboard(props) {
           </Widget>
         </Grid>
 
-        <Grid item sm={12} md={8}>
+        <Grid item sm={12} lg={8}>
           <Widget theme={props.theme}>
             <Typography variant="h5" sx={{ mt: 1, fontWeight: 'bold' }}>
               Feedback
@@ -86,7 +86,7 @@ export default function Dashboard(props) {
           </Widget>
         </Grid>
 
-        <Grid item sm={12} md={6}>
+        <Grid item sm={12} lg={6}>
           <Widget theme={props.theme}>
             <Typography variant="h5" sx={{ mt: 1, fontWeight: 'bold' }}>
               Quality
