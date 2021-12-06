@@ -103,7 +103,15 @@ export default class SellerChart extends React.Component {
   render() {
     return (
       <div>
-        <div style={{ marginBottom: '24px', display: 'flex', gap: '12px' }}>
+        <div
+          style={{
+            marginBottom: '24px',
+            display: 'flex',
+            gap: '12px',
+            height: '60px',
+            alignItems: 'center',
+          }}
+        >
           <Button variant="contained" color="primary">
             Bar graph
           </Button>
@@ -130,27 +138,28 @@ export default class SellerChart extends React.Component {
           <FormControlLabel
             value="start"
             control={<Checkbox />}
-            label="INCLUDE PREVIOUS DATA"
+            label={
+              <Typography color={this.props.theme.palette.lightGrey}>
+                INCLUDE PREVIOUS DATA
+              </Typography>
+            }
             labelPlacement="start"
           />
 
-          <FormControl sx={{ bgcolor: 'red', minWidth: 120 }}>
+          <FormControl color="primary" variant="outlined">
             <Select
-              sx={{ bgcolor: 'red' }}
-              value={this.dataOption}
+              color="primary"
+              variant="outlined"
+              value={this.state.dataOption}
               onChange={this.handleChange}
-              displayEmpty
               inputProps={{ 'aria-label': 'Without label' }}
             >
-              <MenuItem sx={{ bgcolor: 'red' }} value={10}>
-                Ten
+              <MenuItem value="">
+                <em>None</em>
               </MenuItem>
-              <MenuItem sx={{ bgcolor: 'red' }} value={20}>
-                Twenty
-              </MenuItem>
-              <MenuItem sx={{ bgcolor: 'red' }} value={30}>
-                Thirty
-              </MenuItem>
+              <MenuItem value={'Today'}>Today</MenuItem>
+              <MenuItem value={'This week'}>This week</MenuItem>
+              <MenuItem value={'This year'}>This year</MenuItem>
             </Select>
           </FormControl>
         </div>

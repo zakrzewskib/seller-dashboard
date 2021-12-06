@@ -23,11 +23,11 @@ function App() {
       fontColor: '#fff',
       lightGrey: '#BDBDBD',
     },
-    typography: {
-      allVariants: {
-        color: '#fff',
-      },
-    },
+    // typography: {
+    //   allVariants: {
+    //     color: '#fff',
+    //   },
+    // },
 
     overrides: {
       overrides: {
