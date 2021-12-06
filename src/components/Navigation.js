@@ -19,6 +19,7 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import { FormControlLabel, Switch } from '@mui/material';
 
 export default function Navigation(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -40,6 +41,10 @@ export default function Navigation(props) {
     setAnchorEl(null);
   };
 
+  const handleThemeChanged = (e) => {
+    props.handleChange(e);
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ bgcolor: props.theme.palette.navbar }}>
@@ -55,6 +60,18 @@ export default function Navigation(props) {
           >
             Dashboard
           </Typography>
+
+          <FormControlLabel
+            sx={{ color: props.theme.palette.navBarLogo }}
+            control={
+              <Switch
+                onChange={handleThemeChanged}
+                checked={props.checkedForSwitch}
+                inputProps={{ 'aria-label': 'controlled' }}
+              />
+            }
+            label="Switch theme"
+          />
 
           <div>
             {isMobile ? (

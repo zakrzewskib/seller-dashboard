@@ -99,7 +99,7 @@ function App() {
 
   const [key, setKey] = useState(1);
 
-  const handleChange = (e) => {
+  const onHandleChange = (e) => {
     setChecked(e.target.checked);
     const theme = checked ? lightTheme : darkTheme;
     setTheme(theme);
@@ -109,18 +109,12 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Navigation theme={theme} />
-      <CssBaseline />
-      <FormControlLabel
-        control={
-          <Switch
-            onChange={handleChange}
-            checked={checked}
-            inputProps={{ 'aria-label': 'controlled' }}
-          />
-        }
-        label="Switch theme"
+      <Navigation
+        theme={theme}
+        checkedForSwitch={checked}
+        handleChange={onHandleChange}
       />
+      <CssBaseline />
       <Dashboard theme={theme} keyToMountAgain={key} />
     </ThemeProvider>
   );
