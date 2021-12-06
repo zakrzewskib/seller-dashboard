@@ -10,7 +10,7 @@ export default function OfferItem(props) {
         display: 'flex',
         flexDirection: { xs: 'row', md: 'row' },
         alignItems: 'center',
-        bgcolor: props.theme.palette.cardBackground,
+        bgcolor: props.theme.palette.offer,
         color: props.theme.palette.font,
         overflow: 'hidden',
         borderRadius: '12px',

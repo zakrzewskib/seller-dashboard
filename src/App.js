@@ -43,9 +43,12 @@ function App() {
       },
 
       navbar: colors.grey7,
+
       navBarLogo: colors.white,
 
       widget: colors.grey3,
+
+      offer: colors.grey4,
 
       font: colors.white,
 
@@ -84,9 +87,11 @@ function App() {
       },
 
       navbar: colors.grey7,
+
       navBarLogo: colors.white,
 
       widget: colors.grey2,
+      offer: colors.grey1,
 
       font: colors.grey8,
 
@@ -113,9 +118,9 @@ function App() {
         theme={theme}
         checkedForSwitch={checked}
         handleChange={onHandleChange}
-      />
+      />{' '}
       <CssBaseline />
-      <Dashboard theme={theme} keyToMountAgain={key} />
+      <Dashboard theme={theme} keyToMountAgain={key} />{' '}
     </ThemeProvider>
   );
 }
