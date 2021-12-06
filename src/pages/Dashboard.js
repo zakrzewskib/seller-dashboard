@@ -4,6 +4,7 @@ import OfferItem from '../components/OfferItem';
 import OffersRanking from '../components/OffersRanking';
 import Widget from '../components/Widget';
 import SellerChart from '../components/SellerChart';
+import Typography from '@mui/material/Typography';
 
 export default function Dashboard(props) {
   return (
@@ -21,9 +22,11 @@ export default function Dashboard(props) {
           </Widget>
         </Grid>
 
-        <Grid item sm={12} md={6}>
+        <Grid item sm={12} md={4}>
           <Widget theme={props.theme}>
-            <h2>Your orders</h2>
+            <Typography variant="h5" sx={{ mt: 1, fontWeight: 'bold' }}>
+              Your orders
+            </Typography>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Et enim
             earum voluptas. Alias nam nostrum iste doloremque unde. Illum odio
             sequi nulla delectus exercitationem consequatur, eius quis.
@@ -51,9 +54,11 @@ export default function Dashboard(props) {
           </Widget>
         </Grid>
 
-        <Grid item sm={12} md={6}>
+        <Grid item sm={12} md={8}>
           <Widget theme={props.theme}>
-            <h2>Feedback</h2>
+            <Typography variant="h5" sx={{ mt: 1, fontWeight: 'bold' }}>
+              Feedback
+            </Typography>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo ad sit
             itaque aperiam natus. Reiciendis numquam nulla tempore, earum
             repellat saepe molestias perferendis accusamus ad sequi perspiciatis
@@ -83,7 +88,9 @@ export default function Dashboard(props) {
 
         <Grid item sm={12} md={6}>
           <Widget theme={props.theme}>
-            <h2>Quality</h2>
+            <Typography variant="h5" sx={{ mt: 1, fontWeight: 'bold' }}>
+              Quality
+            </Typography>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam,
             quasi illo dolorem voluptas earum accusantium totam, molestias
             incidunt, corporis nam minima illum optio atque doloribus dolorum

@@ -16,7 +16,6 @@ export default function OfferItem(props) {
         borderRadius: '12px',
         boxShadow: 1,
         mt: 2,
-        fontWeight: 'bold',
         minHeight: { xs: 100, md: 100 },
         minWidth: { xs: 400, md: 400 },
         maxHeight: { xs: 100, md: 100 },
@@ -49,9 +48,9 @@ export default function OfferItem(props) {
         <Box component="span" sx={{ fontSize: 14 }}>
           number of sold units: {props.numberOfSoldUnits}
         </Box>
-        <Box component="span" sx={{ fontSize: 14 }}>
+        {/* <Box component="span" sx={{ fontSize: 14 }}>
           second param: {props.secondParam}
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );

@@ -25,7 +25,7 @@ export default function OffersRanking(props) {
           justifyContent: 'space-between',
         }}
       >
-        <Typography variant="h5" sx={{ mt: 1 }}>
+        <Typography variant="h5" sx={{ mt: 1, fontWeight: 'bold' }}>
           Offers Ranking
         </Typography>
         <FormControl>

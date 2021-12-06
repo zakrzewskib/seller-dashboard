@@ -1,4 +1,4 @@
-import { Card } from '@mui/material';
+import { Card, Typography } from '@mui/material';
 import React from 'react';
 
 export default function Widget(props) {
@@ -10,6 +10,9 @@ export default function Widget(props) {
         color: props.theme.palette.font,
       }}
     >
+      <Typography variant="h5" sx={{ mt: 1, fontWeight: 'bold' }}>
+        {props.title}
+      </Typography>
       {props.children}
     </Card>
   );

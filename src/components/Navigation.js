@@ -19,6 +19,7 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import SellIcon from '@mui/icons-material/Sell';
 import { Container, FormControlLabel, Switch } from '@mui/material';
 import { styled } from '@mui/system';
 
