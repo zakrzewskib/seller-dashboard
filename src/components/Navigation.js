@@ -19,7 +19,7 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import { FormControlLabel, Switch } from '@mui/material';
+import { Container, FormControlLabel, Switch } from '@mui/material';
 import { styled } from '@mui/system';
 
 export default function Navigation(props) {
@@ -94,9 +94,9 @@ export default function Navigation(props) {
   }));
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ bgcolor: props.theme.palette.navbar }}>
-        <Toolbar>
+    <AppBar position="sticky" sx={{ bgcolor: props.theme.palette.navbar }}>
+      <Container maxWidth="xl">
+        <Toolbar style={{ padding: 0 }}>
           <DashboardIcon
             fontSize="large"
             sx={{ color: props.theme.palette.navBarLogo }}
@@ -234,7 +234,7 @@ export default function Navigation(props) {
             )}
           </div>
         </Toolbar>
-      </AppBar>
-    </Box>
+      </Container>
+    </AppBar>
   );
 }
