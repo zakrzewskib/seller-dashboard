@@ -12,11 +12,11 @@ export default class SellerChart extends React.Component {
         },
 
         title: {
-          text: 'Total fruit consumption, grouped by gender',
+          text: 'Total number of items selled in last week',
         },
 
         xAxis: {
-          categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas'],
+          categories: ['Monday', 'Tuesday', 'Wednesday', '', 'Bananas'],
         },
 
         yAxis: {
@@ -98,15 +98,13 @@ export default class SellerChart extends React.Component {
   // }
 
   componentDidMount() {
-    Highcharts.theme = this.state.darkTheme;
-
+    // Highcharts.theme = this.state.darkTheme;
     // if (this.props.theme.name === 'darkTheme') {
     //   Highcharts.theme = this.state.darkTheme;
     // } else {
     //   Highcharts.theme = this.state.lightTheme;
     // }
-
-    Highcharts.setOptions(Highcharts.theme);
+    //Highcharts.setOptions(Highcharts.theme);
   }
 
   render() {
