@@ -79,21 +79,32 @@ export default class SellerChart extends React.Component {
         colors: ['red'],
       },
     };
+
+    // Highcharts.theme = this.state.darkTheme;
   }
 
-  componentWillUnmount() {
-    console.log('umounted');
-  }
+  /*
+  Problems with changing theme of the chart in Highcharts:
+  1. How to use one of given themes by Highcharts (ex. Dark Unica)
+
+  2. You can't dynamically change theme - you can only set options again
+  - there should be a way of detecting when user clicks button to change theme:
+  one way of doing it is to change key and it will make component mount again
+  - also when opening/refreshing page theme is not set - you have to click switch button to make it change
+  */
+
+  // componentWillUnmount() {
+  //   console.log('umounted');
+  // }
 
   componentDidMount() {
-    console.log('mounted!');
-    console.log(this.props.theme.name);
+    Highcharts.theme = this.state.darkTheme;
 
-    if (this.props.theme.name === 'darkTheme') {
-      Highcharts.theme = this.state.darkTheme;
-    } else {
-      Highcharts.theme = this.state.lightTheme;
-    }
+    // if (this.props.theme.name === 'darkTheme') {
+    //   Highcharts.theme = this.state.darkTheme;
+    // } else {
+    //   Highcharts.theme = this.state.lightTheme;
+    // }
 
     Highcharts.setOptions(Highcharts.theme);
   }
