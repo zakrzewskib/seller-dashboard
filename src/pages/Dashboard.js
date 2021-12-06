@@ -3,6 +3,7 @@ import React from 'react';
 import OfferItem from '../components/OfferItem';
 import OffersRanking from '../components/OffersRanking';
 import Widget from '../components/Widget';
+import SellerChart from '../components/SellerChart';
 
 export default function Dashboard(props) {
   return (
