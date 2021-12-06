@@ -28,7 +28,7 @@ export default function OffersRanking(props) {
         <Typography variant="h5" sx={{ mt: 1 }}>
           Offers Ranking
         </Typography>
-        <FormControl variant="filled" sx={{ m: 0, minWidth: 180 }} size="small">
+        <FormControl>
           <Select value={mode} onChange={handleChange} displayEmpty>
             <MenuItem value="">Num of sold - asc</MenuItem>
             <MenuItem value={1}>Num of sold - desc</MenuItem>

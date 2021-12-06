@@ -145,9 +145,6 @@ export default function SellerChart(props) {
             onChange={handleChange}
             inputProps={{ 'aria-label': 'Without label' }}
           >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
             <MenuItem value={'Today'}>Today</MenuItem>
             <MenuItem value={'This week'}>This week</MenuItem>
             <MenuItem value={'This year'}>This year</MenuItem>
