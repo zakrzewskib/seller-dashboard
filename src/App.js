@@ -9,24 +9,38 @@ import Navigation from "./components/Navigation";
 
 function App() {
   const darkTheme = createTheme({
+    name: 'darkTheme',
     palette: {
       primary: {
         main: "#7E57C2",
       },
+      notActive: {
+        main: '#616161',
+      },
       background: {
         default: "#424242",
       },
-      cardBackground: "#616161",
-      fontColor: "#fff",
+      cardBackground: '#616161',
+      fontColor: '#fff',
+      lightGrey: '#BDBDBD',
     },
-    typography: {
-      allVariants: {
-        color: "#fff",
+    // typography: {
+    //   allVariants: {
+    //     color: '#fff',
+    //   },
+    // },
+
+    overrides: {
+      overrides: {
+        Switch: {
+          // Switch should look different
+        },
       },
     },
   });
 
   const lightTheme = createTheme({
+    name: 'lightTheme',
     palette: {
       primary: {
         main: "#FEAC34",
@@ -34,18 +48,25 @@ function App() {
       background: {
         default: "#fff",
       },
-      cardBackground: "#bdbdbd",
-      fontColor: "#212121",
+      notActive: {
+        main: '#616161',
+      },
+      cardBackground: '#bdbdbd',
+      fontColor: '#212121',
     },
   });
 
   const [theme, setTheme] = useState(darkTheme);
   const [checked, setChecked] = useState(true);
 
+  const [key, setKey] = useState(1);
+
   const handleChange = (e) => {
     setChecked(e.target.checked);
     const theme = checked ? lightTheme : darkTheme;
     setTheme(theme);
+
+    setKey(Math.random());
   };
 
   return (
@@ -62,7 +83,7 @@ function App() {
         }
         label="Switch theme"
       />
-      <Dashboard theme={theme} />
+      <Dashboard theme={theme} keyToMountAgain={key} />
     </ThemeProvider>
   );
 }
