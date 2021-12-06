@@ -13,9 +13,13 @@ import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useState } from 'react';
+import { useMediaQuery } from '@mui/material';
 
 export default function SellerChart(props) {
   const [dataOption, setDataOption] = useState('This week');
+  const upFromXl = useMediaQuery(props.theme.breakpoints.up('xl'));
+  const upFromMd = useMediaQuery(props.theme.breakpoints.up('md'));
+
   const options = {
     chart: {
       type: 'column',
@@ -74,13 +78,17 @@ export default function SellerChart(props) {
         style={{
           marginBottom: '24px',
           display: 'flex',
-          gap: '12px',
+          justifyContent: 'space-between',
           height: '60px',
           alignItems: 'center',
         }}
       >
         <Button variant="contained" color="primary">
-          Bar graph
+          {upFromMd ? (
+            <Typography>BAR GRAPH</Typography>
+          ) : (
+            <Typography>BAR</Typography>
+          )}
         </Button>
 
         <Button
@@ -91,24 +99,40 @@ export default function SellerChart(props) {
             color: props.theme.palette.lightGrey,
           }}
         >
-          Line graph
+          {upFromMd ? (
+            <Typography>LINE GRAPH</Typography>
+          ) : (
+            <Typography>LINE</Typography>
+          )}
         </Button>
 
         <Stack direction="row" spacing={1} alignItems="center">
-          <Typography color={props.theme.palette.lightGrey}>
-            TOTAL PROFIT
-          </Typography>
+          {upFromXl ? (
+            <Typography color={props.theme.palette.lightGrey}>
+              TOTAL PROFIT
+            </Typography>
+          ) : (
+            <Typography color={props.theme.palette.lightGrey}>
+              PROFIT
+            </Typography>
+          )}
           <Switch defaultChecked />
-          <Typography>NUMBER OF ITEMS</Typography>
+          {upFromXl ? (
+            <Typography>NUMBER OF ITEMS</Typography>
+          ) : (
+            <Typography>ITEMS</Typography>
+          )}
         </Stack>
 
         <FormControlLabel
           value="start"
           control={<Checkbox />}
           label={
-            <Typography color={props.theme.palette.lightGrey}>
-              INCLUDE PREVIOUS DATA
-            </Typography>
+            upFromXl ? (
+              <Typography>INCLUDE PREVIOUS DATA</Typography>
+            ) : (
+              <Typography>PREVIOUS</Typography>
+            )
           }
           labelPlacement="start"
         />
