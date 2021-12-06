@@ -19,6 +19,7 @@ import { Box } from '@mui/system';
 export default function SellerChart(props) {
   const [dataOption, setDataOption] = useState('This week');
   const upFromXl = useMediaQuery(props.theme.breakpoints.up('xl'));
+  const upFromLg = useMediaQuery(props.theme.breakpoints.up('lg'));
   const upFromMd = useMediaQuery(props.theme.breakpoints.up('md'));
 
   const options = {
@@ -117,15 +118,51 @@ export default function SellerChart(props) {
               TOTAL PROFIT
             </Typography>
           ) : (
-            <Typography color={props.theme.palette.notActiveButtonFont}>
-              PROFIT
-            </Typography>
+            [
+              upFromLg ? (
+                <Typography color={props.theme.palette.notActiveButtonFont}>
+                  PROFIT
+                </Typography>
+              ) : (
+                [
+                  upFromMd ? (
+                    <Typography color={props.theme.palette.notActiveButtonFont}>
+                      TOTAL PROFIT
+                    </Typography>
+                  ) : (
+                    <Typography color={props.theme.palette.notActiveButtonFont}>
+                      PROFIT
+                    </Typography>
+                  ),
+                ]
+              ),
+            ]
           )}
           <Switch defaultChecked />
           {upFromXl ? (
-            <Typography>NUMBER OF ITEMS</Typography>
+            <Typography color={props.theme.palette.notActiveButtonFont}>
+              NUMBER OF ITEMS
+            </Typography>
           ) : (
-            <Typography>ITEMS</Typography>
+            [
+              upFromLg ? (
+                <Typography color={props.theme.palette.notActiveButtonFont}>
+                  ITEMS
+                </Typography>
+              ) : (
+                [
+                  upFromMd ? (
+                    <Typography color={props.theme.palette.notActiveButtonFont}>
+                      NUMBER OF ITEMS
+                    </Typography>
+                  ) : (
+                    <Typography color={props.theme.palette.notActiveButtonFont}>
+                      ITEMS
+                    </Typography>
+                  ),
+                ]
+              ),
+            ]
           )}
         </Stack>
 
