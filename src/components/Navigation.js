@@ -95,7 +95,7 @@ export default function Navigation(props) {
   }));
 
   return (
-    <AppBar position="sticky" sx={{ bgcolor: props.theme.palette.navbar }}>
+    <AppBar position="fixed" sx={{ bgcolor: props.theme.palette.navbar }}>
       <Container maxWidth="xl">
         <Toolbar style={{ padding: 0 }}>
           <DashboardIcon

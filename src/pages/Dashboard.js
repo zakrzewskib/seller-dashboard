@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 
 export default function Dashboard(props) {
   return (
-    <Container maxWidth="xl" sx={{ p: 2 }}>
+    <Container maxWidth="xl" sx={{ p: 2, mt: 8 }}>
       <Grid container spacing={2}>
         <Grid item sm={12} lg={8}>
           <Widget theme={props.theme}>
