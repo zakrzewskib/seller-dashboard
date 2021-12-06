@@ -44,8 +44,15 @@ export default function Navigation(props) {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ bgcolor: props.theme.palette.navbar }}>
         <Toolbar>
-          <DashboardIcon fontSize="large" />
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, m: 1 }}>
+          <DashboardIcon
+            fontSize="large"
+            sx={{ color: props.theme.palette.navBarLogo }}
+          />
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, m: 1, color: props.theme.palette.navBarLogo }}
+          >
             Dashboard
           </Typography>
 

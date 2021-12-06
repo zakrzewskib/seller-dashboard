@@ -96,7 +96,7 @@ export default function SellerChart(props) {
           color="notActive"
           sx={{
             bgcolor: props.theme.palette.cardBackground,
-            color: props.theme.palette.lightGrey,
+            color: props.theme.palette.notActiveButtonFont,
           }}
         >
           {upFromMd ? (
@@ -108,11 +108,11 @@ export default function SellerChart(props) {
 
         <Stack direction="row" spacing={1} alignItems="center">
           {upFromXl ? (
-            <Typography color={props.theme.palette.lightGrey}>
+            <Typography color={props.theme.palette.notActiveButtonFont}>
               TOTAL PROFIT
             </Typography>
           ) : (
-            <Typography color={props.theme.palette.lightGrey}>
+            <Typography color={props.theme.palette.notActiveButtonFont}>
               PROFIT
             </Typography>
           )}

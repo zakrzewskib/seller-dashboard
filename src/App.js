@@ -43,12 +43,13 @@ function App() {
       },
 
       navbar: colors.grey7,
+      navBarLogo: colors.white,
 
       widget: colors.grey3,
 
       font: colors.white,
 
-      lightGrey: '#BDBDBD',
+      notActiveButtonFont: colors.grey2,
     },
 
     // typography: {
@@ -67,21 +68,29 @@ function App() {
   });
 
   const lightTheme = createTheme({
-    name: 'lightTheme',
+    name: 'darkTheme',
 
     palette: {
       primary: {
         main: colors.primaryLight,
       },
+
+      notActive: {
+        main: colors.grey2,
+      },
+
       background: {
         default: colors.white,
       },
-      notActive: {
-        main: colors.lightGrey,
-      },
-      cardBackground: '#bdbdbd',
 
-      fontColor: '#212121',
+      navbar: colors.grey7,
+      navBarLogo: colors.white,
+
+      widget: colors.grey2,
+
+      font: colors.grey8,
+
+      notActiveButtonFont: colors.grey1,
     },
   });
 
