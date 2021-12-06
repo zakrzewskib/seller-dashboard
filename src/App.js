@@ -1,23 +1,24 @@
-import './App.css';
+import "./App.css";
 
-import { createTheme } from '@mui/material/styles';
-import { ThemeProvider } from '@emotion/react';
-import { useState } from 'react';
-import Dashboard from './pages/Dashboard';
-import { CssBaseline, FormControlLabel, Switch } from '@mui/material';
+import { createTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@emotion/react";
+import { useState } from "react";
+import Dashboard from "./pages/Dashboard";
+import { CssBaseline, FormControlLabel, Switch } from "@mui/material";
+import Navigation from "./components/Navigation";
 
 function App() {
   const darkTheme = createTheme({
     name: 'darkTheme',
     palette: {
       primary: {
-        main: '#7E57C2',
+        main: "#7E57C2",
       },
       notActive: {
         main: '#616161',
       },
       background: {
-        default: '#424242',
+        default: "#424242",
       },
       cardBackground: '#616161',
       fontColor: '#fff',
@@ -42,10 +43,10 @@ function App() {
     name: 'lightTheme',
     palette: {
       primary: {
-        main: '#FEAC34',
+        main: "#FEAC34",
       },
       background: {
-        default: '#fff',
+        default: "#fff",
       },
       notActive: {
         main: '#616161',
@@ -70,13 +71,14 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <Navigation />
       <CssBaseline />
       <FormControlLabel
         control={
           <Switch
             onChange={handleChange}
             checked={checked}
-            inputProps={{ 'aria-label': 'controlled' }}
+            inputProps={{ "aria-label": "controlled" }}
           />
         }
         label="Switch theme"
