@@ -17,9 +17,9 @@ export default function OfferItem(props) {
         boxShadow: 1,
         mt: 2,
         minHeight: { xs: 100, md: 100 },
-        minWidth: { xs: 400, md: 400 },
+        // minWidth: { xs: 400, md: 400 },
         maxHeight: { xs: 100, md: 100 },
-        maxWidth: { xs: 1000, md: 1000 },
+        // maxWidth: { xs: 1000, md: 1000 },
       }}
     >
       <Box
@@ -37,9 +37,8 @@ export default function OfferItem(props) {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          alignItems: { xs: 'flex-start', md: 'flex-start' },
+          // alignItems: { xs: 'flex-start', md: 'flex-start' },
           m: 3,
-          minWidth: { md: 350 },
         }}
       >
         <Box component="span" sx={{ fontSize: 20, mt: 0, mb: 0.1 }}>
