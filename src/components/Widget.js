@@ -6,8 +6,8 @@ export default function Widget(props) {
     <Card
       sx={{
         p: 2,
-        bgcolor: props.theme.palette.cardBackground,
-        color: props.theme.palette.fontColor,
+        bgcolor: props.theme.palette.widget,
+        color: props.theme.palette.font,
       }}
     >
       {props.children}

@@ -1,14 +1,14 @@
-import React from "react";
-import { offers } from "../data-our-db-mock/user1-data";
-import OfferItem from "../components/OfferItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import React from 'react';
+import { offers } from '../data-our-db-mock/user1-data';
+import OfferItem from '../components/OfferItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 export default function OffersRanking(props) {
-  const [mode, setMode] = React.useState("");
+  const [mode, setMode] = React.useState('');
 
   const handleChange = (event) => {
     setMode(event.target.value);
@@ -18,11 +18,11 @@ export default function OffersRanking(props) {
     <>
       <Box
         sx={{
-          display: "flex",
-          flexDirection: { xs: "row", md: "row" },
+          display: 'flex',
+          flexDirection: { xs: 'row', md: 'row' },
           bgcolor: props.theme.palette.cardBackground,
-          color: props.theme.palette.fontColor,
-          justifyContent: "space-between",
+          color: props.theme.palette.font,
+          justifyContent: 'space-between',
         }}
       >
         <Typography variant="h5" sx={{ mt: 1 }}>

@@ -1,29 +1,56 @@
-import "./App.css";
+import './App.css';
 
-import { createTheme } from "@mui/material/styles";
-import { ThemeProvider } from "@emotion/react";
-import { useState } from "react";
-import Dashboard from "./pages/Dashboard";
-import { CssBaseline, FormControlLabel, Switch } from "@mui/material";
-import Navigation from "./components/Navigation";
+import { createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@emotion/react';
+import { useState } from 'react';
+import Dashboard from './pages/Dashboard';
+import { CssBaseline, FormControlLabel, Switch } from '@mui/material';
+import Navigation from './components/Navigation';
 
 function App() {
+  const colors = {
+    primaryDark: '#7E57C2',
+    primaryLight: '#FEAC34',
+
+    white: '#ffffff',
+
+    grey1: '#DDDDDD',
+    grey2: '#BDBDBD',
+    grey3: '#616161',
+    grey4: '#757575',
+    grey5: '#363636',
+    grey6: '#424242',
+    grey7: '#212121',
+    grey8: '#252525',
+
+    redAttention: '#F44336',
+  };
+
   const darkTheme = createTheme({
     name: 'darkTheme',
+
     palette: {
       primary: {
-        main: "#7E57C2",
+        main: colors.primaryDark,
       },
+
       notActive: {
-        main: '#616161',
+        main: colors.widgetDark,
       },
+
       background: {
-        default: "#424242",
+        default: colors.grey6,
       },
-      cardBackground: '#616161',
-      fontColor: '#fff',
+
+      navbar: colors.grey7,
+
+      widget: colors.grey3,
+
+      font: colors.white,
+
       lightGrey: '#BDBDBD',
     },
+
     // typography: {
     //   allVariants: {
     //     color: '#fff',
@@ -41,17 +68,19 @@ function App() {
 
   const lightTheme = createTheme({
     name: 'lightTheme',
+
     palette: {
       primary: {
-        main: "#FEAC34",
+        main: colors.primaryLight,
       },
       background: {
-        default: "#fff",
+        default: colors.white,
       },
       notActive: {
-        main: '#616161',
+        main: colors.lightGrey,
       },
       cardBackground: '#bdbdbd',
+
       fontColor: '#212121',
     },
   });
@@ -71,14 +100,14 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Navigation />
+      <Navigation theme={theme} />
       <CssBaseline />
       <FormControlLabel
         control={
           <Switch
             onChange={handleChange}
             checked={checked}
-            inputProps={{ "aria-label": "controlled" }}
+            inputProps={{ 'aria-label': 'controlled' }}
           />
         }
         label="Switch theme"
