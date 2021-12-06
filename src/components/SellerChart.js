@@ -12,34 +12,25 @@ export default class SellerChart extends React.Component {
         },
 
         title: {
-          text: 'Total number of items selled in last week',
+          text: 'Total number of items sold last week',
         },
 
         xAxis: {
-          categories: ['Monday', 'Tuesday', 'Wednesday', '', 'Bananas'],
+          categories: [
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday',
+            'Sunday',
+          ],
         },
 
         yAxis: {
-          allowDecimals: false,
-          min: 0,
           title: {
-            text: 'Number of fruits',
-          },
-        },
-
-        tooltip: {
-          formatter: function () {
-            return (
-              '<b>' +
-              this.x +
-              '</b><br/>' +
-              this.series.name +
-              ': ' +
-              this.y +
-              '<br/>' +
-              'Total: ' +
-              this.point.stackTotal
-            );
+            //text: 'Total number of items sold',
+            text: '',
           },
         },
 
@@ -51,24 +42,8 @@ export default class SellerChart extends React.Component {
 
         series: [
           {
-            name: 'John',
-            data: [5, 3, 4, 7, 2],
-            stack: 'male',
-          },
-          {
-            name: 'Joe',
-            data: [3, 4, 4, 2, 5],
-            stack: 'male',
-          },
-          {
-            name: 'Jane',
-            data: [2, 5, 6, 2, 1],
-            stack: 'female',
-          },
-          {
-            name: 'Janet',
-            data: [3, 0, 4, 4, 3],
-            stack: 'female',
+            name: 'Total number of items sold',
+            data: [211, 451, 545, 123, 123, 1235, 555],
           },
         ],
       },
