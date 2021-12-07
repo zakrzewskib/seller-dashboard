@@ -7,9 +7,7 @@ import Typography from "@mui/material/Typography";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useState } from "react";
@@ -20,10 +18,10 @@ import Menu from "@mui/material/Menu";
 
 export default function SellerChart(props) {
   const [dataOption, setDataOption] = useState("This week");
+
   const upFromXl = useMediaQuery(props.theme.breakpoints.up("xl"));
   const upFromLg = useMediaQuery(props.theme.breakpoints.up("lg"));
   const upFromMd = useMediaQuery(props.theme.breakpoints.up("md"));
-
   const isMobile = useMediaQuery(props.theme.breakpoints.down("sm"));
 
   const options = {
@@ -49,14 +47,7 @@ export default function SellerChart(props) {
 
     yAxis: {
       title: {
-        //text: 'Total number of items sold',
         text: "",
-      },
-    },
-
-    plotOptions: {
-      column: {
-        stacking: "normal",
       },
     },
 
@@ -68,24 +59,19 @@ export default function SellerChart(props) {
     ],
   };
 
-  // const darkTheme = {
-  //   colors: ["blue"],
-  // };
-  // const lightTheme = {
-  //   colors: ["red"],
-  // };
-
   const handleChange = (event) => {
     setDataOption(event.target.value);
   };
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const [anchorElForMenu, setAnchorElForMenu] = React.useState(null);
+  const open = Boolean(anchorElForMenu);
+
+  const handleClickForMenu = (event) => {
+    setAnchorElForMenu(event.currentTarget);
   };
+
   const handleClose = () => {
-    setAnchorEl(null);
+    setAnchorElForMenu(null);
   };
 
   return (
@@ -99,14 +85,14 @@ export default function SellerChart(props) {
           <Button
             variant="contained"
             sx={{ mb: "24px" }}
-            onClick={handleClick}
+            onClick={handleClickForMenu}
             endIcon={<KeyboardArrowDownIcon />}
           >
             OPTIONS
           </Button>
           <Menu
             id="basic-menu"
-            anchorEl={anchorEl}
+            anchorEl={anchorElForMenu}
             open={open}
             onClose={handleClose}
             MenuListProps={{

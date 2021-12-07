@@ -11,18 +11,20 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link as RouterLink } from "react-router-dom";
 
 import { withStyles } from "@material-ui/core/styles";
+import { Container } from "@mui/material";
 
 const styles = {
   inputDark: {
     color: "#ffffff",
   },
-
   inputLight: {
     color: "#252525",
+  },
+  label: {
+    color: "#BDBDBD",
   },
 };
 
@@ -124,6 +126,9 @@ function LoginPage(props) {
                     ? classes.inputDark
                     : classes.inputLight,
               }}
+              InputLabelProps={{
+                className: classes.label,
+              }}
             />
             <TextField
               margin="normal"
@@ -140,10 +145,14 @@ function LoginPage(props) {
                     ? classes.inputDark
                     : classes.inputLight,
               }}
+              InputLabelProps={{
+                className: classes.label,
+              }}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
+              sx={{ color: "#BDBDBD" }}
             />
             <RouterLink to="/dashboard">
               <Button
