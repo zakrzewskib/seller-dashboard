@@ -15,9 +15,7 @@ export default function OfferItem(props) {
         boxShadow: 1,
         mt: 2,
         minHeight: { xs: 100, md: 100 },
-        // minWidth: { xs: 400, md: 400 },
         maxHeight: { xs: 100, md: 100 },
-        // maxWidth: { xs: 1000, md: 1000 },
       }}
     >
       <Box
@@ -35,7 +33,6 @@ export default function OfferItem(props) {
         sx={{
           display: "flex",
           flexDirection: "column",
-          // alignItems: { xs: 'flex-start', md: 'flex-start' },
           m: 3,
         }}
       >
@@ -45,9 +42,6 @@ export default function OfferItem(props) {
         <Box component="span" sx={{ fontSize: 14 }}>
           number of sold units: {props.numberOfSoldUnits}
         </Box>
-        {/* <Box component="span" sx={{ fontSize: 14 }}>
-          second param: {props.secondParam}
-        </Box> */}
       </Box>
     </Box>
   );
