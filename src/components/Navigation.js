@@ -240,7 +240,7 @@ export default function Navigation(props) {
                       <ListItemIcon>
                         <Logout fontSize="small" />
                       </ListItemIcon>
-                      Logout
+                      <Typography color="#252525">Logout</Typography>
                     </MenuItem>
                   </RouterLink>
                 </Menu>

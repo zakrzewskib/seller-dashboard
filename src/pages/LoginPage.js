@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import { Link as RouterLink } from "react-router-dom";
 
 import { withStyles } from "@material-ui/core/styles";
+import { Container } from "@mui/material";
 
 const styles = {
   inputDark: {
@@ -154,6 +155,7 @@ function LoginPage(props) {
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
+              sx={{ color: "#BDBDBD" }}
             />
             <RouterLink to="/dashboard">
               <Button
