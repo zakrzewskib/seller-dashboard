@@ -7,9 +7,7 @@ import Typography from "@mui/material/Typography";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useState } from "react";
@@ -20,10 +18,10 @@ import Menu from "@mui/material/Menu";
 
 export default function SellerChart(props) {
   const [dataOption, setDataOption] = useState("This week");
+
   const upFromXl = useMediaQuery(props.theme.breakpoints.up("xl"));
   const upFromLg = useMediaQuery(props.theme.breakpoints.up("lg"));
   const upFromMd = useMediaQuery(props.theme.breakpoints.up("md"));
-
   const isMobile = useMediaQuery(props.theme.breakpoints.down("sm"));
 
   const options = {
@@ -49,14 +47,7 @@ export default function SellerChart(props) {
 
     yAxis: {
       title: {
-        //text: 'Total number of items sold',
         text: "",
-      },
-    },
-
-    plotOptions: {
-      column: {
-        stacking: "normal",
       },
     },
 

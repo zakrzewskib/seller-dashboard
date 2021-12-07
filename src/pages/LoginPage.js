@@ -24,6 +24,10 @@ const styles = {
   inputLight: {
     color: "#252525",
   },
+
+  label: {
+    color: "#BDBDBD",
+  },
 };
 
 function Copyright(props) {
@@ -127,6 +131,9 @@ function LoginPage(props) {
                     ? classes.inputDark
                     : classes.inputLight,
               }}
+              InputLabelProps={{
+                className: classes.label,
+              }}
             />
             <TextField
               margin="normal"
@@ -142,6 +149,9 @@ function LoginPage(props) {
                   props.theme.name === "darkTheme"
                     ? classes.inputDark
                     : classes.inputLight,
+              }}
+              InputLabelProps={{
+                className: classes.label,
               }}
             />
             <FormControlLabel
