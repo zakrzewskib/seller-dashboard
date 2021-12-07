@@ -59,24 +59,19 @@ export default function SellerChart(props) {
     ],
   };
 
-  // const darkTheme = {
-  //   colors: ["blue"],
-  // };
-  // const lightTheme = {
-  //   colors: ["red"],
-  // };
-
   const handleChange = (event) => {
     setDataOption(event.target.value);
   };
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const [anchorElForMenu, setAnchorElForMenu] = React.useState(null);
+  const open = Boolean(anchorElForMenu);
+
+  const handleClickForMenu = (event) => {
+    setAnchorElForMenu(event.currentTarget);
   };
+
   const handleClose = () => {
-    setAnchorEl(null);
+    setAnchorElForMenu(null);
   };
 
   return (
@@ -90,14 +85,14 @@ export default function SellerChart(props) {
           <Button
             variant="contained"
             sx={{ mb: "24px" }}
-            onClick={handleClick}
+            onClick={handleClickForMenu}
             endIcon={<KeyboardArrowDownIcon />}
           >
             OPTIONS
           </Button>
           <Menu
             id="basic-menu"
-            anchorEl={anchorEl}
+            anchorEl={anchorElForMenu}
             open={open}
             onClose={handleClose}
             MenuListProps={{
