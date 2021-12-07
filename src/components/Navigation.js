@@ -1,6 +1,5 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
@@ -15,12 +14,9 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
-import PersonAdd from "@mui/icons-material/PersonAdd";
-import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import SellIcon from "@mui/icons-material/Sell";
-import { Container, FormControlLabel, Switch } from "@mui/material";
+import { Container, Switch } from "@mui/material";
 import { styled } from "@mui/system";
 import { Link as RouterLink } from "react-router-dom";
 
@@ -244,7 +240,7 @@ export default function Navigation(props) {
                       <ListItemIcon>
                         <Logout fontSize="small" />
                       </ListItemIcon>
-                      Logout
+                      <Typography color="#252525">Logout</Typography>
                     </MenuItem>
                   </RouterLink>
                 </Menu>

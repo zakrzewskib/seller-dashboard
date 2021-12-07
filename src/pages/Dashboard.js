@@ -1,6 +1,5 @@
 import { Container, Grid } from "@mui/material";
 import React from "react";
-import OfferItem from "../components/OfferItem";
 import OffersRanking from "../components/OffersRanking";
 import Widget from "../components/Widget";
 import SellerChart from "../components/SellerChart";
