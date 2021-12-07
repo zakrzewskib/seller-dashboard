@@ -1,33 +1,35 @@
-import './App.css';
+import "./App.css";
 
-import { createTheme } from '@mui/material/styles';
-import { ThemeProvider } from '@emotion/react';
-import { useState } from 'react';
-import Dashboard from './pages/Dashboard';
-import { CssBaseline, FormControlLabel, Switch } from '@mui/material';
-import Navigation from './components/Navigation';
+import { createTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@emotion/react";
+import { useState } from "react";
+import Dashboard from "./pages/Dashboard";
+import LoginPage from "./pages/LoginPage";
+import { CssBaseline, FormControlLabel, Switch } from "@mui/material";
+import Navigation from "./components/Navigation";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   const colors = {
-    primaryDark: '#7E57C2',
-    primaryLight: '#FEAC34',
+    primaryDark: "#7E57C2",
+    primaryLight: "#FEAC34",
 
-    white: '#ffffff',
+    white: "#ffffff",
 
-    grey1: '#DDDDDD',
-    grey2: '#BDBDBD',
-    grey3: '#616161',
-    grey4: '#757575',
-    grey5: '#363636',
-    grey6: '#424242',
-    grey7: '#212121',
-    grey8: '#252525',
+    grey1: "#DDDDDD",
+    grey2: "#BDBDBD",
+    grey3: "#616161",
+    grey4: "#757575",
+    grey5: "#363636",
+    grey6: "#424242",
+    grey7: "#212121",
+    grey8: "#252525",
 
-    redAttention: '#F44336',
+    redAttention: "#F44336",
   };
 
   const darkTheme = createTheme({
-    name: 'darkTheme',
+    name: "darkTheme",
 
     palette: {
       primary: {
@@ -71,7 +73,7 @@ function App() {
   });
 
   const lightTheme = createTheme({
-    name: 'darkTheme',
+    name: "lightTheme",
 
     palette: {
       primary: {
@@ -113,15 +115,25 @@ function App() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Navigation
-        theme={theme}
-        checkedForSwitch={checked}
-        handleChange={onHandleChange}
-      />{' '}
-      <CssBaseline />
-      <Dashboard theme={theme} keyToMountAgain={key} />{' '}
-    </ThemeProvider>
+    <Router>
+      <ThemeProvider theme={theme}>
+        <Navigation
+          theme={theme}
+          checkedForSwitch={checked}
+          handleChange={onHandleChange}
+        />{" "}
+        <CssBaseline />
+        <Routes>
+          <Route exact path="/" element={<LoginPage theme={theme} />} />
+
+          <Route
+            exact
+            path="/dashboard"
+            element={<Dashboard theme={theme} keyToMountAgain={key} />}
+          />
+        </Routes>
+      </ThemeProvider>
+    </Router>
   );
 }
 
