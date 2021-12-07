@@ -1,19 +1,17 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import { alpha } from '@mui/material/styles';
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import * as React from "react";
+import Box from "@mui/material/Box";
 
 export default function OfferItem(props) {
   return (
     <Box
       sx={{
-        display: 'flex',
-        flexDirection: { xs: 'row', md: 'row' },
-        alignItems: 'center',
+        display: "flex",
+        flexDirection: { xs: "row", md: "row" },
+        alignItems: "center",
         bgcolor: props.theme.palette.offer,
         color: props.theme.palette.font,
-        overflow: 'hidden',
-        borderRadius: '12px',
+        overflow: "hidden",
+        borderRadius: "12px",
         boxShadow: 1,
         mt: 2,
         minHeight: { xs: 100, md: 100 },
@@ -29,14 +27,14 @@ export default function OfferItem(props) {
           width: 200,
           maxHeight: { xs: 100, md: 100 },
           maxWidth: { xs: 100, md: 100 },
-          objectFit: 'cover',
+          objectFit: "cover",
         }}
         src={props.img}
       />
       <Box
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
+          display: "flex",
+          flexDirection: "column",
           // alignItems: { xs: 'flex-start', md: 'flex-start' },
           m: 3,
         }}
