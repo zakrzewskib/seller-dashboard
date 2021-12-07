@@ -14,7 +14,17 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link as RouterLink } from "react-router-dom";
 
+import { withStyles } from "@material-ui/core/styles";
 
+const styles = {
+  inputDark: {
+    color: "#ffffff",
+  },
+
+  inputLight: {
+    color: "#252525",
+  },
+};
 
 function Copyright(props) {
   return (
@@ -34,8 +44,7 @@ function Copyright(props) {
   );
 }
 
-
-export default function LoginPage(props) {
+function LoginPage(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -45,6 +54,8 @@ export default function LoginPage(props) {
       password: data.get("password"),
     });
   };
+
+  const { classes } = props;
 
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
@@ -65,7 +76,19 @@ export default function LoginPage(props) {
           backgroundPosition: "center",
         }}
       />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+      <Grid
+        item
+        xs={12}
+        sm={8}
+        md={5}
+        component={Paper}
+        elevation={6}
+        square
+        sx={{
+          bgcolor: props.theme.palette.background.default,
+          color: props.theme.palette.font,
+        }}
+      >
         <Box
           sx={{
             my: 8,
@@ -75,7 +98,9 @@ export default function LoginPage(props) {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, mt: 3, bgcolor: props.theme.palette.primary.main }}>
+          <Avatar
+            sx={{ m: 1, mt: 3, bgcolor: props.theme.palette.primary.main }}
+          >
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -96,6 +121,12 @@ export default function LoginPage(props) {
               name="email"
               autoComplete="email"
               autoFocus
+              InputProps={{
+                className:
+                  props.theme.name === "darkTheme"
+                    ? classes.inputDark
+                    : classes.inputLight,
+              }}
             />
             <TextField
               margin="normal"
@@ -106,20 +137,26 @@ export default function LoginPage(props) {
               type="password"
               id="password"
               autoComplete="current-password"
+              InputProps={{
+                className:
+                  props.theme.name === "darkTheme"
+                    ? classes.inputDark
+                    : classes.inputLight,
+              }}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
             <RouterLink to="/dashboard">
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign In
+              </Button>
             </RouterLink>
             <Grid container>
               <Grid item xs>
@@ -133,10 +170,12 @@ export default function LoginPage(props) {
                 </Link>
               </Grid>
             </Grid>
-            <Copyright sx={{ mt: 5 }} />
+            <Copyright sx={{ mt: 5, color: props.theme.palette.font }} />
           </Box>
         </Box>
       </Grid>
     </Grid>
   );
 }
+
+export default withStyles(styles)(LoginPage);

@@ -73,7 +73,7 @@ function App() {
   });
 
   const lightTheme = createTheme({
-    name: "darkTheme",
+    name: "lightTheme",
 
     palette: {
       primary: {
@@ -124,7 +124,7 @@ function App() {
         />{" "}
         <CssBaseline />
         <Routes>
-          <Route exact path="/" element={<LoginPage theme={theme}/>} />
+          <Route exact path="/" element={<LoginPage theme={theme} />} />
 
           <Route
             exact
