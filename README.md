@@ -3,6 +3,15 @@
 1. npm install
 2. npm start
 
+# Preview
+You can see the project (if it loads) on codesanbox:
+
+https://codesandbox.io/s/zakrzewskib-seller-dashboard-9up9g
+
+# Authors
+- Bartłomiej Czekaj
+- Bartosz Zakrzewski
+
 <!--
 
 # Getting Started with Create React App
