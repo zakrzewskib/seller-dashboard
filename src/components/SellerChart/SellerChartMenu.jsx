@@ -1,6 +1,3 @@
-import React from "react";
-import Highcharts from "highcharts";
-import HighchartsReact from "highcharts-react-official";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -10,13 +7,14 @@ import Switch from "@mui/material/Switch";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useState } from "react";
-import { useMediaQuery } from "@mui/material";
-import { Box } from "@mui/system";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Menu from "@mui/material/Menu";
+import React from "react";
 
-export default function SellerChart(props) {
+import { useState } from "react";
+import { useMediaQuery } from "@mui/material";
+
+export default function SellerChartMenu(props) {
   const [dataOption, setDataOption] = useState("This week");
 
   const upFromXl = useMediaQuery(props.theme.breakpoints.up("xl"));
@@ -24,46 +22,11 @@ export default function SellerChart(props) {
   const upFromMd = useMediaQuery(props.theme.breakpoints.up("md"));
   const isMobile = useMediaQuery(props.theme.breakpoints.down("sm"));
 
-  const options = {
-    chart: {
-      type: "column",
-    },
-
-    title: {
-      text: "Total number of items sold last week",
-    },
-
-    xAxis: {
-      categories: [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
-      ],
-    },
-
-    yAxis: {
-      title: {
-        text: "",
-      },
-    },
-
-    series: [
-      {
-        name: "Total number of items sold",
-        data: [211, 451, 545, 123, 123, 1235, 555],
-      },
-    ],
-  };
-
   const handleChange = (event) => {
     setDataOption(event.target.value);
   };
 
-  const [anchorElForMenu, setAnchorElForMenu] = React.useState(null);
+  const [anchorElForMenu, setAnchorElForMenu] = useState(null);
   const open = Boolean(anchorElForMenu);
 
   const handleClickForMenu = (event) => {
@@ -75,17 +38,13 @@ export default function SellerChart(props) {
   };
 
   return (
-    <Box
-      sx={{
-        height: "650px",
-      }}
-    >
-      {isMobile ? (
+    <div>
+      {props.isMobile ? (
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
             variant="contained"
             sx={{ mb: "24px" }}
-            onClick={handleClickForMenu}
+            onClick={props.handleClickForMenu}
             endIcon={<KeyboardArrowDownIcon />}
           >
             OPTIONS
@@ -351,12 +310,6 @@ export default function SellerChart(props) {
           </FormControl>
         </div>
       )}
-
-      <HighchartsReact
-        containerProps={{ style: { height: "80%" } }}
-        highcharts={Highcharts}
-        options={options}
-      />
-    </Box>
+    </div>
   );
 }
