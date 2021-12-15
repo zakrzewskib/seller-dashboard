@@ -7,8 +7,6 @@ import Switch from "@mui/material/Switch";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import Menu from "@mui/material/Menu";
 import React from "react";
 
 import { useState } from "react";
@@ -26,290 +24,71 @@ export default function SellerChartMenu(props) {
     setDataOption(event.target.value);
   };
 
-  const [anchorElForMenu, setAnchorElForMenu] = useState(null);
-  const open = Boolean(anchorElForMenu);
-
-  const handleClickForMenu = (event) => {
-    setAnchorElForMenu(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorElForMenu(null);
-  };
-
   return (
-    <div>
-      {props.isMobile ? (
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <Button
-            variant="contained"
-            sx={{ mb: "24px" }}
-            onClick={props.handleClickForMenu}
-            endIcon={<KeyboardArrowDownIcon />}
-          >
-            OPTIONS
-          </Button>
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorElForMenu}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              "aria-labelledby": "basic-button",
-            }}
-          >
-            <MenuItem>
-              <div
-                style={{
-                  display: "flex",
-                  gap: "5px",
-                }}
-              >
-                <Button variant="contained" color="primary">
-                  {upFromMd ? (
-                    <Typography>BAR GRAPH</Typography>
-                  ) : (
-                    <Typography>BAR</Typography>
-                  )}
-                </Button>
-                <Button
-                  variant="contained"
-                  color="notActive"
-                  sx={{
-                    bgcolor: props.theme.palette.cardBackground,
-                    color: props.theme.palette.notActiveButtonFont,
-                  }}
-                >
-                  {upFromMd ? (
-                    <Typography>LINE GRAPH</Typography>
-                  ) : (
-                    <Typography>LINE</Typography>
-                  )}
-                </Button>
-              </div>
-            </MenuItem>
-            <MenuItem>
-              <Stack direction="row" alignItems="center">
-                {upFromXl ? (
-                  <Typography color={props.theme.palette.notActiveButtonFont}>
-                    TOTAL PROFIT
-                  </Typography>
-                ) : (
-                  [
-                    upFromLg ? (
-                      <Typography
-                        color={props.theme.palette.notActiveButtonFont}
-                      >
-                        PROFIT
-                      </Typography>
-                    ) : (
-                      [
-                        upFromMd ? (
-                          <Typography
-                            color={props.theme.palette.notActiveButtonFont}
-                          >
-                            TOTAL PROFIT
-                          </Typography>
-                        ) : (
-                          <Typography
-                            color={props.theme.palette.notActiveButtonFont}
-                          >
-                            PROFIT
-                          </Typography>
-                        ),
-                      ]
-                    ),
-                  ]
-                )}
-                <Switch defaultChecked />
-                {upFromXl ? (
-                  <Typography color={props.theme.palette.font}>
-                    NUMBER OF ITEMS
-                  </Typography>
-                ) : (
-                  [
-                    upFromLg ? (
-                      <Typography color={props.theme.palette.font}>
-                        ITEMS
-                      </Typography>
-                    ) : (
-                      [
-                        upFromMd ? (
-                          <Typography color={props.theme.palette.font}>
-                            NUMBER OF ITEMS
-                          </Typography>
-                        ) : (
-                          <Typography color={props.theme.palette.font}>
-                            ITEMS
-                          </Typography>
-                        ),
-                      ]
-                    ),
-                  ]
-                )}
-              </Stack>
-            </MenuItem>
-            <MenuItem>
-              <FormControlLabel
-                value="start"
-                control={<Checkbox />}
-                label={
-                  upFromXl ? (
-                    <Typography color={props.theme.palette.notActiveButtonFont}>
-                      INCLUDE PREVIOUS DATA
-                    </Typography>
-                  ) : (
-                    <Typography color={props.theme.palette.notActiveButtonFont}>
-                      PREVIOUS
-                    </Typography>
-                  )
-                }
-                labelPlacement="start"
-              />
-            </MenuItem>
-            <MenuItem>
-              <FormControl color="primary" variant="outlined">
-                <Select
-                  color="primary"
-                  variant="outlined"
-                  value={dataOption}
-                  onChange={handleChange}
-                  inputProps={{ "aria-label": "Without label" }}
-                >
-                  <MenuItem value={"Today"}>Today</MenuItem>
-                  <MenuItem value={"This week"}>This week</MenuItem>
-                  <MenuItem value={"This year"}>This year</MenuItem>
-                </Select>
-              </FormControl>
-            </MenuItem>
-          </Menu>
-        </div>
-      ) : (
-        <div
-          style={{
-            marginBottom: "24px",
-            display: "flex",
-            justifyContent: "space-between",
-            height: "60px",
-            alignItems: "center",
+    <div
+      style={{
+        marginBottom: "24px",
+        display: "flex",
+        justifyContent: "space-between",
+        height: "60px",
+        alignItems: "center",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          gap: "5px",
+        }}
+      >
+        <Button variant="contained" color="primary">
+          <Typography>BAR GRAPH</Typography>
+        </Button>
+        <Button
+          variant="contained"
+          color="notActive"
+          sx={{
+            bgcolor: props.theme.palette.cardBackground,
+            color: props.theme.palette.notActiveButtonFont,
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              gap: "5px",
-            }}
-          >
-            <Button variant="contained" color="primary">
-              {upFromMd ? (
-                <Typography>BAR GRAPH</Typography>
-              ) : (
-                <Typography>BAR</Typography>
-              )}
-            </Button>
-            <Button
-              variant="contained"
-              color="notActive"
-              sx={{
-                bgcolor: props.theme.palette.cardBackground,
-                color: props.theme.palette.notActiveButtonFont,
-              }}
-            >
-              {upFromMd ? (
-                <Typography>LINE GRAPH</Typography>
-              ) : (
-                <Typography>LINE</Typography>
-              )}
-            </Button>
-          </div>
-          <Stack direction="row" alignItems="center">
-            {upFromXl ? (
-              <Typography color={props.theme.palette.notActiveButtonFont}>
-                TOTAL PROFIT
-              </Typography>
-            ) : (
-              [
-                upFromLg ? (
-                  <Typography color={props.theme.palette.notActiveButtonFont}>
-                    PROFIT
-                  </Typography>
-                ) : (
-                  [
-                    upFromMd ? (
-                      <Typography
-                        color={props.theme.palette.notActiveButtonFont}
-                      >
-                        TOTAL PROFIT
-                      </Typography>
-                    ) : (
-                      <Typography
-                        color={props.theme.palette.notActiveButtonFont}
-                      >
-                        PROFIT
-                      </Typography>
-                    ),
-                  ]
-                ),
-              ]
-            )}
-            <Switch defaultChecked />
-            {upFromXl ? (
-              <Typography color={props.theme.palette.font}>
-                NUMBER OF ITEMS
-              </Typography>
-            ) : (
-              [
-                upFromLg ? (
-                  <Typography color={props.theme.palette.font}>
-                    ITEMS
-                  </Typography>
-                ) : (
-                  [
-                    upFromMd ? (
-                      <Typography color={props.theme.palette.font}>
-                        NUMBER OF ITEMS
-                      </Typography>
-                    ) : (
-                      <Typography color={props.theme.palette.font}>
-                        ITEMS
-                      </Typography>
-                    ),
-                  ]
-                ),
-              ]
-            )}
-          </Stack>
-          <FormControlLabel
-            value="start"
-            control={<Checkbox />}
-            label={
-              upFromXl ? (
-                <Typography color={props.theme.palette.notActiveButtonFont}>
-                  INCLUDE PREVIOUS DATA
-                </Typography>
-              ) : (
-                <Typography color={props.theme.palette.notActiveButtonFont}>
-                  PREVIOUS
-                </Typography>
-              )
-            }
-            labelPlacement="start"
-          />
-          <FormControl color="primary" variant="outlined">
-            <Select
-              color="primary"
-              variant="outlined"
-              value={dataOption}
-              onChange={handleChange}
-              inputProps={{ "aria-label": "Without label" }}
-            >
-              <MenuItem value={"Today"}>Today</MenuItem>
-              <MenuItem value={"This week"}>This week</MenuItem>
-              <MenuItem value={"This year"}>This year</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
-      )}
+          <Typography>LINE GRAPH</Typography>
+        </Button>
+      </div>
+      <Stack direction="row" alignItems="center">
+        <Typography color={props.theme.palette.notActiveButtonFont}>
+          TOTAL PROFIT
+        </Typography>
+
+        <Switch defaultChecked />
+
+        <Typography color={props.theme.palette.font}>
+          NUMBER OF ITEMS
+        </Typography>
+      </Stack>
+
+      <FormControlLabel
+        value="start"
+        control={<Checkbox />}
+        label={
+          <Typography color={props.theme.palette.notActiveButtonFont}>
+            INCLUDE PREVIOUS DATA
+          </Typography>
+        }
+        labelPlacement="start"
+      />
+      <FormControl color="primary" variant="outlined">
+        <Select
+          color="primary"
+          variant="outlined"
+          value={dataOption}
+          onChange={handleChange}
+          inputProps={{ "aria-label": "Without label" }}
+        >
+          <MenuItem value={"Today"}>Today</MenuItem>
+          <MenuItem value={"This week"}>This week</MenuItem>
+          <MenuItem value={"This year"}>This year</MenuItem>
+        </Select>
+      </FormControl>
     </div>
   );
 }
