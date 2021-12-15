@@ -9,6 +9,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import React from "react";
 
+import MySelect from "../../atom-components/MySelect.jsx";
+
 import { useState } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Grid from "@mui/material/Grid";
@@ -26,76 +28,50 @@ export default function SellerChartMenu(props) {
   };
 
   return (
-    <Grid container>
-      <Grid item md={12}>
-        <Stack
-          direction="row"
-          alignItems="center"
-          gap="24px"
-          justifyContent="center"
-        >
-          <Stack direction="row" alignItems="center" gap="12px">
-            <Button variant="contained" color="primary">
-              <Typography>BAR GRAPH</Typography>
-            </Button>
-            <Button
-              variant="contained"
-              color="notActive"
-              sx={{
-                bgcolor: props.theme.palette.cardBackground,
-                color: props.theme.palette.notActiveButtonFont,
-              }}
-            >
-              <Typography>LINE GRAPH</Typography>
-            </Button>
-          </Stack>
+    <Stack
+      direction="row"
+      alignItems="center"
+      gap="24px"
+      justifyContent="center"
+    >
+      <MySelect
+        default={{ value: "Bar graph" }}
+        items={[{ value: "Bar graph" }, { value: "Line graph" }]}
+      ></MySelect>
 
-          <Stack direction="row" alignItems="center">
+      <Stack direction="row" alignItems="center">
+        <Typography color={props.theme.palette.notActiveButtonFont}>
+          TOTAL PROFIT
+        </Typography>
+
+        <Switch defaultChecked />
+
+        <Typography color={props.theme.palette.font}>
+          NUMBER OF ITEMS
+        </Typography>
+
+        <FormControlLabel
+          value="start"
+          control={<Checkbox />}
+          label={
             <Typography color={props.theme.palette.notActiveButtonFont}>
-              TOTAL PROFIT
+              INCLUDE PREVIOUS DATA
             </Typography>
-
-            <Switch defaultChecked />
-
-            <Typography color={props.theme.palette.font}>
-              NUMBER OF ITEMS
-            </Typography>
-          </Stack>
-        </Stack>
-      </Grid>
-
-      <Grid item md={12}>
-        <Stack
-          direction="row"
-          alignItems="center"
-          gap="24px"
-          justifyContent="center"
+          }
+          labelPlacement="start"
+        />
+        <Select
+          color="primary"
+          variant="outlined"
+          value={dataOption}
+          onChange={handleChange}
+          inputProps={{ "aria-label": "Without label" }}
         >
-          <FormControlLabel
-            value="start"
-            control={<Checkbox />}
-            label={
-              <Typography color={props.theme.palette.notActiveButtonFont}>
-                INCLUDE PREVIOUS DATA
-              </Typography>
-            }
-            labelPlacement="start"
-          />
-          <FormControl color="primary" variant="outlined">
-            <Select
-              color="primary"
-              variant="outlined"
-              value={dataOption}
-              onChange={handleChange}
-              inputProps={{ "aria-label": "Without label" }}
-            >
-              <MenuItem value={"Today"}>Today</MenuItem>
-              <MenuItem value={"This week"}>This week</MenuItem>
-              <MenuItem value={"This year"}>This year</MenuItem>
-            </Select>
-          </FormControl>
-        </Stack>
-      </Grid>
-    </Grid>
+          <MenuItem value={"Today"}>Today</MenuItem>
+          <MenuItem value={"This week"}>This week</MenuItem>
+          <MenuItem value={"This year"}>This year</MenuItem>
+        </Select>
+      </Stack>
+    </Stack>
   );
 }
