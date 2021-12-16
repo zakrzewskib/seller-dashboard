@@ -12,16 +12,35 @@ export default function MySelect(props) {
   };
 
   return (
-    <FormControl sx={{ m: 1, minWidth: 120 }}>
+    <FormControl
+      sx={{ m: 1, minWidth: props.width == null ? 120 : props.width }}
+    >
       <Select
-        color="primary"
         variant="outlined"
         value={dataOption}
         onChange={handleChange}
         inputProps={{ "aria-label": "Without label" }}
+        sx={{
+          color: props.theme.palette.font,
+          "& .MuiSelect-outlined": {
+            backgroundColor: props.theme.palette.primary.main,
+          },
+          "& .MuiSelect-icon": {
+            color: props.theme.palette.font,
+          },
+        }}
       >
         {props.items.map((item) => (
-          <MenuItem value={item.value}>{item.value}</MenuItem>
+          <MenuItem
+            value={item.value}
+            sx={{
+              "& .MenuItem": {
+                background: "red",
+              },
+            }}
+          >
+            {item.value}
+          </MenuItem>
         ))}
       </Select>
     </FormControl>

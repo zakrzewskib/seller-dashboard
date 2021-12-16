@@ -33,45 +33,42 @@ export default function SellerChartMenu(props) {
       alignItems="center"
       gap="24px"
       justifyContent="center"
+      marginBottom="18px"
     >
       <MySelect
         default={{ value: "Bar graph" }}
         items={[{ value: "Bar graph" }, { value: "Line graph" }]}
+        theme={props.theme}
+        width={140}
       ></MySelect>
 
-      <Stack direction="row" alignItems="center">
-        <Typography color={props.theme.palette.notActiveButtonFont}>
-          TOTAL PROFIT
-        </Typography>
+      <MySelect
+        default={{ value: "Total profit" }}
+        items={[{ value: "Total profit" }, { value: "Number of items" }]}
+        theme={props.theme}
+        width={180}
+      ></MySelect>
 
-        <Switch defaultChecked />
+      <MySelect
+        default={{ value: "Today" }}
+        items={[
+          { value: "Today" },
+          { value: "This week" },
+          { value: "This year" },
+        ]}
+        theme={props.theme}
+      ></MySelect>
 
-        <Typography color={props.theme.palette.font}>
-          NUMBER OF ITEMS
-        </Typography>
-
-        <FormControlLabel
-          value="start"
-          control={<Checkbox />}
-          label={
-            <Typography color={props.theme.palette.notActiveButtonFont}>
-              INCLUDE PREVIOUS DATA
-            </Typography>
-          }
-          labelPlacement="start"
-        />
-        <Select
-          color="primary"
-          variant="outlined"
-          value={dataOption}
-          onChange={handleChange}
-          inputProps={{ "aria-label": "Without label" }}
-        >
-          <MenuItem value={"Today"}>Today</MenuItem>
-          <MenuItem value={"This week"}>This week</MenuItem>
-          <MenuItem value={"This year"}>This year</MenuItem>
-        </Select>
-      </Stack>
+      <FormControlLabel
+        value="start"
+        control={<Checkbox />}
+        label={
+          <Typography color={props.theme.palette.notActiveButtonFont}>
+            INCLUDE PREVIOUS DATA
+          </Typography>
+        }
+        labelPlacement="start"
+      />
     </Stack>
   );
 }
