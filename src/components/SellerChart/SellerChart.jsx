@@ -41,6 +41,7 @@ export default function SellerChart(props) {
       labels: {
         style: {
           color: props.theme.palette.font,
+          // fontWeight: "bold",
         },
       },
     },
@@ -52,6 +53,8 @@ export default function SellerChart(props) {
       labels: {
         style: {
           color: props.theme.palette.font,
+          // fontWeight: "bold",
+          fontSize: "14px",
         },
       },
     },
@@ -61,6 +64,7 @@ export default function SellerChart(props) {
         name: option.series.name,
         data: option.series.data,
         color: props.theme.palette.primary.main,
+        borderColor: props.theme.palette.font,
       },
     ],
 
@@ -75,13 +79,9 @@ export default function SellerChart(props) {
     },
   });
 
-  // useEffect(() => {
-  //   console.log(props.theme.name);
-  //   setOptions((prevState) => ({
-  //     ...prevState,
-  //     //colors: props.theme.name === "darkTheme" ? ["red"] : ["blue"],
-  //   }));
-  // }, [props.theme]);
+  useEffect(() => {
+    console.log(option);
+  }, [props.theme]);
 
   const includePreviousData = (include) => {
     console.log("should include previous data - " + include);
@@ -104,6 +104,8 @@ export default function SellerChart(props) {
     } else {
       option = thisYearItemsSold;
     }
+
+    setOption(option);
 
     setOptions((prevState) => ({
       ...prevState,
@@ -131,6 +133,7 @@ export default function SellerChart(props) {
         onChangeGraphType={changeGraphType}
         onChangeValuesType={changeValuesType}
         onChangeDataTime={changeDataTime}
+        time={option.time}
       ></SellerChartMenu>
 
       <HighchartsReact

@@ -87,6 +87,7 @@ const makeData = (min, max, howMany) => {
 };
 
 export const thisWeekItemsSold = {
+    time: "This week",
     title: "Total number of items sold this week",
     series: {
         name: "Total number of items sold",
@@ -104,6 +105,8 @@ export const thisWeekItemsSold = {
 };
 
 export const thisDayItemsSold = {
+    time: "Today",
+
     title: "Total number of items sold this day",
     series: {
         name: "Total number of items sold",
@@ -129,6 +132,8 @@ let monthNames = [
 ];
 
 export const thisYearItemsSold = {
+    time: "This year",
+
     title: "Total number of items sold this day",
     series: {
         name: "Total number of items sold",

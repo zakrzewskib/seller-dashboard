@@ -47,7 +47,7 @@ export default function SellerChartMenu(props) {
       </Grid>
       <Grid item>
         <MySelect
-          default={{ value: "Today" }}
+          default={{ value: props.time }}
           items={[
             { value: "Today" },
             { value: "This week" },
