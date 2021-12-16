@@ -2,7 +2,7 @@ import { Container, Grid } from "@mui/material";
 import React from "react";
 import OffersRanking from "../components/OffersRanking";
 import Widget from "../components/Widget";
-import SellerChart from "../components/SellerChart";
+import SellerChart from "../components/SellerChart/SellerChart.jsx";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
