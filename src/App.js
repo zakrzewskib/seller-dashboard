@@ -31,18 +31,16 @@ function App() {
       primary: {
         main: colors.primaryDark,
       },
-      notActive: {
-        main: colors.widgetDark,
-      },
       background: {
         default: colors.grey6,
       },
+
+      notActiveCheckBox: colors.grey2,
       navbar: colors.grey7,
       navBarLogo: colors.white,
       widget: colors.grey3,
       offer: colors.grey4,
       font: colors.white,
-      notActiveButtonFont: colors.grey2,
     },
   });
 
@@ -52,18 +50,15 @@ function App() {
       primary: {
         main: colors.primaryLight,
       },
-      notActive: {
-        main: colors.grey2,
-      },
       background: {
         default: colors.white,
       },
+      notActiveCheckBox: colors.grey3,
       navbar: colors.grey7,
       navBarLogo: colors.white,
       widget: colors.grey2,
       offer: colors.grey1,
       font: colors.grey8,
-      notActiveButtonFont: colors.grey1,
     },
   });
 

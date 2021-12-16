@@ -54,7 +54,7 @@ export default function SellerChartMenu(props) {
           value="start"
           control={<Checkbox />}
           label={
-            <Typography color={props.theme.palette.notActiveButtonFont}>
+            <Typography color={props.theme.palette.notActiveCheckBox}>
               INCLUDE PREVIOUS DATA
             </Typography>
           }
