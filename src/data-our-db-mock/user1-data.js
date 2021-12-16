@@ -109,6 +109,16 @@ export const lastWeekSeries = {
     data: makeData(0, 1000, 7),
 };
 
+export const lastDaySeries = {
+    name: "Total number of items sold yesterday",
+    data: makeData(0, 100, 24),
+};
+
+export const lastYearSeries = {
+    name: "Total number of items sold last year",
+    data: makeData(50000, 100000, 12),
+};
+
 export const thisDayItemsSold = {
     time: "Today",
 

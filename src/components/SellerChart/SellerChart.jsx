@@ -12,20 +12,27 @@ import {
   thisDayItemsSold,
   thisYearItemsSold,
   lastWeekSeries,
+  lastDaySeries,
+  lastYearSeries,
 } from "../../data-our-db-mock/user1-data";
 
 export default function SellerChart(props) {
   const isDownFromLg = useMediaQuery(props.theme.breakpoints.down("lg"));
 
   let selectedOption;
+  let selectedPreviousData;
 
   if (localStorage.getItem("time") === "Today") {
     selectedOption = thisDayItemsSold;
+    selectedPreviousData = lastDaySeries;
   } else if (localStorage.getItem("time") === "This week") {
     selectedOption = thisWeekItemsSold;
+    selectedPreviousData = lastWeekSeries;
   } else if (localStorage.getItem("time") === "This year") {
     selectedOption = thisYearItemsSold;
+    selectedPreviousData = lastYearSeries;
   } else {
+    selectedPreviousData = lastDaySeries;
     selectedOption = thisDayItemsSold;
   }
 
@@ -52,7 +59,7 @@ export default function SellerChart(props) {
       labels: {
         style: {
           color: props.theme.palette.font,
-          // fontWeight: "bold",
+          fontSize: "14px",
         },
       },
     },
@@ -64,22 +71,15 @@ export default function SellerChart(props) {
       labels: {
         style: {
           color: props.theme.palette.font,
-          // fontWeight: "bold",
           fontSize: "14px",
         },
       },
     },
 
     series: [
-      // {
-      //   name: lastWeekSeries.name,
-      //   data: lastWeekSeries.data,
-      //   borderColor: props.theme.palette.font,
-      //   color: props.theme.palette.secondary.main,
-      // },
       {
-        name: selectedOption.series.name,
-        data: selectedOption.series.data,
+        name: selectedPreviousData.name,
+        data: selectedPreviousData.data,
         color: props.theme.palette.primary.main,
         borderColor: props.theme.palette.font,
       },
@@ -96,19 +96,19 @@ export default function SellerChart(props) {
     },
   });
 
-  useEffect(() => {
-    console.log(localStorage.getItem("time"));
-  }, [props.theme]);
+  // useEffect(() => {
+  //   console.log(localStorage.getItem("isIncluded"));
+  // }, [props.theme]);
 
-  const includePreviousData = (include) => {
-    if (!include) {
+  const includePreviousData = (value) => {
+    if (!value) {
       setOptions((prevState) => ({
         ...prevState,
         series: [
           ...prevState.series,
           {
-            name: lastWeekSeries.name,
-            data: lastWeekSeries.data,
+            name: selectedPreviousData.name,
+            data: selectedPreviousData.data,
             borderColor: props.theme.palette.font,
             color: props.theme.palette.secondary.main,
           },
@@ -121,7 +121,6 @@ export default function SellerChart(props) {
       }));
     }
 
-    console.log(lastWeekSeries.data);
     console.log(options.series);
   };
 
@@ -155,8 +154,6 @@ export default function SellerChart(props) {
         data: option.series.data,
       },
     }));
-
-    console.log(value);
   };
 
   return (
