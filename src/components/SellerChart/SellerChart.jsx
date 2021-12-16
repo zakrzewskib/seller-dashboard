@@ -5,9 +5,11 @@ import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import Box from "@mui/system/Box";
 import SellerChartMenu from "./SellerChartMenu";
-import theme from "../../../node_modules/highcharts/themes/brand-dark";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function SellerChart(props) {
+  const isDownFromLg = useMediaQuery(props.theme.breakpoints.down("lg"));
+
   const [options, setOptions] = useState({
     chart: {
       type: "column",
@@ -73,13 +75,13 @@ export default function SellerChart(props) {
     },
   });
 
-  // useEffect(() => {
-  //   console.log(props.theme.name);
-  //   setOptions((prevState) => ({
-  //     ...prevState,
-  //     colors: props.theme.name === "darkTheme" ? ["red"] : ["blue"],
-  //   }));
-  // }, [props.theme]);
+  useEffect(() => {
+    console.log(props.theme.name);
+    setOptions((prevState) => ({
+      ...prevState,
+      //colors: props.theme.name === "darkTheme" ? ["red"] : ["blue"],
+    }));
+  }, [props.theme]);
 
   const includePreviousData = (include) => {
     console.log("should include previous data - " + include);
@@ -100,7 +102,7 @@ export default function SellerChart(props) {
   return (
     <Box
       sx={{
-        height: "100%",
+        height: isDownFromLg ? "" : "650px",
       }}
     >
       <SellerChartMenu
