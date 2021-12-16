@@ -27,39 +27,43 @@ export default function SellerChart(props) {
   let selectedOption;
   let selectedPreviousData;
 
-  if (localStorage.getItem("time") === "Today") {
-    if (localStorage.getItem("values") === "Total profit") {
-      selectedOption = thisDayTotalProfit;
-    } else {
-      selectedOption = thisDayItemsSold;
-    }
+  const setChart = () => {
+    if (localStorage.getItem("time") === "Today") {
+      if (localStorage.getItem("values") === "Total profit") {
+        selectedOption = thisDayTotalProfit;
+      } else {
+        selectedOption = thisDayItemsSold;
+      }
 
-    selectedPreviousData = lastDaySeries;
-  } else if (localStorage.getItem("time") === "This week") {
-    if (localStorage.getItem("values") === "Total profit") {
-      selectedOption = thisWeekTotalProfit;
-    } else {
-      selectedOption = thisWeekItemsSold;
-    }
+      selectedPreviousData = lastDaySeries;
+    } else if (localStorage.getItem("time") === "This week") {
+      if (localStorage.getItem("values") === "Total profit") {
+        selectedOption = thisWeekTotalProfit;
+      } else {
+        selectedOption = thisWeekItemsSold;
+      }
 
-    selectedPreviousData = lastWeekSeries;
-  } else if (localStorage.getItem("time") === "This year") {
-    if (localStorage.getItem("values") === "Total profit") {
-      selectedOption = thisYearTotalProfit;
-    } else {
-      selectedOption = thisYearItemsSold;
-    }
+      selectedPreviousData = lastWeekSeries;
+    } else if (localStorage.getItem("time") === "This year") {
+      if (localStorage.getItem("values") === "Total profit") {
+        selectedOption = thisYearTotalProfit;
+      } else {
+        selectedOption = thisYearItemsSold;
+      }
 
-    selectedPreviousData = lastYearSeries;
-  } else {
-    if (localStorage.getItem("values") === "Total profit") {
-      selectedOption = thisDayTotalProfit;
+      selectedPreviousData = lastYearSeries;
     } else {
-      selectedOption = thisDayItemsSold;
-    }
+      if (localStorage.getItem("values") === "Total profit") {
+        selectedOption = thisDayTotalProfit;
+      } else {
+        selectedOption = thisDayItemsSold;
+      }
 
-    selectedPreviousData = lastDaySeries;
-  }
+      selectedPreviousData = lastDaySeries;
+    }
+  };
+
+  setChart();
 
   const [options, setOptions] = useState({
     chart: {
@@ -137,9 +141,9 @@ export default function SellerChart(props) {
     }));
   };
 
-  // useEffect(() => {
-  //   console.log(options.series);
-  // });
+  useEffect(() => {
+    console.log(options.series);
+  });
 
   const changeGraphType = (value) => {
     if (value === "Bar graph") {
@@ -162,25 +166,34 @@ export default function SellerChart(props) {
   };
 
   const changeValuesType = (value) => {
+    let option;
+
     if (value === "Number of items") {
-      localStorage.setItem("values", "Number of items");
-      if (time === "Today") {
-        setNewChartOptions(thisDayItemsSold);
-      } else if (time === "This week") {
-        setNewChartOptions(thisWeekItemsSold);
-      } else {
-        setNewChartOptions(thisYearItemsSold);
-      }
+      option = "Number of items";
+
+      // if (time === "Today") {
+      //   setNewChartOptions(thisDayItemsSold);
+      //   console.log("items");
+      // } else if (time === "This week") {
+      //   setNewChartOptions(thisWeekItemsSold);
+      // } else {
+      //   setNewChartOptions(thisYearItemsSold);
+      // }
     } else {
-      localStorage.setItem("values", "Total profit");
-      if (time === "Today") {
-        setNewChartOptions(thisDayTotalProfit);
-      } else if (time === "This week") {
-        setNewChartOptions(thisWeekTotalProfit);
-      } else {
-        setNewChartOptions(thisYearTotalProfit);
-      }
+      option = "Total profit";
+      // if (time === "Today") {
+      //   setNewChartOptions(thisDayTotalProfit);
+      //   console.log("total");
+      // } else if (time === "This week") {
+      //   setNewChartOptions(thisWeekTotalProfit);
+      // } else {
+      //   setNewChartOptions(thisYearTotalProfit);
+      // }
     }
+    localStorage.setItem("values", option);
+
+    setChart();
+    setNewChartOptions(selectedOption);
   };
 
   const changeDataTime = (value) => {
@@ -248,6 +261,7 @@ export default function SellerChart(props) {
 
       <HighchartsReact
         containerProps={{ style: { height: "80%" } }}
+        allowChartUpdate={true}
         highcharts={Highcharts}
         options={options}
       />
