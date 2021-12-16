@@ -2,8 +2,6 @@ import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
-import MenuList from "@mui/material/MenuList";
-
 import GlobalStyles from "@mui/material/GlobalStyles";
 
 export default function MySelect(props) {

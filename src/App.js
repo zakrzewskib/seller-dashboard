@@ -43,12 +43,6 @@ function App() {
       offer: colors.grey4,
       font: colors.white,
       notActiveButtonFont: colors.grey2,
-
-      overrides: {
-        "& .MuiList-root.MuiList-padding.MuiMenu-list": {
-          backgroundColor: "red",
-        },
-      },
     },
   });
 
