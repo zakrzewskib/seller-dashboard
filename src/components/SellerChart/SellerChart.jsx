@@ -254,6 +254,7 @@ export default function SellerChart(props) {
 
   return (
     <MyChart
+      selectedOption={selectedOption}
       options={options}
       theme={props.theme}
       includePreviousData={includePreviousData}
