@@ -101,8 +101,34 @@ const makeData = (min, max, howMany) => {
     return data;
 };
 
+export const thisDayItemsSold = {
+    time: "Today",
+    values: "Number of items",
+
+    title: "Total number of items sold today",
+    series: {
+        name: "Total number of items sold",
+        data: makeData(0, 100, 24),
+    },
+
+    categories: makeHours(),
+};
+
+export const thisDayTotalProfit = {
+    time: "Today",
+    values: "Total profit",
+
+    title: "Total profit today",
+    series: {
+        name: "Total profit (ZŁ)",
+        data: makeData(0, 1000, 24),
+    },
+    categories: makeHours(),
+};
+
 export const thisWeekItemsSold = {
     time: "This week",
+    values: "Number of items",
     title: "Total number of items sold this week",
     series: {
         name: "Total number of items sold",
@@ -121,6 +147,8 @@ export const thisWeekItemsSold = {
 
 export const thisWeekTotalProfit = {
     time: "This week",
+    values: "Total profit",
+
     title: "Total profit this week",
     series: {
         name: "Total profit (ZŁ)",
@@ -137,6 +165,32 @@ export const thisWeekTotalProfit = {
     ],
 };
 
+export const thisYearItemsSold = {
+    time: "This year",
+    values: "Number of items",
+
+    title: "Total number of items sold this year",
+    series: {
+        name: "Total number of items sold",
+        data: makeData(50000, 100000, 12),
+    },
+
+    categories: monthNames,
+};
+
+export const thisYearTotalProfit = {
+    time: "This year",
+    values: "Total profit",
+
+    title: "Total profit year",
+    series: {
+        name: "Total profit",
+        data: makeData(500000, 1000000, 12),
+    },
+
+    categories: monthNames,
+};
+
 export const lastWeekSeries = {
     name: "Total number of items sold last week",
     data: makeData(0, 1000, 7),
@@ -150,28 +204,4 @@ export const lastDaySeries = {
 export const lastYearSeries = {
     name: "Total number of items sold last year",
     data: makeData(50000, 100000, 12),
-};
-
-export const thisDayItemsSold = {
-    time: "Today",
-
-    title: "Total number of items sold this day",
-    series: {
-        name: "Total number of items sold",
-        data: makeData(0, 100, 24),
-    },
-
-    categories: makeHours(),
-};
-
-export const thisYearItemsSold = {
-    time: "This year",
-
-    title: "Total number of items sold this year",
-    series: {
-        name: "Total number of items sold",
-        data: makeData(50000, 100000, 12),
-    },
-
-    categories: monthNames,
 };

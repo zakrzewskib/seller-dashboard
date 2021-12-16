@@ -38,7 +38,7 @@ export default function SellerChartMenu(props) {
       </Grid>
       <Grid item>
         <MySelect
-          default={{ value: "Number of items" }}
+          default={{ value: props.values }}
           items={[{ value: "Number of items" }, { value: "Total profit" }]}
           theme={props.theme}
           width={isMobile ? includePreviousDataWidth : 180}

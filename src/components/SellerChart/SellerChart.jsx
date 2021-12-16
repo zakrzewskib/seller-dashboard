@@ -15,25 +15,49 @@ import {
   lastDaySeries,
   lastYearSeries,
   thisWeekTotalProfit,
+  thisYearTotalProfit,
+  thisDayTotalProfit,
 } from "../../data-our-db-mock/user1-data";
 
 export default function SellerChart(props) {
   const isDownFromLg = useMediaQuery(props.theme.breakpoints.down("lg"));
 
+  const [time, setTime] = useState("Today");
+
   let selectedOption;
   let selectedPreviousData;
 
   if (localStorage.getItem("time") === "Today") {
-    selectedOption = thisDayItemsSold;
+    if (localStorage.getItem("values") === "Total profit") {
+      selectedOption = thisDayTotalProfit;
+    } else {
+      selectedOption = thisDayItemsSold;
+    }
+
     selectedPreviousData = lastDaySeries;
   } else if (localStorage.getItem("time") === "This week") {
-    selectedOption = thisWeekItemsSold;
+    if (localStorage.getItem("values") === "Total profit") {
+      selectedOption = thisWeekTotalProfit;
+    } else {
+      selectedOption = thisWeekItemsSold;
+    }
+
     selectedPreviousData = lastWeekSeries;
   } else if (localStorage.getItem("time") === "This year") {
-    selectedOption = thisYearItemsSold;
+    if (localStorage.getItem("values") === "Total profit") {
+      selectedOption = thisYearTotalProfit;
+    } else {
+      selectedOption = thisYearItemsSold;
+    }
+
     selectedPreviousData = lastYearSeries;
   } else {
-    selectedOption = thisDayItemsSold;
+    if (localStorage.getItem("values") === "Total profit") {
+      selectedOption = thisDayTotalProfit;
+    } else {
+      selectedOption = thisDayItemsSold;
+    }
+
     selectedPreviousData = lastDaySeries;
   }
 
@@ -113,9 +137,9 @@ export default function SellerChart(props) {
     }));
   };
 
-  useEffect(() => {
-    console.log(options.series);
-  });
+  // useEffect(() => {
+  //   console.log(options.series);
+  // });
 
   const changeGraphType = (value) => {
     if (value === "Bar graph") {
@@ -139,9 +163,23 @@ export default function SellerChart(props) {
 
   const changeValuesType = (value) => {
     if (value === "Number of items") {
-      setNewChartOptions(thisWeekItemsSold);
+      localStorage.setItem("values", "Number of items");
+      if (time === "Today") {
+        setNewChartOptions(thisDayItemsSold);
+      } else if (time === "This week") {
+        setNewChartOptions(thisWeekItemsSold);
+      } else {
+        setNewChartOptions(thisYearItemsSold);
+      }
     } else {
-      setNewChartOptions(thisWeekTotalProfit);
+      localStorage.setItem("values", "Total profit");
+      if (time === "Today") {
+        setNewChartOptions(thisDayTotalProfit);
+      } else if (time === "This week") {
+        setNewChartOptions(thisWeekTotalProfit);
+      } else {
+        setNewChartOptions(thisYearTotalProfit);
+      }
     }
   };
 
@@ -149,10 +187,13 @@ export default function SellerChart(props) {
     let option;
     if (value === "Today") {
       option = thisDayItemsSold;
+      setTime("Today");
     } else if (value === "This week") {
       option = thisWeekItemsSold;
+      setTime("This week");
     } else {
       option = thisYearItemsSold;
+      setTime("This year");
     }
 
     localStorage.setItem("time", option.time);
@@ -202,6 +243,7 @@ export default function SellerChart(props) {
         onChangeValuesType={changeValuesType}
         onChangeDataTime={changeDataTime}
         time={selectedOption.time}
+        values={selectedOption.values}
       ></SellerChartMenu>
 
       <HighchartsReact
