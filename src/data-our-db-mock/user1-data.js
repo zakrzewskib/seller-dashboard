@@ -70,6 +70,21 @@ export const offers = [{
     },
 ];
 
+let monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+];
+
 const makeHours = () => {
     const hours = [];
     for (let i = 0; i <= 24; i++) {
@@ -92,6 +107,24 @@ export const thisWeekItemsSold = {
     series: {
         name: "Total number of items sold",
         data: makeData(0, 1000, 7),
+    },
+    categories: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+    ],
+};
+
+export const thisWeekTotalProfit = {
+    time: "This week",
+    title: "Total profit this week",
+    series: {
+        name: "Total profit (ZŁ)",
+        data: makeData(0, 5000, 7),
     },
     categories: [
         "Monday",
@@ -130,21 +163,6 @@ export const thisDayItemsSold = {
 
     categories: makeHours(),
 };
-
-let monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-];
 
 export const thisYearItemsSold = {
     time: "This year",

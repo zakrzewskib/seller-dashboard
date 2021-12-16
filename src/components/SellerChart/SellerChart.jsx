@@ -14,6 +14,7 @@ import {
   lastWeekSeries,
   lastDaySeries,
   lastYearSeries,
+  thisWeekTotalProfit,
 } from "../../data-our-db-mock/user1-data";
 
 export default function SellerChart(props) {
@@ -24,19 +25,15 @@ export default function SellerChart(props) {
 
   if (localStorage.getItem("time") === "Today") {
     selectedOption = thisDayItemsSold;
-
     selectedPreviousData = lastDaySeries;
   } else if (localStorage.getItem("time") === "This week") {
     selectedOption = thisWeekItemsSold;
-
     selectedPreviousData = lastWeekSeries;
   } else if (localStorage.getItem("time") === "This year") {
     selectedOption = thisYearItemsSold;
-
     selectedPreviousData = lastYearSeries;
   } else {
     selectedOption = thisDayItemsSold;
-
     selectedPreviousData = lastDaySeries;
   }
 
@@ -100,9 +97,68 @@ export default function SellerChart(props) {
     },
   });
 
+  const setNewChartOptions = (option) => {
+    setOptions((prevState) => ({
+      ...prevState,
+      title: { ...prevState.title, text: option.title },
+      xAxis: { ...prevState.xAxis, categories: option.categories },
+      series: [
+        {
+          name: option.series.name,
+          data: option.series.data,
+          color: props.theme.palette.primary.main,
+          borderColor: props.theme.palette.font,
+        },
+      ],
+    }));
+  };
+
   useEffect(() => {
     console.log(options.series);
   });
+
+  const changeGraphType = (value) => {
+    if (value === "Bar graph") {
+      setOptions((prevState) => ({
+        ...prevState,
+        chart: {
+          type: "column",
+          backgroundColor: props.theme.palette.background.default,
+        },
+      }));
+    } else {
+      setOptions((prevState) => ({
+        ...prevState,
+        chart: {
+          type: "line",
+          backgroundColor: props.theme.palette.background.default,
+        },
+      }));
+    }
+  };
+
+  const changeValuesType = (value) => {
+    if (value === "Number of items") {
+      setNewChartOptions(thisWeekItemsSold);
+    } else {
+      setNewChartOptions(thisWeekTotalProfit);
+    }
+  };
+
+  const changeDataTime = (value) => {
+    let option;
+    if (value === "Today") {
+      option = thisDayItemsSold;
+    } else if (value === "This week") {
+      option = thisWeekItemsSold;
+    } else {
+      option = thisYearItemsSold;
+    }
+
+    localStorage.setItem("time", option.time);
+
+    setNewChartOptions(option);
+  };
 
   const includePreviousData = (value) => {
     if (!value) {
@@ -131,57 +187,6 @@ export default function SellerChart(props) {
         ],
       }));
     }
-  };
-
-  const changeGraphType = (value) => {
-    if (value === "Bar graph") {
-      setOptions((prevState) => ({
-        ...prevState,
-        chart: {
-          type: "column",
-          backgroundColor: props.theme.palette.background.default,
-        },
-      }));
-    } else {
-      setOptions((prevState) => ({
-        ...prevState,
-        chart: {
-          type: "line",
-          backgroundColor: props.theme.palette.background.default,
-        },
-      }));
-    }
-  };
-
-  const changeValuesType = (value) => {
-    console.log(value);
-  };
-
-  const changeDataTime = (value) => {
-    let option;
-    if (value === "Today") {
-      option = thisDayItemsSold;
-    } else if (value === "This week") {
-      option = thisWeekItemsSold;
-    } else {
-      option = thisYearItemsSold;
-    }
-
-    localStorage.setItem("time", option.time);
-
-    setOptions((prevState) => ({
-      ...prevState,
-      title: { ...prevState.title, text: option.title },
-      xAxis: { ...prevState.xAxis, categories: option.categories },
-      series: [
-        {
-          name: option.series.name,
-          data: option.series.data,
-          borderColor: props.theme.palette.font,
-          color: props.theme.palette.primary.main,
-        },
-      ],
-    }));
   };
 
   return (
