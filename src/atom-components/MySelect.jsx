@@ -13,7 +13,7 @@ export default function MySelect(props) {
 
   return (
     <FormControl
-      sx={{ m: 1, minWidth: props.width == null ? 120 : props.width }}
+      sx={{ m: 1, minWidth: props.width == null ? 150 : props.width }}
     >
       <Select
         variant="outlined"
