@@ -24,16 +24,20 @@ export default function SellerChart(props) {
 
   if (localStorage.getItem("time") === "Today") {
     selectedOption = thisDayItemsSold;
+
     selectedPreviousData = lastDaySeries;
   } else if (localStorage.getItem("time") === "This week") {
     selectedOption = thisWeekItemsSold;
+
     selectedPreviousData = lastWeekSeries;
   } else if (localStorage.getItem("time") === "This year") {
     selectedOption = thisYearItemsSold;
+
     selectedPreviousData = lastYearSeries;
   } else {
-    selectedPreviousData = lastDaySeries;
     selectedOption = thisDayItemsSold;
+
+    selectedPreviousData = lastDaySeries;
   }
 
   const [options, setOptions] = useState({
@@ -78,8 +82,8 @@ export default function SellerChart(props) {
 
     series: [
       {
-        name: selectedPreviousData.name,
-        data: selectedPreviousData.data,
+        name: selectedOption.series.name,
+        data: selectedOption.series.data,
         color: props.theme.palette.primary.main,
         borderColor: props.theme.palette.font,
       },
@@ -96,9 +100,9 @@ export default function SellerChart(props) {
     },
   });
 
-  // useEffect(() => {
-  //   console.log(localStorage.getItem("isIncluded"));
-  // }, [props.theme]);
+  useEffect(() => {
+    console.log(options.series);
+  });
 
   const includePreviousData = (value) => {
     if (!value) {
@@ -107,7 +111,7 @@ export default function SellerChart(props) {
         series: [
           ...prevState.series,
           {
-            name: selectedPreviousData.name,
+            name: selectedOption.series.name,
             data: selectedPreviousData.data,
             borderColor: props.theme.palette.font,
             color: props.theme.palette.secondary.main,
@@ -117,11 +121,16 @@ export default function SellerChart(props) {
     } else {
       setOptions((prevState) => ({
         ...prevState,
-        series: prevState.series.slice(0, -1),
+        series: [
+          {
+            name: selectedOption.name,
+            data: selectedOption.data,
+            color: props.theme.palette.primary.main,
+            borderColor: props.theme.palette.font,
+          },
+        ],
       }));
     }
-
-    console.log(options.series);
   };
 
   const changeGraphType = (value) => {
@@ -148,11 +157,14 @@ export default function SellerChart(props) {
       ...prevState,
       title: { ...prevState.title, text: option.title },
       xAxis: { ...prevState.xAxis, categories: option.categories },
-      series: {
-        ...prevState.series,
-        name: option.series.name,
-        data: option.series.data,
-      },
+      series: [
+        {
+          name: option.series.name,
+          data: option.series.data,
+          borderColor: props.theme.palette.font,
+          color: props.theme.palette.primary.main,
+        },
+      ],
     }));
   };
 
