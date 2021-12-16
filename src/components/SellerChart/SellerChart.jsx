@@ -32,7 +32,6 @@ export default function SellerChart(props) {
       } else {
         selectedOption = thisDayItemsSold;
       }
-
       selectedPreviousData = lastDaySeries;
     } else if (localStorage.getItem("time") === "This week") {
       if (localStorage.getItem("values") === "Total profit") {
@@ -59,6 +58,8 @@ export default function SellerChart(props) {
 
       selectedPreviousData = lastDaySeries;
     }
+
+    console.log("in set chart" + selectedOption.time, selectedOption.values);
   };
 
   setChart();
@@ -132,23 +133,14 @@ export default function SellerChart(props) {
     },
   ]);
 
-  React.useEffect(() => {
-    // setOptions((prevState) => ({
-    //   ...prevState,
-    //   series: series,
-    // }));
+  // React.useEffect(() => {
+  //   // setOptions((prevState) => ({
+  //   //   ...prevState,
+  //   //   series: series,
+  //   // }));
 
-    console.log(series);
-  }, [series]);
-
-  React.useEffect(() => {
-    // setOptions((prevState) => ({
-    //   ...prevState,
-    //   series: series,
-    // }));
-
-    console.log(options.series);
-  }, [options]);
+  //   console.log(series);
+  // }, [series]);
 
   const setNewChartOptions = (option) => {
     setOptions((prevState) => ({
@@ -164,15 +156,6 @@ export default function SellerChart(props) {
         },
       ],
     }));
-
-    // setSeries([
-    //   {
-    //     name: option.series.name,
-    //     data: option.series.data,
-    //     color: props.theme.palette.primary.main,
-    //     borderColor: props.theme.palette.font,
-    //   },
-    // ]);
   };
 
   const changeGraphType = (value) => {
@@ -198,7 +181,6 @@ export default function SellerChart(props) {
   const changeValuesType = (value) => {
     let option;
     let time = localStorage.getItem("time");
-    console.log(time);
 
     if (value === "Number of items") {
       if (time === "Today") {
@@ -218,8 +200,9 @@ export default function SellerChart(props) {
       }
     }
 
-    // console.log("z m:" + option.series);
     localStorage.setItem("values", option.values);
+    console.log(option.time);
+    console.log(option.values);
 
     setNewChartOptions(option);
   };
@@ -286,6 +269,7 @@ export default function SellerChart(props) {
 
       <HighchartsReact
         containerProps={{ style: { height: "80%" } }}
+        allowChange="true"
         highcharts={Highcharts}
         options={options}
       />
