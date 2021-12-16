@@ -7,8 +7,16 @@ import Box from "@mui/system/Box";
 import SellerChartMenu from "./SellerChartMenu";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
+import {
+  thisWeekItemsSold,
+  thisDayItemsSold,
+  thisYearItemsSold,
+} from "../../data-our-db-mock/user1-data";
+
 export default function SellerChart(props) {
   const isDownFromLg = useMediaQuery(props.theme.breakpoints.down("lg"));
+
+  const [option, setOption] = useState(thisDayItemsSold);
 
   const [options, setOptions] = useState({
     chart: {
@@ -25,19 +33,11 @@ export default function SellerChart(props) {
       },
       margin: 50,
 
-      text: "Total number of items sold last week",
+      text: option.title,
     },
 
     xAxis: {
-      categories: [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
-      ],
+      categories: option.categories,
       labels: {
         style: {
           color: props.theme.palette.font,
@@ -58,8 +58,8 @@ export default function SellerChart(props) {
 
     series: [
       {
-        name: "Total number of items sold",
-        data: [211, 451, 545, 123, 123, 1235, 555],
+        name: option.series.name,
+        data: option.series.data,
         color: props.theme.palette.primary.main,
       },
     ],
@@ -75,13 +75,13 @@ export default function SellerChart(props) {
     },
   });
 
-  useEffect(() => {
-    console.log(props.theme.name);
-    setOptions((prevState) => ({
-      ...prevState,
-      //colors: props.theme.name === "darkTheme" ? ["red"] : ["blue"],
-    }));
-  }, [props.theme]);
+  // useEffect(() => {
+  //   console.log(props.theme.name);
+  //   setOptions((prevState) => ({
+  //     ...prevState,
+  //     //colors: props.theme.name === "darkTheme" ? ["red"] : ["blue"],
+  //   }));
+  // }, [props.theme]);
 
   const includePreviousData = (include) => {
     console.log("should include previous data - " + include);
@@ -96,6 +96,26 @@ export default function SellerChart(props) {
   };
 
   const changeDataTime = (value) => {
+    let option;
+    if (value === "Today") {
+      option = thisDayItemsSold;
+    } else if (value === "This week") {
+      option = thisWeekItemsSold;
+    } else {
+      option = thisYearItemsSold;
+    }
+
+    setOptions((prevState) => ({
+      ...prevState,
+      title: { ...prevState.title, text: option.title },
+      xAxis: { ...prevState.xAxis, categories: option.categories },
+      series: {
+        ...prevState.series,
+        name: option.series.name,
+        data: option.series.data,
+      },
+    }));
+
     console.log(value);
   };
 
