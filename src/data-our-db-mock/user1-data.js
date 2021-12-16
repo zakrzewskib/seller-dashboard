@@ -104,6 +104,11 @@ export const thisWeekItemsSold = {
     ],
 };
 
+export const lastWeekSeries = {
+    name: "Total number of items sold last week",
+    data: makeData(0, 1000, 7),
+};
+
 export const thisDayItemsSold = {
     time: "Today",
 

@@ -11,6 +11,7 @@ import {
   thisWeekItemsSold,
   thisDayItemsSold,
   thisYearItemsSold,
+  lastWeekSeries,
 } from "../../data-our-db-mock/user1-data";
 
 export default function SellerChart(props) {
@@ -70,6 +71,12 @@ export default function SellerChart(props) {
     },
 
     series: [
+      // {
+      //   name: lastWeekSeries.name,
+      //   data: lastWeekSeries.data,
+      //   borderColor: props.theme.palette.font,
+      //   color: props.theme.palette.secondary.main,
+      // },
       {
         name: selectedOption.series.name,
         data: selectedOption.series.data,
@@ -94,7 +101,28 @@ export default function SellerChart(props) {
   }, [props.theme]);
 
   const includePreviousData = (include) => {
-    console.log("should include previous data - " + include);
+    if (!include) {
+      setOptions((prevState) => ({
+        ...prevState,
+        series: [
+          ...prevState.series,
+          {
+            name: lastWeekSeries.name,
+            data: lastWeekSeries.data,
+            borderColor: props.theme.palette.font,
+            color: props.theme.palette.secondary.main,
+          },
+        ],
+      }));
+    } else {
+      setOptions((prevState) => ({
+        ...prevState,
+        series: prevState.series.slice(0, -1),
+      }));
+    }
+
+    console.log(lastWeekSeries.data);
+    console.log(options.series);
   };
 
   const changeGraphType = (value) => {

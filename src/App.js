@@ -34,7 +34,9 @@ function App() {
       background: {
         default: colors.grey6,
       },
-
+      secondary: {
+        main: "#FF688D",
+      },
       notActiveCheckBox: colors.grey2,
       navbar: colors.grey7,
       navBarLogo: colors.white,
@@ -52,6 +54,9 @@ function App() {
       },
       background: {
         default: colors.white,
+      },
+      secondary: {
+        main: "#008270",
       },
       notActiveCheckBox: colors.grey3,
       navbar: colors.grey7,
