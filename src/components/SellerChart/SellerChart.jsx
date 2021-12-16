@@ -5,14 +5,24 @@ import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import Box from "@mui/system/Box";
 import SellerChartMenu from "./SellerChartMenu";
+import theme from "../../../node_modules/highcharts/themes/brand-dark";
 
 export default function SellerChart(props) {
   const [options, setOptions] = useState({
     chart: {
       type: "column",
+      backgroundColor: props.theme.palette.background.default,
     },
 
     title: {
+      style: {
+        color: props.theme.palette.font,
+        fontWeight: "600",
+        fontFamily: "Roboto",
+        fontSize: "28px",
+      },
+      margin: 50,
+
       text: "Total number of items sold last week",
     },
 
@@ -26,11 +36,21 @@ export default function SellerChart(props) {
         "Saturday",
         "Sunday",
       ],
+      labels: {
+        style: {
+          color: props.theme.palette.font,
+        },
+      },
     },
 
     yAxis: {
       title: {
         text: "",
+      },
+      labels: {
+        style: {
+          color: props.theme.palette.font,
+        },
       },
     },
 
@@ -38,18 +58,28 @@ export default function SellerChart(props) {
       {
         name: "Total number of items sold",
         data: [211, 451, 545, 123, 123, 1235, 555],
+        color: props.theme.palette.primary.main,
       },
     ],
-    colors: ["red"],
+
+    legend: {
+      itemStyle: {
+        color: props.theme.palette.font,
+        fontWeight: "400",
+      },
+      itemHoverStyle: {
+        color: props.theme.palette.primary.main,
+      },
+    },
   });
 
-  useEffect(() => {
-    console.log(props.theme.name);
-    setOptions((prevState) => ({
-      ...prevState,
-      colors: props.theme.name === "darkTheme" ? ["red"] : ["blue"],
-    }));
-  }, [props.theme]);
+  // useEffect(() => {
+  //   console.log(props.theme.name);
+  //   setOptions((prevState) => ({
+  //     ...prevState,
+  //     colors: props.theme.name === "darkTheme" ? ["red"] : ["blue"],
+  //   }));
+  // }, [props.theme]);
 
   const includePreviousData = (include) => {
     console.log("should include previous data - " + include);
@@ -67,17 +97,12 @@ export default function SellerChart(props) {
     console.log(value);
   };
 
-  const changeTheme = () => {
-    setOptions((prevState) => ({ ...prevState, colors: ["blue"] }));
-  };
-
   return (
     <Box
       sx={{
         height: "650px",
       }}
     >
-      <button onClick={changeTheme}>test</button>
       <SellerChartMenu
         theme={props.theme}
         onIncludePreviousData={includePreviousData}
