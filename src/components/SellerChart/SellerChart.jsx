@@ -1,11 +1,13 @@
 import React from "react";
+import { useState, useEffect } from "react";
+
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import Box from "@mui/system/Box";
 import SellerChartMenu from "./SellerChartMenu";
 
 export default function SellerChart(props) {
-  const options = {
+  const [options, setOptions] = useState({
     chart: {
       type: "column",
     },
@@ -38,7 +40,16 @@ export default function SellerChart(props) {
         data: [211, 451, 545, 123, 123, 1235, 555],
       },
     ],
-  };
+    colors: ["red"],
+  });
+
+  useEffect(() => {
+    console.log(props.theme.name);
+    setOptions((prevState) => ({
+      ...prevState,
+      colors: props.theme.name === "darkTheme" ? ["red"] : ["blue"],
+    }));
+  }, [props.theme]);
 
   const includePreviousData = (include) => {
     console.log("should include previous data - " + include);
@@ -56,12 +67,17 @@ export default function SellerChart(props) {
     console.log(value);
   };
 
+  const changeTheme = () => {
+    setOptions((prevState) => ({ ...prevState, colors: ["blue"] }));
+  };
+
   return (
     <Box
       sx={{
         height: "650px",
       }}
     >
+      <button onClick={changeTheme}>test</button>
       <SellerChartMenu
         theme={props.theme}
         onIncludePreviousData={includePreviousData}
