@@ -134,7 +134,23 @@ export default function SellerChart(props) {
   };
 
   const changeGraphType = (value) => {
-    console.log(value);
+    if (value === "Bar graph") {
+      setOptions((prevState) => ({
+        ...prevState,
+        chart: {
+          type: "column",
+          backgroundColor: props.theme.palette.background.default,
+        },
+      }));
+    } else {
+      setOptions((prevState) => ({
+        ...prevState,
+        chart: {
+          type: "line",
+          backgroundColor: props.theme.palette.background.default,
+        },
+      }));
+    }
   };
 
   const changeValuesType = (value) => {
