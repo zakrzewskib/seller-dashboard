@@ -16,7 +16,19 @@ import {
 export default function SellerChart(props) {
   const isDownFromLg = useMediaQuery(props.theme.breakpoints.down("lg"));
 
-  const [option, setOption] = useState(thisDayItemsSold);
+  let selectedOption;
+
+  if (localStorage.getItem("time") === "Today") {
+    selectedOption = thisDayItemsSold;
+  } else if (localStorage.getItem("time") === "This week") {
+    selectedOption = thisWeekItemsSold;
+  } else if (localStorage.getItem("time") === "This year") {
+    selectedOption = thisYearItemsSold;
+  } else {
+    selectedOption = thisDayItemsSold;
+  }
+
+  const [option, setOption] = useState(selectedOption);
 
   const [options, setOptions] = useState({
     chart: {
@@ -80,7 +92,7 @@ export default function SellerChart(props) {
   });
 
   useEffect(() => {
-    console.log(option);
+    console.log(localStorage.getItem("time"));
   }, [props.theme]);
 
   const includePreviousData = (include) => {
@@ -104,6 +116,8 @@ export default function SellerChart(props) {
     } else {
       option = thisYearItemsSold;
     }
+
+    localStorage.setItem("time", option.time);
 
     setOption(option);
 
