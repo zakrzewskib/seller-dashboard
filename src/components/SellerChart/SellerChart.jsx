@@ -100,7 +100,7 @@ export default function SellerChart(props) {
   return (
     <Box
       sx={{
-        height: "650px",
+        height: "100%",
       }}
     >
       <SellerChartMenu
