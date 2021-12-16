@@ -16,6 +16,7 @@ export default function SellerChartMenu(props) {
 
   const includePreviousData = () => {
     setPreviousDataChecked((prevState) => !prevState);
+    props.onIncludePreviousData(previousDataChecked);
   };
 
   return (
@@ -32,7 +33,8 @@ export default function SellerChartMenu(props) {
           items={[{ value: "Bar graph" }, { value: "Line graph" }]}
           theme={props.theme}
           width={isMobile ? includePreviousDataWidth : null}
-        ></MySelect>
+          onHandleChange={props.onChangeGraphType}
+        />
       </Grid>
       <Grid item>
         <MySelect
@@ -40,7 +42,8 @@ export default function SellerChartMenu(props) {
           items={[{ value: "Total profit" }, { value: "Number of items" }]}
           theme={props.theme}
           width={isMobile ? includePreviousDataWidth : 180}
-        ></MySelect>
+          onHandleChange={props.onChangeValuesType}
+        />
       </Grid>
       <Grid item>
         <MySelect
@@ -52,7 +55,8 @@ export default function SellerChartMenu(props) {
           ]}
           theme={props.theme}
           width={isMobile ? includePreviousDataWidth : null}
-        ></MySelect>
+          onHandleChange={props.onChangeDataTime}
+        />
       </Grid>
 
       <Grid item>
@@ -60,6 +64,7 @@ export default function SellerChartMenu(props) {
           value="start"
           control={
             <Checkbox
+              onChange={includePreviousData}
               sx={{
                 color: props.theme.palette.notActiveCheckBox,
                 "&.Mui-checked": {
@@ -79,7 +84,6 @@ export default function SellerChartMenu(props) {
               INCLUDE PREVIOUS DATA
             </Typography>
           }
-          onChange={includePreviousData}
           labelPlacement="start"
         />
       </Grid>

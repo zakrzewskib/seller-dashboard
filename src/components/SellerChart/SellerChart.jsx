@@ -1,11 +1,7 @@
 import React from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-
-import { useState } from "react";
-import { useMediaQuery } from "@mui/material";
-import { Box } from "@mui/system";
-
+import Box from "@mui/system/Box";
 import SellerChartMenu from "./SellerChartMenu";
 
 export default function SellerChart(props) {
@@ -44,13 +40,35 @@ export default function SellerChart(props) {
     ],
   };
 
+  const includePreviousData = (include) => {
+    console.log("should include previous data - " + include);
+  };
+
+  const changeGraphType = (value) => {
+    console.log(value);
+  };
+
+  const changeValuesType = (value) => {
+    console.log(value);
+  };
+
+  const changeDataTime = (value) => {
+    console.log(value);
+  };
+
   return (
     <Box
       sx={{
         height: "650px",
       }}
     >
-      <SellerChartMenu theme={props.theme}></SellerChartMenu>
+      <SellerChartMenu
+        theme={props.theme}
+        onIncludePreviousData={includePreviousData}
+        onChangeGraphType={changeGraphType}
+        onChangeValuesType={changeValuesType}
+        onChangeDataTime={changeDataTime}
+      ></SellerChartMenu>
 
       <HighchartsReact
         containerProps={{ style: { height: "80%" } }}

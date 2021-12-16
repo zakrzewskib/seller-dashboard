@@ -9,7 +9,7 @@ export default function MySelect(props) {
 
   const handleChange = (event) => {
     setDataOption(event.target.value);
-    // Send there info to parent about that change
+    props.onHandleChange(event.target.value);
   };
 
   return (
