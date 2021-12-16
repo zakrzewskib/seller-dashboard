@@ -43,6 +43,12 @@ function App() {
       offer: colors.grey4,
       font: colors.white,
       notActiveButtonFont: colors.grey2,
+
+      overrides: {
+        "& .MuiList-root.MuiList-padding.MuiMenu-list": {
+          backgroundColor: "red",
+        },
+      },
     },
   });
 
@@ -87,10 +93,8 @@ function App() {
           theme={theme}
           checkedForSwitch={checkedForTheme}
           handleChange={onHandleChange}
-        />
-
+        />{" "}
         <CssBaseline />
-
         <Routes>
           <Route exact path="/" element={<LoginPage theme={theme} />} />
           <Route
@@ -98,8 +102,8 @@ function App() {
             path="/dashboard"
             element={<Dashboard theme={theme} keyToMountAgain={key} />}
           />
-        </Routes>
-      </ThemeProvider>
+        </Routes>{" "}
+      </ThemeProvider>{" "}
     </Router>
   );
 }

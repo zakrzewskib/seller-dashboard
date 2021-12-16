@@ -2,6 +2,9 @@ import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
+import MenuList from "@mui/material/MenuList";
+
+import GlobalStyles from "@mui/material/GlobalStyles";
 
 export default function MySelect(props) {
   const [dataOption, setDataOption] = useState(props.default.value);
@@ -15,6 +18,13 @@ export default function MySelect(props) {
     <FormControl
       sx={{ m: 1, minWidth: props.width == null ? 150 : props.width }}
     >
+      <GlobalStyles
+        styles={{
+          ".MuiList-root.MuiList-padding.MuiMenu-list": {
+            backgroundColor: props.theme.palette.background.default,
+          },
+        }}
+      />
       <Select
         variant="outlined"
         value={dataOption}
@@ -34,9 +44,7 @@ export default function MySelect(props) {
           <MenuItem
             value={item.value}
             sx={{
-              "& .MenuItem": {
-                background: "red",
-              },
+              color: props.theme.palette.font,
             }}
           >
             {item.value}
