@@ -134,7 +134,7 @@ let monthNames = [
 export const thisYearItemsSold = {
     time: "This year",
 
-    title: "Total number of items sold this day",
+    title: "Total number of items sold this year",
     series: {
         name: "Total number of items sold",
         data: makeData(50000, 100000, 12),

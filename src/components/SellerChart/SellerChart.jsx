@@ -28,8 +28,6 @@ export default function SellerChart(props) {
     selectedOption = thisDayItemsSold;
   }
 
-  const [option, setOption] = useState(selectedOption);
-
   const [options, setOptions] = useState({
     chart: {
       type: "column",
@@ -45,11 +43,11 @@ export default function SellerChart(props) {
       },
       margin: 50,
 
-      text: option.title,
+      text: selectedOption.title,
     },
 
     xAxis: {
-      categories: option.categories,
+      categories: selectedOption.categories,
       labels: {
         style: {
           color: props.theme.palette.font,
@@ -73,8 +71,8 @@ export default function SellerChart(props) {
 
     series: [
       {
-        name: option.series.name,
-        data: option.series.data,
+        name: selectedOption.series.name,
+        data: selectedOption.series.data,
         color: props.theme.palette.primary.main,
         borderColor: props.theme.palette.font,
       },
@@ -119,8 +117,6 @@ export default function SellerChart(props) {
 
     localStorage.setItem("time", option.time);
 
-    setOption(option);
-
     setOptions((prevState) => ({
       ...prevState,
       title: { ...prevState.title, text: option.title },
@@ -147,7 +143,7 @@ export default function SellerChart(props) {
         onChangeGraphType={changeGraphType}
         onChangeValuesType={changeValuesType}
         onChangeDataTime={changeDataTime}
-        time={option.time}
+        time={selectedOption.time}
       ></SellerChartMenu>
 
       <HighchartsReact
