@@ -18,6 +18,7 @@ import {
   thisYearTotalProfit,
   thisDayTotalProfit,
 } from "../../data-our-db-mock/user1-data";
+import MyChart from "./MyChart";
 
 export default function SellerChart(props) {
   const isDownFromLg = useMediaQuery(props.theme.breakpoints.down("lg"));
@@ -252,27 +253,15 @@ export default function SellerChart(props) {
   };
 
   return (
-    <Box
-      sx={{
-        height: isDownFromLg ? "" : "650px",
-      }}
-    >
-      <SellerChartMenu
-        theme={props.theme}
-        onIncludePreviousData={includePreviousData}
-        onChangeGraphType={changeGraphType}
-        onChangeValuesType={changeValuesType}
-        onChangeDataTime={changeDataTime}
-        time={selectedOption.time}
-        values={selectedOption.values}
-      ></SellerChartMenu>
-
-      <HighchartsReact
-        containerProps={{ style: { height: "80%" } }}
-        allowChange="true"
-        highcharts={Highcharts}
-        options={options}
-      />
-    </Box>
+    <MyChart
+      options={options}
+      theme={props.theme}
+      includePreviousData={includePreviousData}
+      changeGraphType={changeGraphType}
+      changeValuesType={changeValuesType}
+      changeDataTime={changeDataTime}
+      time={selectedOption.time}
+      values={selectedOption.values}
+    ></MyChart>
   );
 }
