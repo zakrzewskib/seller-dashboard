@@ -190,11 +190,11 @@ export default function SellerChart(props) {
     localStorage.setItem("time", option.time);
     localStorage.setItem("values", option.values);
 
-    setDefaultChartOptions(option);
-
     includePreviousDataAfterOtherParamsChange(
       localStorage.getItem("isIncluded")
     );
+
+    setDefaultChartOptions(option);
   };
 
   const changeDataTime = (value) => {
@@ -215,6 +215,8 @@ export default function SellerChart(props) {
       localStorage.getItem("isIncluded")
     );
     setDefaultChartOptions(option);
+
+    setValuesTypeAfterOtherParamsChange(localStorage.getItem("values"));
   };
 
   const includePreviousData = (value) => {
@@ -242,6 +244,40 @@ export default function SellerChart(props) {
 
     setDefaultChartOptions(selectedOption);
     setChartFromLocalStorage();
+  };
+
+  const setValuesTypeAfterOtherParamsChange = (value) => {
+    console.log(value);
+
+    let option;
+    let time = localStorage.getItem("time");
+
+    if (value !== "Number of items") {
+      if (time === "Today") {
+        option = todayItemsSold;
+      } else if (time === "This week") {
+        option = thisWeekItemsSold;
+      } else {
+        option = thisYearItemsSold;
+      }
+    } else {
+      if (time === "Today") {
+        option = todayTotalProfit;
+      } else if (time === "This week") {
+        option = thisWeekTotalProfit;
+      } else {
+        option = thisYearTotalProfit;
+      }
+    }
+
+    localStorage.setItem("time", option.time);
+    localStorage.setItem("values", option.values);
+
+    includePreviousDataAfterOtherParamsChange(
+      localStorage.getItem("isIncluded")
+    );
+
+    setDefaultChartOptions(option);
   };
 
   return (
