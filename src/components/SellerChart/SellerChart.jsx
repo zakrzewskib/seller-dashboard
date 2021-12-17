@@ -72,6 +72,11 @@ export default function SellerChart(props) {
       addSeries = null;
     }
 
+    selectedOption.chart = {
+      type: "column",
+      backgroundColor: props.theme.palette.background.default,
+    };
+
     console.log(addSeries);
   };
 
@@ -154,6 +159,8 @@ export default function SellerChart(props) {
   };
 
   const changeGraphType = (value) => {
+    let option;
+
     if (value === "Bar graph") {
       setOptions((prevState) => ({
         ...prevState,
@@ -162,6 +169,13 @@ export default function SellerChart(props) {
           backgroundColor: props.theme.palette.background.default,
         },
       }));
+
+      selectedOption.chart = {
+        type: "column",
+        backgroundColor: props.theme.palette.background.default,
+      };
+
+      // option = options;
     } else {
       setOptions((prevState) => ({
         ...prevState,
@@ -170,7 +184,16 @@ export default function SellerChart(props) {
           backgroundColor: props.theme.palette.background.default,
         },
       }));
+
+      selectedOption.chart = {
+        type: "line",
+        backgroundColor: props.theme.palette.background.default,
+      };
+
+      // option = options;
     }
+
+    setNewChartOptions(option);
   };
 
   const changeValuesType = (value) => {

@@ -33,7 +33,7 @@ const useSeries = (selectedOption, props, additionalSeries) => {
 const useOptions = (series, props, selectedOption) => {
   return {
     chart: {
-      type: "column",
+      type: selectedOption.chart.type,
       backgroundColor: props.theme.palette.background.default,
     },
 
