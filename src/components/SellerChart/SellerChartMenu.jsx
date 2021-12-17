@@ -29,7 +29,7 @@ export default function SellerChartMenu(props) {
     >
       <Grid item>
         <MySelect
-          default={{ value: "Bar graph" }}
+          default={{ value: props.chartType }}
           items={[{ value: "Bar graph" }, { value: "Line graph" }]}
           theme={props.theme}
           width={isMobile ? includePreviousDataWidth : null}

@@ -35,10 +35,10 @@ const useSeries = (selectedOption, props, additionalSeries) => {
   }
 };
 
-const useOptions = (series, props, selectedOption) => {
+const useOptions = (series, props, selectedOption, chartType) => {
   return {
     chart: {
-      type: selectedOption.chart.type,
+      type: chartType,
       backgroundColor: props.theme.palette.background.default,
     },
 
@@ -117,7 +117,12 @@ export default function MyChart(props) {
   const isDownFromLg = useMediaQuery(props.theme.breakpoints.down("lg"));
 
   const series = useSeries(props.selectedOption, props, props.additionalSeries);
-  const options = useOptions(series, props, props.selectedOption);
+  const options = useOptions(
+    series,
+    props,
+    props.selectedOption,
+    props.chartType
+  );
 
   return (
     <Box
@@ -133,6 +138,7 @@ export default function MyChart(props) {
         onChangeDataTime={props.changeDataTime}
         time={props.time}
         values={props.values}
+        chartType={props.chartTypeValue}
       ></SellerChartMenu>
 
       {/* <HighchartsReact

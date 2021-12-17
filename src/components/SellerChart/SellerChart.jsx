@@ -27,6 +27,7 @@ export default function SellerChart(props) {
   let selectedOption;
   let selectedPreviousData;
   let addSeries = null;
+  let chartType = null;
 
   const setChartFromLocalStorage = () => {
     if (localStorage.getItem("time") === "Today") {
@@ -68,10 +69,11 @@ export default function SellerChart(props) {
       addSeries = null;
     }
 
-    selectedOption.chart = {
-      type: "column",
-      backgroundColor: props.theme.palette.background.default,
-    };
+    if (localStorage.getItem("chartType") == "line") {
+      chartType = localStorage.getItem("chartType");
+    } else {
+      chartType = "column";
+    }
   };
 
   setChartFromLocalStorage();
@@ -136,7 +138,7 @@ export default function SellerChart(props) {
     },
   });
 
-  const setNewChartOptions = (option) => {
+  const setDefaultChartOptions = (option) => {
     setDefaultOptions((prevState) => ({
       ...prevState,
       title: { ...prevState.title, text: option.title },
@@ -153,35 +155,14 @@ export default function SellerChart(props) {
   };
 
   const changeGraphType = (value) => {
-    // let option;
-    // if (value === "Bar graph") {
-    //   setDefaultOptions((prevState) => ({
-    //     ...prevState,
-    //     chart: {
-    //       type: "column",
-    //       backgroundColor: props.theme.palette.background.default,
-    //     },
-    //   }));
-    //   selectedOption.chart = {
-    //     type: "column",
-    //     backgroundColor: props.theme.palette.background.default,
-    //   };
-    //   // option = options;
-    // } else {
-    //   setDefaultOptions((prevState) => ({
-    //     ...prevState,
-    //     chart: {
-    //       type: "line",
-    //       backgroundColor: props.theme.palette.background.default,
-    //     },
-    //   }));
-    //   selectedOption.chart = {
-    //     type: "line",
-    //     backgroundColor: props.theme.palette.background.default,
-    //   };
-    //   // option = options;
-    // }
-    // setNewChartOptions(option);
+    if (value === "Bar graph") {
+      localStorage.setItem("chartType", "column");
+    } else {
+      localStorage.setItem("chartType", "line");
+    }
+
+    setDefaultChartOptions(defaultOptions);
+    setChartFromLocalStorage();
   };
 
   const changeValuesType = (value) => {
@@ -209,7 +190,7 @@ export default function SellerChart(props) {
     localStorage.setItem("time", option.time);
     localStorage.setItem("values", option.values);
 
-    setNewChartOptions(option);
+    setDefaultChartOptions(option);
 
     includePreviousDataAfterOtherParamsChange(
       localStorage.getItem("isIncluded")
@@ -233,7 +214,7 @@ export default function SellerChart(props) {
     includePreviousDataAfterOtherParamsChange(
       localStorage.getItem("isIncluded")
     );
-    setNewChartOptions(option);
+    setDefaultChartOptions(option);
   };
 
   const includePreviousData = (value) => {
@@ -245,7 +226,7 @@ export default function SellerChart(props) {
       addSeries = null;
     }
 
-    setNewChartOptions(selectedOption);
+    setDefaultChartOptions(selectedOption);
     setChartFromLocalStorage();
   };
 
@@ -259,13 +240,15 @@ export default function SellerChart(props) {
       addSeries = null;
     }
 
-    setNewChartOptions(selectedOption);
+    setDefaultChartOptions(selectedOption);
     setChartFromLocalStorage();
   };
 
   return (
     <MyChart
       selectedOption={selectedOption}
+      chartType={chartType}
+      chartTypeValue={chartType === "bar" ? "Bar graph" : "Line graph"}
       options={defaultOptions}
       theme={props.theme}
       includePreviousData={includePreviousData}
