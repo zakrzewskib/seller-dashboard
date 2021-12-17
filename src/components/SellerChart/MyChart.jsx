@@ -121,7 +121,6 @@ export default function MyChart(props) {
         onChangeDataTime={props.changeDataTime}
         time={props.time}
         values={props.values}
-        // checked={props.checked}
       ></SellerChartMenu>
 
       {/* <HighchartsReact

@@ -27,6 +27,10 @@ export default function SellerChart(props) {
   let selectedOption;
   let selectedPreviousData;
 
+  let [isIncluded, setIsIncluded] = useState(
+    localStorage.getItem("isIncluded") == 1 ? true : false
+  );
+
   let addSeries = null;
 
   const [additionalSeries, setaAdditionalSeries] = useState(null);
@@ -65,7 +69,6 @@ export default function SellerChart(props) {
         selectedPreviousData = yesterdaySeriesNumberOfItems;
       }
     }
-
     if (localStorage.getItem("isIncluded") == 1) {
       addSeries = selectedPreviousData;
     } else {
@@ -76,8 +79,6 @@ export default function SellerChart(props) {
       type: "column",
       backgroundColor: props.theme.palette.background.default,
     };
-
-    console.log(addSeries);
   };
 
   setChartFromLocalStorage();
@@ -212,13 +213,17 @@ export default function SellerChart(props) {
       }
     }
 
+    localStorage.setItem("time", option.time);
     localStorage.setItem("values", option.values);
+
     setNewChartOptions(option);
-    includePreviousData(!localStorage.getItem("isIncluded"));
+
+    includePreviousData2(localStorage.getItem("isIncluded"));
   };
 
   const changeDataTime = (value) => {
     let option;
+
     if (value === "Today") {
       option = todayItemsSold;
     } else if (value === "This week") {
@@ -228,25 +233,42 @@ export default function SellerChart(props) {
     }
 
     localStorage.setItem("time", option.time);
-    // setChartFromLocalStorage();
+    localStorage.setItem("values", option.values);
+
+    includePreviousData2(localStorage.getItem("isIncluded"));
     setNewChartOptions(option);
-    includePreviousData(!localStorage.getItem("isIncluded"));
   };
 
   const includePreviousData = (value) => {
     if (!value) {
       setaAdditionalSeries(selectedPreviousData);
-      //additionalSeries = selectedPreviousData;
       localStorage.setItem("isIncluded", 1);
-      //addSeries = null;
+      addSeries = selectedPreviousData;
     } else {
       setaAdditionalSeries(null);
       localStorage.setItem("isIncluded", 0);
-      //addSeries = null;
+      addSeries = null;
     }
 
-    console.log(localStorage.getItem("isIncluded"));
+    setIsIncluded((prevState) => (prevState === 1 ? 0 : 1));
+    setNewChartOptions(selectedOption);
+    setChartFromLocalStorage();
+  };
 
+  const includePreviousData2 = (value) => {
+    console.log("from time = " + value);
+    if (value == 1) {
+      setaAdditionalSeries(selectedPreviousData);
+      localStorage.setItem("isIncluded", 1);
+      addSeries = selectedPreviousData;
+    } else {
+      setaAdditionalSeries(null);
+      localStorage.setItem("isIncluded", 0);
+      addSeries = null;
+    }
+
+    setIsIncluded((prevState) => (prevState === 1 ? 0 : 1));
+    setNewChartOptions(selectedOption);
     setChartFromLocalStorage();
   };
 
