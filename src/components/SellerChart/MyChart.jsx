@@ -1,8 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
-
 import Highcharts from "highcharts";
-import HighchartsReact from "highcharts-react-official";
 import Box from "@mui/system/Box";
 import SellerChartMenu from "./SellerChartMenu";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -141,13 +138,6 @@ export default function MyChart(props) {
         chartType={props.chartTypeValue}
         checked={props.checked}
       ></SellerChartMenu>
-
-      {/* <HighchartsReact
-        containerProps={{ style: { height: "80%" } }}
-        allowChange="true"
-        highcharts={Highcharts}
-        options={props.options}
-      /> */}
 
       <HighchartsComponent options={options} theme={props.theme} />
     </Box>
