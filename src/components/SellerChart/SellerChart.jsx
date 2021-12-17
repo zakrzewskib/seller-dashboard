@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
@@ -82,7 +82,7 @@ export default function SellerChart(props) {
 
   setChartFromLocalStorage();
 
-  const [options, setOptions] = useState({
+  const [defaultOptions, setDefaultOptions] = useState({
     chart: {
       type: "column",
       backgroundColor: props.theme.palette.background.default,
@@ -143,7 +143,7 @@ export default function SellerChart(props) {
   });
 
   const setNewChartOptions = (option) => {
-    setOptions((prevState) => ({
+    setDefaultOptions((prevState) => ({
       ...prevState,
       title: { ...prevState.title, text: option.title },
       xAxis: { ...prevState.xAxis, categories: option.categories },
@@ -159,41 +159,35 @@ export default function SellerChart(props) {
   };
 
   const changeGraphType = (value) => {
-    let option;
-
-    if (value === "Bar graph") {
-      setOptions((prevState) => ({
-        ...prevState,
-        chart: {
-          type: "column",
-          backgroundColor: props.theme.palette.background.default,
-        },
-      }));
-
-      selectedOption.chart = {
-        type: "column",
-        backgroundColor: props.theme.palette.background.default,
-      };
-
-      // option = options;
-    } else {
-      setOptions((prevState) => ({
-        ...prevState,
-        chart: {
-          type: "line",
-          backgroundColor: props.theme.palette.background.default,
-        },
-      }));
-
-      selectedOption.chart = {
-        type: "line",
-        backgroundColor: props.theme.palette.background.default,
-      };
-
-      // option = options;
-    }
-
-    setNewChartOptions(option);
+    // let option;
+    // if (value === "Bar graph") {
+    //   setDefaultOptions((prevState) => ({
+    //     ...prevState,
+    //     chart: {
+    //       type: "column",
+    //       backgroundColor: props.theme.palette.background.default,
+    //     },
+    //   }));
+    //   selectedOption.chart = {
+    //     type: "column",
+    //     backgroundColor: props.theme.palette.background.default,
+    //   };
+    //   // option = options;
+    // } else {
+    //   setDefaultOptions((prevState) => ({
+    //     ...prevState,
+    //     chart: {
+    //       type: "line",
+    //       backgroundColor: props.theme.palette.background.default,
+    //     },
+    //   }));
+    //   selectedOption.chart = {
+    //     type: "line",
+    //     backgroundColor: props.theme.palette.background.default,
+    //   };
+    //   // option = options;
+    // }
+    // setNewChartOptions(option);
   };
 
   const changeValuesType = (value) => {
@@ -203,31 +197,23 @@ export default function SellerChart(props) {
     if (value === "Number of items") {
       if (time === "Today") {
         option = todayItemsSold;
-        //selectedPreviousData = yesterdaySeriesNumberOfItems;
       } else if (time === "This week") {
         option = thisWeekItemsSold;
-        //selectedPreviousData = lastWeekSeriesNumberOfItems;
       } else {
         option = thisYearItemsSold;
-        //selectedPreviousData = lastYearSeriesNumberOfItems;
       }
     } else {
       if (time === "Today") {
         option = todayTotalProfit;
-        //selectedPreviousData = yesterdaySeriesTotalProfit;
       } else if (time === "This week") {
         option = thisWeekTotalProfit;
-        //selectedPreviousData = lastWeekSeriesTotalProfit;
       } else {
         option = thisYearTotalProfit;
-        //selectedPreviousData = lastYearSeriesTotalProfit;
       }
     }
 
     localStorage.setItem("values", option.values);
-
     setNewChartOptions(option);
-
     includePreviousData(!localStorage.getItem("isIncluded"));
   };
 
@@ -242,10 +228,8 @@ export default function SellerChart(props) {
     }
 
     localStorage.setItem("time", option.time);
-    setChartFromLocalStorage();
-
+    // setChartFromLocalStorage();
     setNewChartOptions(option);
-
     includePreviousData(!localStorage.getItem("isIncluded"));
   };
 
@@ -269,7 +253,7 @@ export default function SellerChart(props) {
   return (
     <MyChart
       selectedOption={selectedOption}
-      options={options}
+      options={defaultOptions}
       theme={props.theme}
       includePreviousData={includePreviousData}
       changeGraphType={changeGraphType}

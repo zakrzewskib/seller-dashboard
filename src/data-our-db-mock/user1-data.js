@@ -128,7 +128,7 @@ export const todayTotalProfit = {
 
     title: "Total profit today",
     series: {
-        name: "Total profit (ZŁ) today",
+        name: "Total profit today",
         data: makeProfit(todayItemsSold.series.data, 10, 200),
     },
     categories: makeHours(),
@@ -159,7 +159,7 @@ export const thisWeekTotalProfit = {
 
     title: "Total profit this week",
     series: {
-        name: "Total profit (ZŁ) this week",
+        name: "Total profit this week",
         data: makeProfit(thisWeekItemsSold.series.data, 10, 200),
     },
     categories: [
