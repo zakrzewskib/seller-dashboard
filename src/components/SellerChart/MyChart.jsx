@@ -8,7 +8,7 @@ import SellerChartMenu from "./SellerChartMenu";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const useSeries = (selectedOption, props, additionalSeries) => {
-  if (additionalSeries == null) {
+  if (additionalSeries === null) {
     return [
       {
         name: selectedOption.series.name,

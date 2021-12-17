@@ -27,7 +27,7 @@ export default function SellerChart(props) {
   let selectedOption;
   let selectedPreviousData;
 
-  //let additionalSeries = null;
+  let addSeries = null;
 
   const [additionalSeries, setaAdditionalSeries] = useState(null);
 
@@ -66,9 +66,13 @@ export default function SellerChart(props) {
       }
     }
 
-    // if (localStorage.getItem("isIncluded")) {
-    //   additionalSeries = selectedPreviousData;
-    // }
+    if (localStorage.getItem("isIncluded") == 1) {
+      addSeries = selectedPreviousData;
+    } else {
+      addSeries = null;
+    }
+
+    console.log(addSeries);
   };
 
   setChartFromLocalStorage();
@@ -223,15 +227,20 @@ export default function SellerChart(props) {
   };
 
   const includePreviousData = (value) => {
-    setChartFromLocalStorage();
     if (!value) {
       setaAdditionalSeries(selectedPreviousData);
       //additionalSeries = selectedPreviousData;
-      localStorage.setItem("isIncluded", true);
+      localStorage.setItem("isIncluded", 1);
+      //addSeries = null;
     } else {
       setaAdditionalSeries(null);
-      localStorage.setItem("isIncluded", false);
+      localStorage.setItem("isIncluded", 0);
+      //addSeries = null;
     }
+
+    console.log(localStorage.getItem("isIncluded"));
+
+    setChartFromLocalStorage();
   };
 
   return (
@@ -245,7 +254,7 @@ export default function SellerChart(props) {
       changeDataTime={changeDataTime}
       time={selectedOption.time}
       values={selectedOption.values}
-      additionalSeries={additionalSeries}
+      additionalSeries={addSeries}
     ></MyChart>
   );
 }
