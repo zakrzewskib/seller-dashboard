@@ -25,7 +25,12 @@ const useSeries = (selectedOption, props, additionalSeries) => {
         color: props.theme.palette.primary.main,
         borderColor: props.theme.palette.font,
       },
-      additionalSeries,
+      {
+        name: additionalSeries.name,
+        data: additionalSeries.data,
+        color: props.theme.palette.secondary.main,
+        borderColor: props.theme.palette.font,
+      },
     ];
   }
 };

@@ -28,8 +28,6 @@ export default function SellerChart(props) {
   let selectedPreviousData;
   let addSeries = null;
 
-  const [additionalSeries, setaAdditionalSeries] = useState(null);
-
   const setChartFromLocalStorage = () => {
     if (localStorage.getItem("time") === "Today") {
       if (localStorage.getItem("values") === "Total profit") {
@@ -213,7 +211,9 @@ export default function SellerChart(props) {
 
     setNewChartOptions(option);
 
-    includePreviousData2(localStorage.getItem("isIncluded"));
+    includePreviousDataAfterOtherParamsChange(
+      localStorage.getItem("isIncluded")
+    );
   };
 
   const changeDataTime = (value) => {
@@ -230,17 +230,17 @@ export default function SellerChart(props) {
     localStorage.setItem("time", option.time);
     localStorage.setItem("values", option.values);
 
-    includePreviousData2(localStorage.getItem("isIncluded"));
+    includePreviousDataAfterOtherParamsChange(
+      localStorage.getItem("isIncluded")
+    );
     setNewChartOptions(option);
   };
 
   const includePreviousData = (value) => {
     if (!value) {
-      setaAdditionalSeries(selectedPreviousData);
       localStorage.setItem("isIncluded", 1);
       addSeries = selectedPreviousData;
     } else {
-      setaAdditionalSeries(null);
       localStorage.setItem("isIncluded", 0);
       addSeries = null;
     }
@@ -249,14 +249,12 @@ export default function SellerChart(props) {
     setChartFromLocalStorage();
   };
 
-  const includePreviousData2 = (value) => {
+  const includePreviousDataAfterOtherParamsChange = (value) => {
     console.log("from time = " + value);
     if (value == 1) {
-      setaAdditionalSeries(selectedPreviousData);
       localStorage.setItem("isIncluded", 1);
       addSeries = selectedPreviousData;
     } else {
-      setaAdditionalSeries(null);
       localStorage.setItem("isIncluded", 0);
       addSeries = null;
     }
