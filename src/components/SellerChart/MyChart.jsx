@@ -139,6 +139,7 @@ export default function MyChart(props) {
         time={props.time}
         values={props.values}
         chartType={props.chartTypeValue}
+        checked={props.checked}
       ></SellerChartMenu>
 
       {/* <HighchartsReact

@@ -16,7 +16,7 @@ export default function SellerChartMenu(props) {
 
   const includePreviousData = () => {
     setPreviousDataChecked((prevState) => !prevState);
-    props.onIncludePreviousData(previousDataChecked);
+    props.onIncludePreviousData(props.checked);
   };
 
   return (
@@ -65,7 +65,7 @@ export default function SellerChartMenu(props) {
           control={
             <Checkbox
               onChange={includePreviousData}
-              checked={previousDataChecked}
+              checked={props.checked}
               sx={{
                 color: props.theme.palette.notActiveCheckBox,
                 "&.Mui-checked": {
@@ -77,7 +77,7 @@ export default function SellerChartMenu(props) {
           label={
             <Typography
               color={
-                previousDataChecked
+                props.checked
                   ? props.theme.palette.font
                   : props.theme.palette.notActiveCheckBox
               }

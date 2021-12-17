@@ -294,6 +294,7 @@ export default function SellerChart(props) {
       time={selectedOption.time}
       values={selectedOption.values}
       additionalSeries={addSeries}
+      checked={localStorage.getItem("isIncluded") == 1 ? true : false}
     ></MyChart>
   );
 }
