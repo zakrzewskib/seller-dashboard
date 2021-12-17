@@ -8,62 +8,70 @@ import SellerChartMenu from "./SellerChartMenu";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 import {
+  todayItemsSold,
+  todayTotalProfit,
   thisWeekItemsSold,
-  thisDayItemsSold,
-  thisYearItemsSold,
-  lastWeekSeries,
-  lastDaySeries,
-  lastYearSeries,
   thisWeekTotalProfit,
+  thisYearItemsSold,
   thisYearTotalProfit,
-  thisDayTotalProfit,
+  lastWeekSeriesNumberOfItems,
+  yesterdaySeriesNumberOfItems,
+  lastYearSeriesNumberOfItems,
+  lastWeekSeriesTotalProfit,
+  yesterdaySeriesTotalProfit,
+  lastYearSeriesTotalProfit,
 } from "../../data-our-db-mock/user1-data";
 import MyChart from "./MyChart";
 
 export default function SellerChart(props) {
-  const isDownFromLg = useMediaQuery(props.theme.breakpoints.down("lg"));
-
   let selectedOption;
   let selectedPreviousData;
 
-  const setChart = () => {
+  //let additionalSeries = null;
+
+  const [additionalSeries, setaAdditionalSeries] = useState(null);
+
+  const setChartFromLocalStorage = () => {
     if (localStorage.getItem("time") === "Today") {
       if (localStorage.getItem("values") === "Total profit") {
-        selectedOption = thisDayTotalProfit;
+        selectedOption = todayTotalProfit;
+        selectedPreviousData = yesterdaySeriesTotalProfit;
       } else {
-        selectedOption = thisDayItemsSold;
+        selectedOption = todayItemsSold;
+        selectedPreviousData = yesterdaySeriesNumberOfItems;
       }
-      selectedPreviousData = lastDaySeries;
     } else if (localStorage.getItem("time") === "This week") {
       if (localStorage.getItem("values") === "Total profit") {
         selectedOption = thisWeekTotalProfit;
+        selectedPreviousData = lastWeekSeriesTotalProfit;
       } else {
         selectedOption = thisWeekItemsSold;
+        selectedPreviousData = lastWeekSeriesNumberOfItems;
       }
-
-      selectedPreviousData = lastWeekSeries;
     } else if (localStorage.getItem("time") === "This year") {
       if (localStorage.getItem("values") === "Total profit") {
         selectedOption = thisYearTotalProfit;
+        selectedPreviousData = lastYearSeriesTotalProfit;
       } else {
         selectedOption = thisYearItemsSold;
+        selectedPreviousData = lastYearSeriesNumberOfItems;
       }
-
-      selectedPreviousData = lastYearSeries;
     } else {
       if (localStorage.getItem("values") === "Total profit") {
-        selectedOption = thisDayTotalProfit;
+        selectedOption = todayTotalProfit;
+        selectedPreviousData = yesterdaySeriesTotalProfit;
       } else {
-        selectedOption = thisDayItemsSold;
+        selectedOption = todayItemsSold;
+        selectedPreviousData = yesterdaySeriesNumberOfItems;
       }
-
-      selectedPreviousData = lastDaySeries;
     }
 
-    console.log("in set chart" + selectedOption.time, selectedOption.values);
+    // if (localStorage.getItem("isIncluded")) {
+    //   additionalSeries = selectedPreviousData;
+    // }
   };
 
-  setChart();
+  setChartFromLocalStorage();
 
   const [options, setOptions] = useState({
     chart: {
@@ -125,24 +133,6 @@ export default function SellerChart(props) {
     },
   });
 
-  const [series, setSeries] = useState([
-    {
-      name: selectedOption.series.name,
-      data: selectedOption.series.data,
-      color: props.theme.palette.primary.main,
-      borderColor: props.theme.palette.font,
-    },
-  ]);
-
-  // React.useEffect(() => {
-  //   // setOptions((prevState) => ({
-  //   //   ...prevState,
-  //   //   series: series,
-  //   // }));
-
-  //   console.log(series);
-  // }, [series]);
-
   const setNewChartOptions = (option) => {
     setOptions((prevState) => ({
       ...prevState,
@@ -185,33 +175,39 @@ export default function SellerChart(props) {
 
     if (value === "Number of items") {
       if (time === "Today") {
-        option = thisDayItemsSold;
+        option = todayItemsSold;
+        //selectedPreviousData = yesterdaySeriesNumberOfItems;
       } else if (time === "This week") {
         option = thisWeekItemsSold;
+        //selectedPreviousData = lastWeekSeriesNumberOfItems;
       } else {
         option = thisYearItemsSold;
+        //selectedPreviousData = lastYearSeriesNumberOfItems;
       }
     } else {
       if (time === "Today") {
-        option = thisDayTotalProfit;
+        option = todayTotalProfit;
+        //selectedPreviousData = yesterdaySeriesTotalProfit;
       } else if (time === "This week") {
         option = thisWeekTotalProfit;
+        //selectedPreviousData = lastWeekSeriesTotalProfit;
       } else {
         option = thisYearTotalProfit;
+        //selectedPreviousData = lastYearSeriesTotalProfit;
       }
     }
 
     localStorage.setItem("values", option.values);
-    console.log(option.time);
-    console.log(option.values);
 
     setNewChartOptions(option);
+
+    includePreviousData(!localStorage.getItem("isIncluded"));
   };
 
   const changeDataTime = (value) => {
     let option;
     if (value === "Today") {
-      option = thisDayItemsSold;
+      option = todayItemsSold;
     } else if (value === "This week") {
       option = thisWeekItemsSold;
     } else {
@@ -219,36 +215,22 @@ export default function SellerChart(props) {
     }
 
     localStorage.setItem("time", option.time);
+    setChartFromLocalStorage();
 
     setNewChartOptions(option);
+
+    includePreviousData(!localStorage.getItem("isIncluded"));
   };
 
   const includePreviousData = (value) => {
+    setChartFromLocalStorage();
     if (!value) {
-      setOptions((prevState) => ({
-        ...prevState,
-        series: [
-          ...prevState.series,
-          {
-            name: selectedOption.series.name,
-            data: selectedPreviousData.data,
-            borderColor: props.theme.palette.font,
-            color: props.theme.palette.secondary.main,
-          },
-        ],
-      }));
+      setaAdditionalSeries(selectedPreviousData);
+      //additionalSeries = selectedPreviousData;
+      localStorage.setItem("isIncluded", true);
     } else {
-      setOptions((prevState) => ({
-        ...prevState,
-        series: [
-          {
-            name: selectedOption.name,
-            data: selectedOption.data,
-            color: props.theme.palette.primary.main,
-            borderColor: props.theme.palette.font,
-          },
-        ],
-      }));
+      setaAdditionalSeries(null);
+      localStorage.setItem("isIncluded", false);
     }
   };
 
@@ -263,6 +245,7 @@ export default function SellerChart(props) {
       changeDataTime={changeDataTime}
       time={selectedOption.time}
       values={selectedOption.values}
+      additionalSeries={additionalSeries}
     ></MyChart>
   );
 }

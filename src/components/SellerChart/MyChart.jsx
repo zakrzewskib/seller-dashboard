@@ -7,15 +7,27 @@ import Box from "@mui/system/Box";
 import SellerChartMenu from "./SellerChartMenu";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-const useSeries = (selectedOption, props) => {
-  return [
-    {
-      name: selectedOption.series.name,
-      data: selectedOption.series.data,
-      color: props.theme.palette.primary.main,
-      borderColor: props.theme.palette.font,
-    },
-  ];
+const useSeries = (selectedOption, props, additionalSeries) => {
+  if (additionalSeries == null) {
+    return [
+      {
+        name: selectedOption.series.name,
+        data: selectedOption.series.data,
+        color: props.theme.palette.primary.main,
+        borderColor: props.theme.palette.font,
+      },
+    ];
+  } else {
+    return [
+      {
+        name: selectedOption.series.name,
+        data: selectedOption.series.data,
+        color: props.theme.palette.primary.main,
+        borderColor: props.theme.palette.font,
+      },
+      additionalSeries,
+    ];
+  }
 };
 
 const useOptions = (series, props, selectedOption) => {
@@ -83,14 +95,6 @@ const HighchartsComponent = ({ options, ...props }) => {
 
   React.useEffect(() => {
     console.log("update options");
-
-    /* I need to remove all series before the update If I want the chart to be update correctly 
-    comment or uncomment this while loop to see the difference. */
-
-    // while (chartRef.current.series.length) {
-    //   chartRef.current.series[0].remove(true);
-    // }
-
     chartRef.current.update(options, true, true);
   }, [chartRef, options]);
 
@@ -100,8 +104,7 @@ const HighchartsComponent = ({ options, ...props }) => {
 export default function MyChart(props) {
   const isDownFromLg = useMediaQuery(props.theme.breakpoints.down("lg"));
 
-  const series = useSeries(props.selectedOption, props);
-
+  const series = useSeries(props.selectedOption, props, props.additionalSeries);
   const options = useOptions(series, props, props.selectedOption);
 
   return (
@@ -118,6 +121,7 @@ export default function MyChart(props) {
         onChangeDataTime={props.changeDataTime}
         time={props.time}
         values={props.values}
+        // checked={props.checked}
       ></SellerChartMenu>
 
       {/* <HighchartsReact

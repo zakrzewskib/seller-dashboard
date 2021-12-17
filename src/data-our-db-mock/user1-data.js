@@ -101,27 +101,35 @@ const makeData = (min, max, howMany) => {
     return data;
 };
 
-export const thisDayItemsSold = {
+const makeProfit = (data, min, max) => {
+    const profits = [];
+    for (let item of data) {
+        profits.push(item * Math.floor(Math.random() * (max - min + 1) + min));
+    }
+    return profits;
+};
+
+export const todayItemsSold = {
     time: "Today",
     values: "Number of items",
 
     title: "Total number of items sold today",
     series: {
-        name: "Total number of items sold",
+        name: "Total number of items sold today",
         data: makeData(0, 100, 24),
     },
 
     categories: makeHours(),
 };
 
-export const thisDayTotalProfit = {
+export const todayTotalProfit = {
     time: "Today",
     values: "Total profit",
 
     title: "Total profit today",
     series: {
-        name: "Total profit (ZŁ)",
-        data: makeData(0, 1000, 24),
+        name: "Total profit (ZŁ) today",
+        data: makeProfit(todayItemsSold.series.data, 10, 200),
     },
     categories: makeHours(),
 };
@@ -131,7 +139,7 @@ export const thisWeekItemsSold = {
     values: "Number of items",
     title: "Total number of items sold this week",
     series: {
-        name: "Total number of items sold",
+        name: "Total number of items sold this week",
         data: makeData(0, 1000, 7),
     },
     categories: [
@@ -151,8 +159,8 @@ export const thisWeekTotalProfit = {
 
     title: "Total profit this week",
     series: {
-        name: "Total profit (ZŁ)",
-        data: makeData(0, 5000, 7),
+        name: "Total profit (ZŁ) this week",
+        data: makeProfit(thisWeekItemsSold.series.data, 10, 200),
     },
     categories: [
         "Monday",
@@ -171,7 +179,7 @@ export const thisYearItemsSold = {
 
     title: "Total number of items sold this year",
     series: {
-        name: "Total number of items sold",
+        name: "Total number of items sold this year",
         data: makeData(50000, 100000, 12),
     },
 
@@ -182,26 +190,41 @@ export const thisYearTotalProfit = {
     time: "This year",
     values: "Total profit",
 
-    title: "Total profit year",
+    title: "Total profit this year",
     series: {
-        name: "Total profit",
-        data: makeData(500000, 1000000, 12),
+        name: "Total profit this year",
+        data: makeProfit(thisYearItemsSold.series.data, 10, 200),
     },
 
     categories: monthNames,
 };
 
-export const lastWeekSeries = {
+export const lastWeekSeriesNumberOfItems = {
     name: "Total number of items sold last week",
     data: makeData(0, 1000, 7),
 };
 
-export const lastDaySeries = {
+export const lastWeekSeriesTotalProfit = {
+    name: "Total profit last week",
+    data: makeProfit(lastWeekSeriesNumberOfItems.data, 10, 200),
+};
+
+export const yesterdaySeriesNumberOfItems = {
     name: "Total number of items sold yesterday",
     data: makeData(0, 100, 24),
 };
 
-export const lastYearSeries = {
+export const yesterdaySeriesTotalProfit = {
+    name: "Total profit yesterday",
+    data: makeProfit(yesterdaySeriesNumberOfItems.data, 10, 200),
+};
+
+export const lastYearSeriesNumberOfItems = {
     name: "Total number of items sold last year",
     data: makeData(50000, 100000, 12),
+};
+
+export const lastYearSeriesTotalProfit = {
+    name: "Total profit last year",
+    data: makeProfit(lastYearSeriesNumberOfItems.data, 10, 200),
 };
