@@ -1,11 +1,6 @@
 import React from "react";
 import { useState } from "react";
-
-import Highcharts from "highcharts";
-import HighchartsReact from "highcharts-react-official";
-import Box from "@mui/system/Box";
-import SellerChartMenu from "./SellerChartMenu";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import MyChart from "./MyChart";
 
 import {
   todayItemsSold,
@@ -21,7 +16,6 @@ import {
   yesterdaySeriesTotalProfit,
   lastYearSeriesTotalProfit,
 } from "../../data-our-db-mock/user1-data";
-import MyChart from "./MyChart";
 
 export default function SellerChart(props) {
   let selectedOption;
@@ -233,7 +227,6 @@ export default function SellerChart(props) {
   };
 
   const includePreviousDataAfterOtherParamsChange = (value) => {
-    console.log("from time = " + value);
     if (value == 1) {
       localStorage.setItem("isIncluded", 1);
       addSeries = selectedPreviousData;
@@ -247,12 +240,11 @@ export default function SellerChart(props) {
   };
 
   const setValuesTypeAfterOtherParamsChange = (value) => {
-    console.log(value);
-
     let option;
     let time = localStorage.getItem("time");
 
-    if (value !== "Number of items") {
+    if (value === "Number of items") {
+      localStorage.setItem("values", "Number of items");
       if (time === "Today") {
         option = todayItemsSold;
       } else if (time === "This week") {
@@ -261,6 +253,7 @@ export default function SellerChart(props) {
         option = thisYearItemsSold;
       }
     } else {
+      localStorage.setItem("values", "Total profit");
       if (time === "Today") {
         option = todayTotalProfit;
       } else if (time === "This week") {
@@ -270,8 +263,8 @@ export default function SellerChart(props) {
       }
     }
 
-    localStorage.setItem("time", option.time);
-    localStorage.setItem("values", option.values);
+    // localStorage.setItem("time", option.time);
+    // localStorage.setItem("values", option.values);
 
     includePreviousDataAfterOtherParamsChange(
       localStorage.getItem("isIncluded")
@@ -284,7 +277,7 @@ export default function SellerChart(props) {
     <MyChart
       selectedOption={selectedOption}
       chartType={chartType}
-      chartTypeValue={chartType === "bar" ? "Bar graph" : "Line graph"}
+      chartTypeValue={chartType == "line" ? "Line graph" : "Bar graph"}
       options={defaultOptions}
       theme={props.theme}
       includePreviousData={includePreviousData}

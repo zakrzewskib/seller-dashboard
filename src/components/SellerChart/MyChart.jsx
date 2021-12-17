@@ -97,7 +97,6 @@ const HighchartsComponent = ({ options, ...props }) => {
   }, [options]);
 
   React.useEffect(() => {
-    console.log("update options");
     chartRef.current.update(options, true, true);
   }, [chartRef, options]);
 
