@@ -91,6 +91,7 @@ const useOptions = (series, props, selectedOption) => {
 };
 
 const HighchartsComponent = ({ options, ...props }) => {
+  const isDownFromSm = useMediaQuery(props.theme.breakpoints.down("sm"));
   const containerRef = React.useRef(null);
   const chartRef = React.useRef(null);
 
@@ -103,7 +104,13 @@ const HighchartsComponent = ({ options, ...props }) => {
     chartRef.current.update(options, true, true);
   }, [chartRef, options]);
 
-  return <div ref={containerRef} {...props} />;
+  return (
+    <div
+      ref={containerRef}
+      {...props}
+      style={{ height: isDownFromSm ? "70%" : "80%" }}
+    />
+  );
 };
 
 export default function MyChart(props) {
@@ -115,7 +122,7 @@ export default function MyChart(props) {
   return (
     <Box
       sx={{
-        height: isDownFromLg ? "" : "650px",
+        height: isDownFromLg ? "900px" : "650px",
       }}
     >
       <SellerChartMenu
@@ -135,7 +142,7 @@ export default function MyChart(props) {
         options={props.options}
       /> */}
 
-      <HighchartsComponent options={options} />
+      <HighchartsComponent options={options} theme={props.theme} />
     </Box>
   );
 }
