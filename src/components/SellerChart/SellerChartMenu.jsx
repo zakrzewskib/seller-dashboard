@@ -1,6 +1,4 @@
 import React from "react";
-import { useState } from "react";
-
 import Typography from "@mui/material/Typography";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -9,13 +7,10 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Grid from "@mui/material/Grid";
 
 export default function SellerChartMenu(props) {
-  const [previousDataChecked, setPreviousDataChecked] = useState(false);
-
   const isMobile = useMediaQuery(props.theme.breakpoints.down("sm"));
   const includePreviousDataWidth = 233;
 
   const includePreviousData = () => {
-    setPreviousDataChecked((prevState) => !prevState);
     props.onIncludePreviousData(props.checked);
   };
 
