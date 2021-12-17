@@ -26,11 +26,6 @@ import MyChart from "./MyChart";
 export default function SellerChart(props) {
   let selectedOption;
   let selectedPreviousData;
-
-  let [isIncluded, setIsIncluded] = useState(
-    localStorage.getItem("isIncluded") == 1 ? true : false
-  );
-
   let addSeries = null;
 
   const [additionalSeries, setaAdditionalSeries] = useState(null);
@@ -250,7 +245,6 @@ export default function SellerChart(props) {
       addSeries = null;
     }
 
-    setIsIncluded((prevState) => (prevState === 1 ? 0 : 1));
     setNewChartOptions(selectedOption);
     setChartFromLocalStorage();
   };
@@ -267,7 +261,6 @@ export default function SellerChart(props) {
       addSeries = null;
     }
 
-    setIsIncluded((prevState) => (prevState === 1 ? 0 : 1));
     setNewChartOptions(selectedOption);
     setChartFromLocalStorage();
   };
