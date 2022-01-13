@@ -56,7 +56,7 @@ export default function SellerChartMenu(props) {
           control={
             <Checkbox
               onChange={includePreviousData}
-              checked={props.isPreviousDataIncluded}
+              checked={props.isPreviousDataIncluded} // error TODO
               sx={{
                 color: props.theme.palette.notActiveCheckBox,
                 "&.Mui-checked": {

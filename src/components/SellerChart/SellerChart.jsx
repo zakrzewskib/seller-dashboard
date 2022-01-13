@@ -1,12 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import MyChart from "./MyChart";
+import axios from "axios";
 
 import {
   todayItemsSold,
   todayTotalProfit,
   thisWeekItemsSold,
-  thisWeekTotalProfit,
+  // thisWeekTotalProfit,
   thisYearItemsSold,
   thisYearTotalProfit,
   lastWeekSeriesNumberOfItems,
@@ -29,71 +30,85 @@ export default function SellerChart(props) {
   const [chartType, setChartType] = useState(
     localStorage.getItem("chartType") == null ? "line" : localStorage.getItem("chartType")
   );
-  const [data, setData] = useState(todayItemsSold);
+  const [data, setData] = useState(todayTotalProfit);
   const [previousData, setPreviousData] = useState(null);
 
+  const [loaded, setLoaded] = useState(false);
+
   const [defaultOptions, setDefaultOptions] = useState({
-    chart: {
-      type: chartType,
-      backgroundColor: props.theme.palette.background.default,
-    },
-
-    title: {
-      style: {
-        color: props.theme.palette.font,
-        fontWeight: "600",
-        fontFamily: "Roboto",
-        fontSize: "28px",
-      },
-      margin: 50,
-
-      text: data.title,
-    },
-
-    xAxis: {
-      categories: data.categories,
-      labels: {
-        style: {
-          color: props.theme.palette.font,
-          fontSize: "14px",
-        },
-      },
-    },
-
-    yAxis: {
-      title: {
-        text: "",
-      },
-      labels: {
-        style: {
-          color: props.theme.palette.font,
-          fontSize: "14px",
-        },
-      },
-    },
-
-    series: [
-      {
-        name: data.series.name,
-        data: data.series.data,
-        color: props.theme.palette.primary.main,
-        borderColor: props.theme.palette.font,
-      },
-    ],
-
-    legend: {
-      itemStyle: {
-        color: props.theme.palette.font,
-        fontWeight: "400",
-      },
-      itemHoverStyle: {
-        color: props.theme.palette.primary.main,
-      },
-    },
+    // chart: {
+    //   type: chartType,
+    //   backgroundColor: props.theme.palette.background.default,
+    // },
+    // title: {
+    //   style: {
+    //     color: props.theme.palette.font,
+    //     fontWeight: "600",
+    //     fontFamily: "Roboto",
+    //     fontSize: "28px",
+    //   },
+    //   margin: 50,
+    //   text: data.title,
+    // },
+    // xAxis: {
+    //   categories: data.categories,
+    //   labels: {
+    //     style: {
+    //       color: props.theme.palette.font,
+    //       fontSize: "14px",
+    //     },
+    //   },
+    // },
+    // yAxis: {
+    //   title: {
+    //     text: "",
+    //   },
+    //   labels: {
+    //     style: {
+    //       color: props.theme.palette.font,
+    //       fontSize: "14px",
+    //     },
+    //   },
+    // },
+    // series: [
+    //   {
+    //     name: data.series.name,
+    //     data: data.series.data,
+    //     color: props.theme.palette.primary.main,
+    //     borderColor: props.theme.palette.font,
+    //   },
+    // ],
+    // legend: {
+    //   itemStyle: {
+    //     color: props.theme.palette.font,
+    //     fontWeight: "400",
+    //   },
+    //   itemHoverStyle: {
+    //     color: props.theme.palette.primary.main,
+    //   },
+    // },
   });
 
+  const [thisWeekTotalProfit, setThisWeekTotalProfit] = useState({});
+
+  async function fetchData() {
+    let response = await axios
+      .get(`http://localhost:8080/data`)
+      .then(res => {
+        console.log(res);
+        setThisWeekTotalProfit(res.data.thisWeekTotalProfit);
+        setTimeout(function () {
+          setLoaded(true);
+        }, 3000);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   useEffect(() => {
-    setOptionsBasedOnParameters();
+    fetchData();
+    setDataBasedOnLocalStorage();
     setDefaultOptions({
       chart: {
         type: chartType,
@@ -153,9 +168,76 @@ export default function SellerChart(props) {
         },
       },
     });
+    return () => {
+      setLoaded(false);
+    };
+  }, []);
+
+  useEffect(() => {
+    setDataBasedOnLocalStorage();
+    setDefaultOptions({
+      chart: {
+        type: chartType,
+        backgroundColor: props.theme.palette.background.default,
+      },
+
+      title: {
+        style: {
+          color: props.theme.palette.font,
+          fontWeight: "600",
+          fontFamily: "Roboto",
+          fontSize: "28px",
+        },
+        margin: 50,
+
+        text: data.title,
+      },
+
+      xAxis: {
+        categories: data.categories,
+        labels: {
+          style: {
+            color: props.theme.palette.font,
+            fontSize: "14px",
+          },
+        },
+      },
+
+      yAxis: {
+        title: {
+          text: "",
+        },
+        labels: {
+          style: {
+            color: props.theme.palette.font,
+            fontSize: "14px",
+          },
+        },
+      },
+
+      series: [
+        {
+          name: data.series.name,
+          data: data.series.data,
+          color: props.theme.palette.primary.main,
+          borderColor: props.theme.palette.font,
+        },
+      ],
+
+      legend: {
+        itemStyle: {
+          color: props.theme.palette.font,
+          fontWeight: "400",
+        },
+        itemHoverStyle: {
+          color: props.theme.palette.primary.main,
+        },
+      },
+    });
+    console.log({ isPreviousDataIncluded });
   }, [time, valuesType, chartType, isPreviousDataIncluded]);
 
-  const setOptionsBasedOnParameters = () => {
+  const setDataBasedOnLocalStorage = () => {
     if (time === "Today") {
       if (valuesType === "Total profit") {
         setData(todayTotalProfit);
@@ -189,7 +271,6 @@ export default function SellerChart(props) {
         setPreviousData(yesterdaySeriesNumberOfItems);
       }
     }
-    console.log({ isPreviousDataIncluded });
     if (!isPreviousDataIncluded) {
       setPreviousData(null);
     }
@@ -215,7 +296,7 @@ export default function SellerChart(props) {
     localStorage.setItem("valuesType", value);
   };
 
-  return (
+  return loaded ? (
     <MyChart
       data={data}
       options={defaultOptions}
@@ -230,5 +311,7 @@ export default function SellerChart(props) {
       valuesType={valuesType}
       chartType={chartType}
     ></MyChart>
+  ) : (
+    <h1>test</h1>
   );
 }
