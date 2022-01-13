@@ -20,17 +20,17 @@ const useSeries = (data, theme, previousData) => {
   } else {
     return [
       {
-        name: data.series.name,
-        data: data.series.data,
-
-        color: theme.palette.primary.main,
-        borderColor: theme.palette.font,
-      },
-      {
         name: previousData.name,
         data: previousData.data,
 
         color: theme.palette.secondary.main,
+        borderColor: theme.palette.font,
+      },
+      {
+        name: data.series.name,
+        data: data.series.data,
+
+        color: theme.palette.primary.main,
         borderColor: theme.palette.font,
       },
     ];

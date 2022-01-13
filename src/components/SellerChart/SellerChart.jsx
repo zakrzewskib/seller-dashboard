@@ -189,7 +189,7 @@ export default function SellerChart(props) {
         setPreviousData(yesterdaySeriesNumberOfItems);
       }
     }
-
+    console.log({ isPreviousDataIncluded });
     if (!isPreviousDataIncluded) {
       setPreviousData(null);
     }
@@ -202,7 +202,7 @@ export default function SellerChart(props) {
 
   const includePreviousData = value => {
     setIsPreviousDataIncluded(value);
-    localStorage.setItem("includePreviousData", value);
+    localStorage.setItem("isPreviousDataIncluded", value);
   };
 
   const changeGraphType = value => {
