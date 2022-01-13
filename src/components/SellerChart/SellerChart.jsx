@@ -19,10 +19,16 @@ import {
 import { chart, setOptions } from "highcharts";
 
 export default function SellerChart(props) {
-  const [time, setTime] = useState("Today");
-  const [valuesType, setValuesType] = useState("Total profit");
-  const [isPreviousDataIncluded, setIsPreviousDataIncluded] = useState(true);
-  const [chartType, setChartType] = useState("line");
+  const [time, setTime] = useState(localStorage.getItem("time") == null ? "Today" : localStorage.getItem("time"));
+  const [valuesType, setValuesType] = useState(
+    localStorage.getItem("valuesType") == null ? "Total profit" : localStorage.getItem("valuesType")
+  );
+  const [isPreviousDataIncluded, setIsPreviousDataIncluded] = useState(
+    localStorage.getItem("isPreviousDataIncluded") == null ? false : localStorage.getItem("isPreviousDataIncluded")
+  );
+  const [chartType, setChartType] = useState(
+    localStorage.getItem("chartType") == null ? "line" : localStorage.getItem("chartType")
+  );
   const [data, setData] = useState(todayItemsSold);
   const [previousData, setPreviousData] = useState(null);
 
@@ -184,25 +190,29 @@ export default function SellerChart(props) {
       }
     }
 
-    if (isPreviousDataIncluded) {
+    if (!isPreviousDataIncluded) {
       setPreviousData(null);
     }
   };
 
   const changeTime = value => {
     setTime(value);
+    localStorage.setItem("time", value);
   };
 
   const includePreviousData = value => {
     setIsPreviousDataIncluded(value);
+    localStorage.setItem("includePreviousData", value);
   };
 
   const changeGraphType = value => {
     setChartType(value === "Line graph" ? "line" : "column");
+    localStorage.setItem("chartType", value === "Line graph" ? "line" : "column");
   };
 
   const changeValuesType = value => {
     setValuesType(value);
+    localStorage.setItem("valuesType", value);
   };
 
   return (
@@ -212,7 +222,7 @@ export default function SellerChart(props) {
       previousData={previousData}
       theme={props.theme}
       includePreviousData={includePreviousData}
-      isPreviousDataIncluded={!isPreviousDataIncluded}
+      isPreviousDataIncluded={isPreviousDataIncluded}
       changeGraphType={changeGraphType}
       changeValuesType={changeValuesType}
       changeTime={changeTime}
