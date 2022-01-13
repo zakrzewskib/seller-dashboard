@@ -6,6 +6,8 @@ import Box from "@mui/system/Box";
 import SellerChartMenu from "./SellerChartMenu";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
+import "./SellerChart.css";
+
 const useSeries = (data, theme, previousData) => {
   if (previousData === null) {
     return [
@@ -119,7 +121,7 @@ export default function MyChart(props) {
   const series = useSeries(props.data, props.theme, props.previousData);
   const options = useOptions(series, props.theme, props.data, props.chartType);
 
-  return (
+  return props.loaded ? (
     <Box
       sx={{
         height: isDownFromLg ? "900px" : "650px",
@@ -138,6 +140,19 @@ export default function MyChart(props) {
       ></SellerChartMenu>
 
       <HighchartsComponent options={options} theme={props.theme} />
+    </Box>
+  ) : (
+    <Box
+      sx={{
+        height: isDownFromLg ? "900px" : "650px",
+      }}
+    >
+      <iframe
+        src="https://giphy.com/embed/Qt1jk5Q49C3h5CrlBe"
+        frameBorder="0"
+        class="giphy-embed render-gif"
+        allowFullScreen
+      ></iframe>
     </Box>
   );
 }

@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 import MyChart from "./MyChart";
 import axios from "axios";
 
-import "./SellerChart.css";
-
 import {
   todayItemsSold,
   todayTotalProfit,
@@ -298,8 +296,9 @@ export default function SellerChart(props) {
     localStorage.setItem("valuesType", value);
   };
 
-  return loaded ? (
+  return (
     <MyChart
+      loaded={loaded}
       data={data}
       options={defaultOptions}
       previousData={previousData}
@@ -313,12 +312,5 @@ export default function SellerChart(props) {
       valuesType={valuesType}
       chartType={chartType}
     ></MyChart>
-  ) : (
-    <iframe
-      src="https://giphy.com/embed/Qt1jk5Q49C3h5CrlBe"
-      frameBorder="0"
-      class="giphy-embed render-gif"
-      allowFullScreen
-    ></iframe>
   );
 }
