@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import MyChart from "./MyChart";
 import axios from "axios";
 
+import "./SellerChart.css";
+
 import {
   todayItemsSold,
   todayTotalProfit,
@@ -312,6 +314,11 @@ export default function SellerChart(props) {
       chartType={chartType}
     ></MyChart>
   ) : (
-    <h1>test</h1>
+    <iframe
+      src="https://giphy.com/embed/Qt1jk5Q49C3h5CrlBe"
+      frameBorder="0"
+      class="giphy-embed render-gif"
+      allowFullScreen
+    ></iframe>
   );
 }
