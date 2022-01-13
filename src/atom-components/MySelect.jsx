@@ -41,6 +41,7 @@ export default function MySelect(props) {
         {props.items.map((item) => (
           <MenuItem
             value={item.value}
+            key={Math.random()}
             sx={{
               color: props.theme.palette.font,
             }}

@@ -1,18 +1,40 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import MyChart from "./MyChart";
 
-import Highcharts from "highcharts";
-import HighchartsReact from "highcharts-react-official";
-import Box from "@mui/system/Box";
-import SellerChartMenu from "./SellerChartMenu";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import {
+  todayItemsSold,
+  todayTotalProfit,
+  thisWeekItemsSold,
+  thisWeekTotalProfit,
+  thisYearItemsSold,
+  thisYearTotalProfit,
+  lastWeekSeriesNumberOfItems,
+  yesterdaySeriesNumberOfItems,
+  lastYearSeriesNumberOfItems,
+  lastWeekSeriesTotalProfit,
+  yesterdaySeriesTotalProfit,
+  lastYearSeriesTotalProfit,
+} from "../../data-our-db-mock/user1-data";
+import { chart, setOptions } from "highcharts";
 
 export default function SellerChart(props) {
-  const isDownFromLg = useMediaQuery(props.theme.breakpoints.down("lg"));
+  const [time, setTime] = useState(localStorage.getItem("time") == null ? "Today" : localStorage.getItem("time"));
+  const [valuesType, setValuesType] = useState(
+    localStorage.getItem("valuesType") == null ? "Total profit" : localStorage.getItem("valuesType")
+  );
+  const [isPreviousDataIncluded, setIsPreviousDataIncluded] = useState(
+    localStorage.getItem("isPreviousDataIncluded") == null ? false : localStorage.getItem("isPreviousDataIncluded")
+  );
+  const [chartType, setChartType] = useState(
+    localStorage.getItem("chartType") == null ? "line" : localStorage.getItem("chartType")
+  );
+  const [data, setData] = useState(todayItemsSold);
+  const [previousData, setPreviousData] = useState(null);
 
-  const [options, setOptions] = useState({
+  const [defaultOptions, setDefaultOptions] = useState({
     chart: {
-      type: "column",
+      type: chartType,
       backgroundColor: props.theme.palette.background.default,
     },
 
@@ -25,22 +47,15 @@ export default function SellerChart(props) {
       },
       margin: 50,
 
-      text: "Total number of items sold last week",
+      text: data.title,
     },
 
     xAxis: {
-      categories: [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
-      ],
+      categories: data.categories,
       labels: {
         style: {
           color: props.theme.palette.font,
+          fontSize: "14px",
         },
       },
     },
@@ -52,15 +67,17 @@ export default function SellerChart(props) {
       labels: {
         style: {
           color: props.theme.palette.font,
+          fontSize: "14px",
         },
       },
     },
 
     series: [
       {
-        name: "Total number of items sold",
-        data: [211, 451, 545, 123, 123, 1235, 555],
+        name: data.series.name,
+        data: data.series.data,
         color: props.theme.palette.primary.main,
+        borderColor: props.theme.palette.font,
       },
     ],
 
@@ -76,48 +93,142 @@ export default function SellerChart(props) {
   });
 
   useEffect(() => {
-    console.log(props.theme.name);
-    setOptions((prevState) => ({
-      ...prevState,
-      //colors: props.theme.name === "darkTheme" ? ["red"] : ["blue"],
-    }));
-  }, [props.theme]);
+    setOptionsBasedOnParameters();
+    setDefaultOptions({
+      chart: {
+        type: chartType,
+        backgroundColor: props.theme.palette.background.default,
+      },
 
-  const includePreviousData = (include) => {
-    console.log("should include previous data - " + include);
+      title: {
+        style: {
+          color: props.theme.palette.font,
+          fontWeight: "600",
+          fontFamily: "Roboto",
+          fontSize: "28px",
+        },
+        margin: 50,
+
+        text: data.title,
+      },
+
+      xAxis: {
+        categories: data.categories,
+        labels: {
+          style: {
+            color: props.theme.palette.font,
+            fontSize: "14px",
+          },
+        },
+      },
+
+      yAxis: {
+        title: {
+          text: "",
+        },
+        labels: {
+          style: {
+            color: props.theme.palette.font,
+            fontSize: "14px",
+          },
+        },
+      },
+
+      series: [
+        {
+          name: data.series.name,
+          data: data.series.data,
+          color: props.theme.palette.primary.main,
+          borderColor: props.theme.palette.font,
+        },
+      ],
+
+      legend: {
+        itemStyle: {
+          color: props.theme.palette.font,
+          fontWeight: "400",
+        },
+        itemHoverStyle: {
+          color: props.theme.palette.primary.main,
+        },
+      },
+    });
+  }, [time, valuesType, chartType, isPreviousDataIncluded]);
+
+  const setOptionsBasedOnParameters = () => {
+    if (time === "Today") {
+      if (valuesType === "Total profit") {
+        setData(todayTotalProfit);
+        setPreviousData(yesterdaySeriesTotalProfit);
+      } else {
+        setData(todayItemsSold);
+        setPreviousData(yesterdaySeriesNumberOfItems);
+      }
+    } else if (time === "This week") {
+      if (valuesType === "Total profit") {
+        setData(thisWeekTotalProfit);
+        setPreviousData(lastWeekSeriesTotalProfit);
+      } else {
+        setData(thisWeekItemsSold);
+        setPreviousData(lastWeekSeriesNumberOfItems);
+      }
+    } else if (time === "This year") {
+      if (valuesType === "Total profit") {
+        setData(thisYearTotalProfit);
+        setPreviousData(lastYearSeriesTotalProfit);
+      } else {
+        setData(thisYearItemsSold);
+        setPreviousData(lastYearSeriesNumberOfItems);
+      }
+    } else {
+      if (valuesType === "Total profit") {
+        setData(todayTotalProfit);
+        setPreviousData(yesterdaySeriesTotalProfit);
+      } else {
+        setData(todayItemsSold);
+        setPreviousData(yesterdaySeriesNumberOfItems);
+      }
+    }
+    console.log({ isPreviousDataIncluded });
+    if (!isPreviousDataIncluded) {
+      setPreviousData(null);
+    }
   };
 
-  const changeGraphType = (value) => {
-    console.log(value);
+  const changeTime = value => {
+    setTime(value);
+    localStorage.setItem("time", value);
   };
 
-  const changeValuesType = (value) => {
-    console.log(value);
+  const includePreviousData = value => {
+    setIsPreviousDataIncluded(value);
+    localStorage.setItem("isPreviousDataIncluded", value);
   };
 
-  const changeDataTime = (value) => {
-    console.log(value);
+  const changeGraphType = value => {
+    setChartType(value === "Line graph" ? "line" : "column");
+    localStorage.setItem("chartType", value === "Line graph" ? "line" : "column");
+  };
+
+  const changeValuesType = value => {
+    setValuesType(value);
+    localStorage.setItem("valuesType", value);
   };
 
   return (
-    <Box
-      sx={{
-        height: isDownFromLg ? "" : "650px",
-      }}
-    >
-      <SellerChartMenu
-        theme={props.theme}
-        onIncludePreviousData={includePreviousData}
-        onChangeGraphType={changeGraphType}
-        onChangeValuesType={changeValuesType}
-        onChangeDataTime={changeDataTime}
-      ></SellerChartMenu>
-
-      <HighchartsReact
-        containerProps={{ style: { height: "80%" } }}
-        highcharts={Highcharts}
-        options={options}
-      />
-    </Box>
+    <MyChart
+      data={data}
+      options={defaultOptions}
+      previousData={previousData}
+      theme={props.theme}
+      includePreviousData={includePreviousData}
+      isPreviousDataIncluded={isPreviousDataIncluded}
+      changeGraphType={changeGraphType}
+      changeValuesType={changeValuesType}
+      changeTime={changeTime}
+      time={time}
+      valuesType={valuesType}
+      chartType={chartType}
+    ></MyChart>
   );
 }
