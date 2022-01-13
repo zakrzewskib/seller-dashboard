@@ -131,7 +131,7 @@ export default function MyChart(props) {
         isPreviousDataIncluded={props.isPreviousDataIncluded}
         onChangeGraphType={props.changeGraphType}
         onChangeValuesType={props.changeValuesType}
-        onChangeDataTime={props.changeDataTime}
+        onChangeDataTime={props.changeTime}
         time={props.time}
         valuesType={props.valuesType}
         chartType={props.chartType === "line" ? "Line graph" : "Bar graph"}

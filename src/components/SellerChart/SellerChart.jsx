@@ -86,13 +86,83 @@ export default function SellerChart(props) {
     },
   });
 
-  useEffect(() => {});
+  useEffect(() => {
+    setDefaultOptions({
+      chart: {
+        type: chartType,
+        backgroundColor: props.theme.palette.background.default,
+      },
 
-  const includePreviousData = value => {};
+      title: {
+        style: {
+          color: props.theme.palette.font,
+          fontWeight: "600",
+          fontFamily: "Roboto",
+          fontSize: "28px",
+        },
+        margin: 50,
 
-  const changeGraphType = value => {};
+        text: data.title,
+      },
 
-  const changeValuesType = value => {};
+      xAxis: {
+        categories: data.categories,
+        labels: {
+          style: {
+            color: props.theme.palette.font,
+            fontSize: "14px",
+          },
+        },
+      },
+
+      yAxis: {
+        title: {
+          text: "",
+        },
+        labels: {
+          style: {
+            color: props.theme.palette.font,
+            fontSize: "14px",
+          },
+        },
+      },
+
+      series: [
+        {
+          name: data.series.name,
+          data: data.series.data,
+          color: props.theme.palette.primary.main,
+          borderColor: props.theme.palette.font,
+        },
+      ],
+
+      legend: {
+        itemStyle: {
+          color: props.theme.palette.font,
+          fontWeight: "400",
+        },
+        itemHoverStyle: {
+          color: props.theme.palette.primary.main,
+        },
+      },
+    });
+  }, [time]);
+
+  const changeTime = value => {
+    console.log(value);
+  };
+
+  const includePreviousData = value => {
+    console.log(value);
+  };
+
+  const changeGraphType = value => {
+    console.log(value);
+  };
+
+  const changeValuesType = value => {
+    console.log(value);
+  };
 
   return (
     <MyChart
@@ -104,6 +174,7 @@ export default function SellerChart(props) {
       isPreviousDataIncluded={false}
       changeGraphType={changeGraphType}
       changeValuesType={changeValuesType}
+      changeTime={changeTime}
       time={time}
       valuesType={valuesType}
       chartType={chartType}
