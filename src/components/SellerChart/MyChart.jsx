@@ -1,61 +1,69 @@
 import React from "react";
+import { useEffect } from "react";
+
 import Highcharts from "highcharts";
 import Box from "@mui/system/Box";
 import SellerChartMenu from "./SellerChartMenu";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-const useSeries = (selectedOption, props, additionalSeries) => {
-  if (additionalSeries === null) {
+const useSeries = (data, theme, previousData) => {
+  if (previousData === null) {
     return [
       {
-        name: selectedOption.series.name,
-        data: selectedOption.series.data,
-        color: props.theme.palette.primary.main,
-        borderColor: props.theme.palette.font,
+        name: data.series.name,
+        data: data.series.data,
+
+        color: theme.palette.primary.main,
+        borderColor: theme.palette.font,
       },
     ];
   } else {
     return [
       {
-        name: selectedOption.series.name,
-        data: selectedOption.series.data,
-        color: props.theme.palette.primary.main,
-        borderColor: props.theme.palette.font,
+        name: data.series.name,
+        data: data.series.data,
+
+        color: theme.palette.primary.main,
+        borderColor: theme.palette.font,
       },
       {
-        name: additionalSeries.name,
-        data: additionalSeries.data,
-        color: props.theme.palette.secondary.main,
-        borderColor: props.theme.palette.font,
+        name: previousData.name,
+        data: previousData.data,
+
+        color: theme.palette.secondary.main,
+        borderColor: theme.palette.font,
       },
     ];
   }
 };
 
-const useOptions = (series, props, selectedOption, chartType) => {
+const useOptions = (series, theme, data, chartType) => {
   return {
     chart: {
       type: chartType,
-      backgroundColor: props.theme.palette.background.default,
+
+      backgroundColor: theme.palette.background.default,
     },
 
     title: {
+      text: data.title,
+
       style: {
-        color: props.theme.palette.font,
+        color: theme.palette.font,
         fontWeight: "600",
         fontFamily: "Roboto",
         fontSize: "28px",
       },
-      margin: 50,
 
-      text: selectedOption.title,
+      margin: 50,
     },
 
     xAxis: {
-      categories: selectedOption.categories,
+      categories: data.categories,
+
       labels: {
         style: {
-          color: props.theme.palette.font,
+          color: theme.palette.font,
           fontSize: "14px",
         },
       },
@@ -67,7 +75,7 @@ const useOptions = (series, props, selectedOption, chartType) => {
       },
       labels: {
         style: {
-          color: props.theme.palette.font,
+          color: theme.palette.font,
           fontSize: "14px",
         },
       },
@@ -77,11 +85,11 @@ const useOptions = (series, props, selectedOption, chartType) => {
 
     legend: {
       itemStyle: {
-        color: props.theme.palette.font,
+        color: theme.palette.font,
         fontWeight: "400",
       },
       itemHoverStyle: {
-        color: props.theme.palette.primary.main,
+        color: theme.palette.primary.main,
       },
     },
   };
@@ -89,36 +97,27 @@ const useOptions = (series, props, selectedOption, chartType) => {
 
 const HighchartsComponent = ({ options, ...props }) => {
   const isDownFromSm = useMediaQuery(props.theme.breakpoints.down("sm"));
+
   const containerRef = React.useRef(null);
+
   const chartRef = React.useRef(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     chartRef.current = Highcharts.chart(containerRef.current, options);
   }, [options]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     chartRef.current.update(options, true, true);
   }, [chartRef, options]);
 
-  return (
-    <div
-      ref={containerRef}
-      {...props}
-      style={{ height: isDownFromSm ? "70%" : "80%" }}
-    />
-  );
+  return <div ref={containerRef} {...props} style={{ height: isDownFromSm ? "70%" : "80%" }} />;
 };
 
 export default function MyChart(props) {
   const isDownFromLg = useMediaQuery(props.theme.breakpoints.down("lg"));
 
-  const series = useSeries(props.selectedOption, props, props.additionalSeries);
-  const options = useOptions(
-    series,
-    props,
-    props.selectedOption,
-    props.chartType
-  );
+  const series = useSeries(props.data, props.theme, props.previousData);
+  const options = useOptions(series, props.theme, props.data, props.chartType);
 
   return (
     <Box
