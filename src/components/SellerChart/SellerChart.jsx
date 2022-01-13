@@ -16,7 +16,7 @@ import {
   yesterdaySeriesTotalProfit,
   lastYearSeriesTotalProfit,
 } from "../../data-our-db-mock/user1-data";
-import { setOptions } from "highcharts";
+import { chart, setOptions } from "highcharts";
 
 export default function SellerChart(props) {
   const [time, setTime] = useState("Today");
@@ -87,6 +87,7 @@ export default function SellerChart(props) {
   });
 
   useEffect(() => {
+    setOptionsBasedOnParameters();
     setDefaultOptions({
       chart: {
         type: chartType,
@@ -146,22 +147,62 @@ export default function SellerChart(props) {
         },
       },
     });
-  }, [time]);
+  }, [time, valuesType, chartType, isPreviousDataIncluded]);
+
+  const setOptionsBasedOnParameters = () => {
+    if (time === "Today") {
+      if (valuesType === "Total profit") {
+        setData(todayTotalProfit);
+        setPreviousData(yesterdaySeriesTotalProfit);
+      } else {
+        setData(todayItemsSold);
+        setPreviousData(yesterdaySeriesNumberOfItems);
+      }
+    } else if (time === "This week") {
+      if (valuesType === "Total profit") {
+        setData(thisWeekTotalProfit);
+        setPreviousData(lastWeekSeriesTotalProfit);
+      } else {
+        setData(thisWeekItemsSold);
+        setPreviousData(lastWeekSeriesNumberOfItems);
+      }
+    } else if (time === "This year") {
+      if (valuesType === "Total profit") {
+        setData(thisYearTotalProfit);
+        setPreviousData(lastYearSeriesTotalProfit);
+      } else {
+        setData(thisYearItemsSold);
+        setPreviousData(lastYearSeriesNumberOfItems);
+      }
+    } else {
+      if (valuesType === "Total profit") {
+        setData(todayTotalProfit);
+        setPreviousData(yesterdaySeriesTotalProfit);
+      } else {
+        setData(todayItemsSold);
+        setPreviousData(yesterdaySeriesNumberOfItems);
+      }
+    }
+
+    if (isPreviousDataIncluded) {
+      setPreviousData(null);
+    }
+  };
 
   const changeTime = value => {
-    console.log(value);
+    setTime(value);
   };
 
   const includePreviousData = value => {
-    console.log(value);
+    setIsPreviousDataIncluded(value);
   };
 
   const changeGraphType = value => {
-    console.log(value);
+    setChartType(value === "Line graph" ? "line" : "column");
   };
 
   const changeValuesType = value => {
-    console.log(value);
+    setValuesType(value);
   };
 
   return (
@@ -171,7 +212,7 @@ export default function SellerChart(props) {
       previousData={previousData}
       theme={props.theme}
       includePreviousData={includePreviousData}
-      isPreviousDataIncluded={false}
+      isPreviousDataIncluded={!isPreviousDataIncluded}
       changeGraphType={changeGraphType}
       changeValuesType={changeValuesType}
       changeTime={changeTime}
