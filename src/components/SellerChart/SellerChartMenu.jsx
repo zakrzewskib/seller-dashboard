@@ -11,7 +11,7 @@ export default function SellerChartMenu(props) {
   const includePreviousDataWidth = 233;
 
   const includePreviousData = () => {
-    props.onIncludePreviousData(props.checked);
+    props.onIncludePreviousData(props.isPreviousDataIncluded);
   };
 
   return (
@@ -33,7 +33,7 @@ export default function SellerChartMenu(props) {
       </Grid>
       <Grid item>
         <MySelect
-          default={{ value: props.values }}
+          default={{ value: props.valuesType }}
           items={[{ value: "Number of items" }, { value: "Total profit" }]}
           theme={props.theme}
           width={isMobile ? includePreviousDataWidth : 180}
@@ -43,11 +43,7 @@ export default function SellerChartMenu(props) {
       <Grid item>
         <MySelect
           default={{ value: props.time }}
-          items={[
-            { value: "Today" },
-            { value: "This week" },
-            { value: "This year" },
-          ]}
+          items={[{ value: "Today" }, { value: "This week" }, { value: "This year" }]}
           theme={props.theme}
           width={isMobile ? includePreviousDataWidth : null}
           onHandleChange={props.onChangeDataTime}
@@ -60,7 +56,7 @@ export default function SellerChartMenu(props) {
           control={
             <Checkbox
               onChange={includePreviousData}
-              checked={props.checked}
+              checked={props.isPreviousDataIncluded}
               sx={{
                 color: props.theme.palette.notActiveCheckBox,
                 "&.Mui-checked": {
@@ -71,11 +67,7 @@ export default function SellerChartMenu(props) {
           }
           label={
             <Typography
-              color={
-                props.checked
-                  ? props.theme.palette.font
-                  : props.theme.palette.notActiveCheckBox
-              }
+              color={props.isPreviousDataIncluded ? props.theme.palette.font : props.theme.palette.notActiveCheckBox}
             >
               INCLUDE PREVIOUS DATA
             </Typography>

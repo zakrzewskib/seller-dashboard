@@ -95,7 +95,7 @@ const useOptions = (series, theme, data, chartType) => {
   };
 };
 
-const HighchartsComponent = ({ options, ...props }) => {
+const HighchartsComponent = props => {
   const isDownFromSm = useMediaQuery(props.theme.breakpoints.down("sm"));
 
   const containerRef = React.useRef(null);
@@ -103,12 +103,12 @@ const HighchartsComponent = ({ options, ...props }) => {
   const chartRef = React.useRef(null);
 
   useEffect(() => {
-    chartRef.current = Highcharts.chart(containerRef.current, options);
-  }, [options]);
+    chartRef.current = Highcharts.chart(containerRef.current, props.options);
+  }, [props.options]);
 
   useEffect(() => {
-    chartRef.current.update(options, true, true);
-  }, [chartRef, options]);
+    chartRef.current.update(props.options, true, true);
+  }, [chartRef, props.options]);
 
   return <div ref={containerRef} {...props} style={{ height: isDownFromSm ? "70%" : "80%" }} />;
 };
@@ -128,13 +128,13 @@ export default function MyChart(props) {
       <SellerChartMenu
         theme={props.theme}
         onIncludePreviousData={props.includePreviousData}
+        isPreviousDataIncluded={props.isPreviousDataIncluded}
         onChangeGraphType={props.changeGraphType}
         onChangeValuesType={props.changeValuesType}
         onChangeDataTime={props.changeDataTime}
         time={props.time}
-        values={props.values}
-        chartType={props.chartTypeValue}
-        checked={props.checked}
+        valuesType={props.valuesType}
+        chartType={props.chartType === "line" ? "Line graph" : "Bar graph"}
       ></SellerChartMenu>
 
       <HighchartsComponent options={options} theme={props.theme} />
