@@ -5,6 +5,8 @@ import { ThemeProvider } from "@emotion/react";
 import { useState } from "react";
 import Dashboard from "./pages/Dashboard";
 import LoginPage from "./pages/LoginPage";
+import {PrivateRoute} from "./pages/LoginPage"
+
 import { CssBaseline } from "@mui/material";
 import Navigation from "./components/Navigation";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -90,7 +92,7 @@ function App() {
           <Route
             exact
             path="/dashboard"
-            element={<Dashboard theme={theme} />}
+            element={<PrivateRoute theme={theme}><Dashboard theme={theme} /></PrivateRoute>}
           />
         </Routes>
       </ThemeProvider>

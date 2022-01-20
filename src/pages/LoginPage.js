@@ -16,6 +16,9 @@ import { Link as RouterLink } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { Container } from "@mui/material";
 
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 const styles = {
   inputDark: {
     color: "#ffffff",
@@ -30,12 +33,7 @@ const styles = {
 
 function Copyright(props) {
   return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {"Copyright © "}
       {new Date().getFullYear()}
       {" Bartosz Zakrzewski & Bartłomiej Czekaj"}
@@ -43,15 +41,39 @@ function Copyright(props) {
   );
 }
 
+export const PrivateRoute = (props) => {
+  let navigate = useNavigate();
+  if (!mockupAuth.isAuthenticated) {
+    return <LoginPage theme={props.theme} classes={styles} />; // custom styles not working - inputDark etc.
+  }
+  return <div>{props.children}</div>;
+};
+
+export const mockupAuth = {
+  isAuthenticated: false,
+
+  login(username, password, callbackFunction) {
+    if (username === "test" && password === "test") {
+      this.isAuthenticated = true;
+      callbackFunction();
+    }
+  },
+
+  logout(callbackFunction) {
+    this.isAuthenticated = false;
+    callbackFunction();
+  }
+};
+
 function LoginPage(props) {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const [email, setEmail] = useState("test");
+  const [password, setPassword] = useState("test");
+  let navigate = useNavigate();
+
+  const handleSubmit = event => {
+    mockupAuth.login(email, password, () =>
+      navigate("/")
+    );
   };
 
   const { classes } = props;
@@ -67,10 +89,7 @@ function LoginPage(props) {
         sx={{
           backgroundImage: "url(https://source.unsplash.com/random)",
           backgroundRepeat: "no-repeat",
-          backgroundColor: (t) =>
-            t.palette.mode === "light"
-              ? t.palette.grey[50]
-              : t.palette.grey[900],
+          backgroundColor: t => (t.palette.mode === "light" ? t.palette.grey[50] : t.palette.grey[900]),
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -97,57 +116,44 @@ function LoginPage(props) {
             alignItems: "center",
           }}
         >
-          <Avatar
-            sx={{ m: 1, mt: 3, bgcolor: props.theme.palette.primary.main }}
-          >
+          <Avatar sx={{ m: 1, mt: 3, bgcolor: props.theme.palette.primary.main }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 1 }}
-          >
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
               fullWidth
-              id="email"
               label="Email Address"
-              name="email"
               autoComplete="email"
               autoFocus
+              value={email}
               InputProps={{
-                className:
-                  props.theme.name === "darkTheme"
-                    ? classes.inputDark
-                    : classes.inputLight,
+                className: props.theme.name === "darkTheme" ? classes.inputDark : classes.inputLight,
               }}
               InputLabelProps={{
                 className: classes.label,
               }}
+              onChange={(e) =>setEmail(e.target.value)}
             />
             <TextField
               margin="normal"
               required
               fullWidth
-              name="password"
               label="Password"
               type="password"
-              id="password"
+              value={password}
               autoComplete="current-password"
               InputProps={{
-                className:
-                  props.theme.name === "darkTheme"
-                    ? classes.inputDark
-                    : classes.inputLight,
+                className: props.theme.name === "darkTheme" ? classes.inputDark : classes.inputLight,
               }}
               InputLabelProps={{
                 className: classes.label,
               }}
+              onChange={(e) =>setPassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -155,12 +161,7 @@ function LoginPage(props) {
               sx={{ color: "#BDBDBD" }}
             />
             <RouterLink to="/dashboard">
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
+              <Button type="submit" onClick={handleSubmit} fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                 Sign In
               </Button>
             </RouterLink>
