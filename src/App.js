@@ -70,14 +70,10 @@ function App() {
   const [theme, setTheme] = useState(darkTheme);
   const [checkedForTheme, setCheckedForTheme] = useState(true);
 
-  const [key, setKey] = useState(1);
-
   const onHandleChange = (e) => {
     setCheckedForTheme(e.target.checked);
     const theme = checkedForTheme ? lightTheme : darkTheme;
     setTheme(theme);
-
-    setKey(Math.random());
   };
 
   return (
@@ -87,17 +83,17 @@ function App() {
           theme={theme}
           checkedForSwitch={checkedForTheme}
           handleChange={onHandleChange}
-        />{" "}
+        />
         <CssBaseline />
         <Routes>
           <Route exact path="/" element={<LoginPage theme={theme} />} />
           <Route
             exact
             path="/dashboard"
-            element={<Dashboard theme={theme} keyToMountAgain={key} />}
+            element={<Dashboard theme={theme} />}
           />
-        </Routes>{" "}
-      </ThemeProvider>{" "}
+        </Routes>
+      </ThemeProvider>
     </Router>
   );
 }

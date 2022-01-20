@@ -12,7 +12,7 @@ export default function Dashboard(props) {
       <Grid container spacing={2}>
         <Grid item xs={12} sm={12} md={12} lg={8}>
           <Widget theme={props.theme}>
-            <SellerChart key={props.keyToMountAgain} theme={props.theme} />
+            <SellerChart theme={props.theme} />
           </Widget>
         </Grid>
 
