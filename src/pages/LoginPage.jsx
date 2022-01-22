@@ -44,6 +44,8 @@ export const mockAuth = {
     console.log("login");
     if (username === "test" && password === "test") {
       this.isAuthenticated = true;
+      alert("Correct username or password");
+      console.log(callbackFunction);
       callbackFunction();
     } else {
       this.wrongPassword = true;
