@@ -51,7 +51,7 @@ export const mockupAuth = {
   },
 };
 
-const CustomTextField = styled(TextField)({
+const CustomTextFieldDark = styled(TextField)(({ theme }) => ({
   "& .MuiInputBase-input": {
     color: "#ffffff",
   },
@@ -75,7 +75,33 @@ const CustomTextField = styled(TextField)({
       borderColor: "#7E57C2",
     },
   },
-});
+}));
+
+const CustomTextFieldLight = styled(TextField)(({ theme }) => ({
+  "& .MuiInputBase-input": {
+    color: "#252525",
+  },
+  "& label": {
+    color: "#FEAC34",
+  },
+  "& label.Mui-focused": {
+    color: "#FEAC34",
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "#FEAC34",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "#FEAC34",
+    },
+    "&:hover fieldset": {
+      borderColor: "#FEAC34",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "#FEAC34",
+    },
+  },
+}));
 
 export default function LoginPage(props) {
   const [email, setEmail] = useState("test");
@@ -131,27 +157,55 @@ export default function LoginPage(props) {
             Sign in
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-            <CustomTextField
-              margin="normal"
-              required
-              fullWidth
-              label="Email Address"
-              autoComplete="email"
-              autoFocus
-              value={email}
-              color="warning"
-              onChange={e => setEmail(e.target.value)}
-            />
-            <CustomTextField
-              margin="normal"
-              required
-              fullWidth
-              label="Password"
-              type="password"
-              value={password}
-              autoComplete="current-password"
-              onChange={e => setPassword(e.target.value)}
-            />
+            {props.theme.name === "darkTheme" ? (
+              <div>
+                <CustomTextFieldDark
+                  margin="normal"
+                  required
+                  fullWidth
+                  label="Email Address"
+                  autoComplete="email"
+                  autoFocus
+                  value={email}
+                  color="warning"
+                  onChange={e => setEmail(e.target.value)}
+                />
+                <CustomTextFieldDark
+                  margin="normal"
+                  required
+                  fullWidth
+                  label="Password"
+                  type="password"
+                  value={password}
+                  autoComplete="current-password"
+                  onChange={e => setPassword(e.target.value)}
+                />
+              </div>
+            ) : (
+              <div>
+                <CustomTextFieldLight
+                  margin="normal"
+                  required
+                  fullWidth
+                  label="Email Address"
+                  autoComplete="email"
+                  autoFocus
+                  value={email}
+                  color="warning"
+                  onChange={e => setEmail(e.target.value)}
+                />
+                <CustomTextFieldLight
+                  margin="normal"
+                  required
+                  fullWidth
+                  label="Password"
+                  type="password"
+                  value={password}
+                  autoComplete="current-password"
+                  onChange={e => setPassword(e.target.value)}
+                />
+              </div>
+            )}
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
