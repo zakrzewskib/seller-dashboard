@@ -1,4 +1,8 @@
 import * as React from "react";
+import { Link as RouterLink } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,25 +15,8 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import { Link as RouterLink } from "react-router-dom";
 
-import { withStyles } from "@material-ui/core/styles";
-import { Container } from "@mui/material";
-
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
-const styles = {
-  inputDark: {
-    color: "#ffffff",
-  },
-  inputLight: {
-    color: "#252525",
-  },
-  label: {
-    color: "#BDBDBD",
-  },
-};
+import { styled } from "@mui/material/styles";
 
 function Copyright(props) {
   return (
@@ -41,10 +28,9 @@ function Copyright(props) {
   );
 }
 
-export const PrivateRoute = (props) => {
-  let navigate = useNavigate();
+export const PrivateRoute = props => {
   if (!mockupAuth.isAuthenticated) {
-    return <LoginPage theme={props.theme} classes={styles} />; // custom styles not working - inputDark etc.
+    return <LoginPage theme={props.theme} />;
   }
   return <div>{props.children}</div>;
 };
@@ -62,21 +48,43 @@ export const mockupAuth = {
   logout(callbackFunction) {
     this.isAuthenticated = false;
     callbackFunction();
-  }
+  },
 };
 
-function LoginPage(props) {
+const CustomTextField = styled(TextField)({
+  "& .MuiInputBase-input": {
+    color: "#ffffff",
+  },
+  "& label": {
+    color: "#7E57C2",
+  },
+  "& label.Mui-focused": {
+    color: "#7E57C2",
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "#7E57C2",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "#7E57C2",
+    },
+    "&:hover fieldset": {
+      borderColor: "#7E57C2",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "#7E57C2",
+    },
+  },
+});
+
+export default function LoginPage(props) {
   const [email, setEmail] = useState("test");
   const [password, setPassword] = useState("test");
   let navigate = useNavigate();
 
-  const handleSubmit = event => {
-    mockupAuth.login(email, password, () =>
-      navigate("/")
-    );
+  const handleSubmit = () => {
+    mockupAuth.login(email, password, () => navigate("/", { replace: true }));
   };
-
-  const { classes } = props;
 
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
@@ -123,7 +131,7 @@ function LoginPage(props) {
             Sign in
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-            <TextField
+            <CustomTextField
               margin="normal"
               required
               fullWidth
@@ -131,15 +139,10 @@ function LoginPage(props) {
               autoComplete="email"
               autoFocus
               value={email}
-              InputProps={{
-                className: props.theme.name === "darkTheme" ? classes.inputDark : classes.inputLight,
-              }}
-              InputLabelProps={{
-                className: classes.label,
-              }}
-              onChange={(e) =>setEmail(e.target.value)}
+              color="warning"
+              onChange={e => setEmail(e.target.value)}
             />
-            <TextField
+            <CustomTextField
               margin="normal"
               required
               fullWidth
@@ -147,13 +150,7 @@ function LoginPage(props) {
               type="password"
               value={password}
               autoComplete="current-password"
-              InputProps={{
-                className: props.theme.name === "darkTheme" ? classes.inputDark : classes.inputLight,
-              }}
-              InputLabelProps={{
-                className: classes.label,
-              }}
-              onChange={(e) =>setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -184,5 +181,3 @@ function LoginPage(props) {
     </Grid>
   );
 }
-
-export default withStyles(styles)(LoginPage);
