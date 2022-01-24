@@ -21,9 +21,9 @@ export default function MySelect(props) {
           },
         }}
       />
+      {/* Maybe Select component should be replaced with menu */}
       <Select
         variant="outlined"
-        defaultValue={props.default.value}
         value={option}
         onChange={handleChange}
         inputProps={{ "aria-label": "Without label" }}
