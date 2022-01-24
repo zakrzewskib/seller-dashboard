@@ -55,9 +55,15 @@ export default function OfferItem(props) {
         <Box component="span" sx={{ fontSize: 14 }}>
           number of sold units: {props.numberOfSoldUnits}
         </Box>
-        <Box component="span" sx={{ fontSize: 14 }}>
-          second param: {props.secondParam}
-        </Box>
+        {props.mode === 1 || props.mode === 3 ? (
+          <Box component="span" sx={{ fontSize: 14 }}>
+            turnover: {props.secondParam} $
+          </Box>
+        ) : (
+          <Box component="span" sx={{ fontSize: 14 }}>
+            popularity: {props.secondParam} views
+          </Box>
+        )}
       </Box>
     </Box>
   );
