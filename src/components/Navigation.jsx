@@ -20,6 +20,8 @@ import { Container, Switch } from "@mui/material";
 import { styled } from "@mui/system";
 import { Link as RouterLink } from "react-router-dom";
 
+import MyNavSelect from "../atom-components/MySelect";
+
 export default function Navigation(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const theme = useTheme();
@@ -107,6 +109,7 @@ export default function Navigation(props) {
           />
 
           <div>
+            {/* Can this be simplified? TODO */}
             {isMobile ? (
               <>
                 <Tooltip title="Account settings">
@@ -169,7 +172,7 @@ export default function Navigation(props) {
               </>
             ) : (
               <>
-                <Button
+                {/* <Button
                   aria-controls="demo-customized-menu"
                   aria-haspopup="true"
                   variant="contained"
@@ -180,8 +183,18 @@ export default function Navigation(props) {
                   startIcon={<Avatar sx={{ width: 32, height: 32 }}>M</Avatar>}
                 >
                   {profileItemProps.currentAccountPrimaryText}
-                </Button>
-                <Menu
+                </Button> */}
+
+                <MyNavSelect
+                  default={{ value: profileItemProps.currentAccountPrimaryText }}
+                  items={[
+                    { value: profileItemProps.currentAccountPrimaryText },
+                    { value: profileItemProps.currentAccountPrimaryText },
+                  ]}
+                  theme={props.theme}
+                  onHandleChange={() => console.log("user changed")}
+                />
+                {/* <Menu
                   id="demo-customized-menu"
                   anchorEl={anchorEl}
                   anchorOrigin={{
@@ -224,7 +237,7 @@ export default function Navigation(props) {
                       <Typography color="#252525">Logout</Typography>
                     </MenuItem>
                   </RouterLink>
-                </Menu>
+                </Menu> */}
               </>
             )}
           </div>

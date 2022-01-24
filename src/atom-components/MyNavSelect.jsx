@@ -23,6 +23,7 @@ export default function MySelect(props) {
       />
       <Select
         variant="outlined"
+        defaultValue={props.default.value}
         value={option}
         onChange={handleChange}
         inputProps={{ "aria-label": "Without label" }}
