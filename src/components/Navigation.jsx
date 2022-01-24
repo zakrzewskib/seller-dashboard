@@ -7,7 +7,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import ListItemWithImage from "./ListItemWithImage";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -20,7 +19,7 @@ import { Container, Switch } from "@mui/material";
 import { styled } from "@mui/system";
 import { Link as RouterLink } from "react-router-dom";
 
-import MyNavSelect from "../atom-components/MySelect";
+import MyNavSelect from "../atom-components/MyNavSelect";
 
 export default function Navigation(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -30,16 +29,6 @@ export default function Navigation(props) {
   const profileItemProps = {
     currentAccountPrimaryText: props.username,
     currentAccountSecondaryText: "Seller",
-  };
-
-  console.log(isMobile);
-
-  const handleMenu = event => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
   };
 
   const handleThemeChanged = e => {
@@ -112,7 +101,7 @@ export default function Navigation(props) {
             {/* Can this be simplified? TODO */}
             {isMobile ? (
               <>
-                <Tooltip title="Account settings">
+                {/* <Tooltip title="Account settings">
                   <IconButton
                     size="large"
                     edge="start"
@@ -168,32 +157,25 @@ export default function Navigation(props) {
                       Logout
                     </MenuItem>
                   </RouterLink>
-                </Menu>
+                </Menu> */}
               </>
             ) : (
               <>
-                {/* <Button
-                  aria-controls="demo-customized-menu"
-                  aria-haspopup="true"
-                  variant="contained"
-                  color="primary"
-                  disableElevation
-                  onClick={handleMenu}
-                  endIcon={<KeyboardArrowDownIcon />}
-                  startIcon={<Avatar sx={{ width: 32, height: 32 }}>M</Avatar>}
-                >
-                  {profileItemProps.currentAccountPrimaryText}
-                </Button> */}
-
                 <MyNavSelect
                   default={{ value: profileItemProps.currentAccountPrimaryText }}
                   items={[
-                    { value: profileItemProps.currentAccountPrimaryText },
-                    { value: profileItemProps.currentAccountPrimaryText },
+                    {
+                      value: profileItemProps.currentAccountPrimaryText,
+                      secondary: profileItemProps.currentAccountSecondaryText,
+                    },
+                    {
+                      value: profileItemProps.currentAccountPrimaryText,
+                      secondary: null,
+                    },
                   ]}
                   theme={props.theme}
-                  onHandleChange={() => console.log("user changed")}
                 />
+
                 {/* <Menu
                   id="demo-customized-menu"
                   anchorEl={anchorEl}

@@ -3,6 +3,7 @@ import { useState } from "react";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import GlobalStyles from "@mui/material/GlobalStyles";
+import ListItemWithImage from "./ListItemWithImage";
 
 export default function MySelect(props) {
   const [option, setOption] = useState(props.default.value);
@@ -21,7 +22,6 @@ export default function MySelect(props) {
           },
         }}
       />
-      {/* Maybe Select component should be replaced with menu */}
       <Select
         variant="outlined"
         value={option}
@@ -45,7 +45,7 @@ export default function MySelect(props) {
               color: props.theme.palette.font,
             }}
           >
-            {item.value}
+            <ListItemWithImage primary={item.value} secondary={item.secondary} />
           </MenuItem>
         ))}
       </Select>
