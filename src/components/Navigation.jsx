@@ -7,6 +7,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import ListItemWithImage from "../atom-components/ListItemWithImage";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -19,8 +20,6 @@ import { Container, Switch } from "@mui/material";
 import { styled } from "@mui/system";
 import { Link as RouterLink } from "react-router-dom";
 
-import MyNavSelect from "../atom-components/MyNavSelect";
-
 export default function Navigation(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const theme = useTheme();
@@ -29,6 +28,16 @@ export default function Navigation(props) {
   const profileItemProps = {
     currentAccountPrimaryText: props.username,
     currentAccountSecondaryText: "Seller",
+  };
+
+  console.log(isMobile);
+
+  const handleMenu = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   const handleThemeChanged = e => {
@@ -98,10 +107,9 @@ export default function Navigation(props) {
           />
 
           <div>
-            {/* Can this be simplified? TODO */}
             {isMobile ? (
               <>
-                {/* <Tooltip title="Account settings">
+                <Tooltip title="Account settings">
                   <IconButton
                     size="large"
                     edge="start"
@@ -131,16 +139,25 @@ export default function Navigation(props) {
                 >
                   <MenuItem onClick={handleClose}>
                     <ListItemWithImage
+                      theme={props.theme}
                       primary={profileItemProps.currentAccountPrimaryText}
                       secondary={profileItemProps.currentAccountSecondaryText}
                     />
                   </MenuItem>
                   <Divider />
                   <MenuItem onClick={handleClose}>
-                    <ListItemWithImage primary={profileItemProps.currentAccountPrimaryText} secondary={null} />
+                    <ListItemWithImage
+                      theme={props.theme}
+                      primary={profileItemProps.currentAccountPrimaryText}
+                      secondary={null}
+                    />
                   </MenuItem>
                   <MenuItem onClick={handleClose}>
-                    <ListItemWithImage primary={profileItemProps.currentAccountPrimaryText} secondary={null} />
+                    <ListItemWithImage
+                      theme={props.theme}
+                      primary={profileItemProps.currentAccountPrimaryText}
+                      secondary={null}
+                    />
                   </MenuItem>
                   <Divider />
                   <RouterLink
@@ -154,29 +171,27 @@ export default function Navigation(props) {
                       <ListItemIcon>
                         <Logout fontSize="small" />
                       </ListItemIcon>
-                      Logout
+                      <Typography style={{ color: props.theme.palette.font }}>Logout</Typography>
                     </MenuItem>
                   </RouterLink>
-                </Menu> */}
+                </Menu>
               </>
             ) : (
               <>
-                <MyNavSelect
-                  default={{ value: profileItemProps.currentAccountPrimaryText }}
-                  items={[
-                    {
-                      value: profileItemProps.currentAccountPrimaryText,
-                      secondary: profileItemProps.currentAccountSecondaryText,
-                    },
-                    {
-                      value: profileItemProps.currentAccountPrimaryText,
-                      secondary: null,
-                    },
-                  ]}
-                  theme={props.theme}
-                />
+                <Button
+                  aria-controls="demo-customized-menu"
+                  aria-haspopup="true"
+                  variant="contained"
+                  color="primary"
+                  disableElevation
+                  onClick={handleMenu}
+                  endIcon={<KeyboardArrowDownIcon />}
+                  startIcon={<Avatar sx={{ width: 32, height: 32 }}>M</Avatar>}
+                >
+                  {profileItemProps.currentAccountPrimaryText}
+                </Button>
 
-                {/* <Menu
+                <Menu
                   id="demo-customized-menu"
                   anchorEl={anchorEl}
                   anchorOrigin={{
@@ -193,16 +208,25 @@ export default function Navigation(props) {
                 >
                   <MenuItem onClick={handleClose}>
                     <ListItemWithImage
+                      theme={props.theme}
                       primary={profileItemProps.currentAccountPrimaryText}
                       secondary={profileItemProps.currentAccountSecondaryText}
                     />
                   </MenuItem>
                   <Divider />
                   <MenuItem onClick={handleClose}>
-                    <ListItemWithImage primary={profileItemProps.currentAccountPrimaryText} secondary={null} />
+                    <ListItemWithImage
+                      theme={props.theme}
+                      primary={profileItemProps.currentAccountPrimaryText}
+                      secondary={null}
+                    />
                   </MenuItem>
                   <MenuItem onClick={handleClose}>
-                    <ListItemWithImage primary={profileItemProps.currentAccountPrimaryText} secondary={null} />
+                    <ListItemWithImage
+                      theme={props.theme}
+                      primary={profileItemProps.currentAccountPrimaryText}
+                      secondary={null}
+                    />
                   </MenuItem>
                   <Divider />
                   <RouterLink
@@ -216,10 +240,10 @@ export default function Navigation(props) {
                       <ListItemIcon>
                         <Logout fontSize="small" />
                       </ListItemIcon>
-                      <Typography color="#252525">Logout</Typography>
+                      <Typography style={{ color: props.theme.palette.font }}>Logout</Typography>
                     </MenuItem>
                   </RouterLink>
-                </Menu> */}
+                </Menu>
               </>
             )}
           </div>
