@@ -7,24 +7,30 @@ import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import zIndex from "@mui/material/styles/zIndex";
+import MySelect from "../atom-components/MySelect.jsx";
 
 export default function OffersRanking(props) {
   const [mode, setMode] = React.useState("");
-  const oferty = offers;
-  const handleChange = (event) => {
-    setMode(event.target.value);
+
+  var opt1 = "Num of sold - asc";
+  var opt2 = "Num of sold - des";
+  var opt3 = "Popularity - desc";
+  var opt4 = "Turnover - desc";
+
+  const handleChange = (value) => {
+    setMode(value);
   };
 
   function sortOffers() {
     let o;
     switch (mode) {
-      case 1:
+      case opt2:
         o = offers.sort(compareNumbersDesc);
         break;
-      case 2:
+      case opt3:
         o = offers.sort(comparePopularityDesc);
         break;
-      case 3:
+      case opt4:
         o = offers.sort(compareTurnoverDesc);
         break;
       default:
@@ -64,14 +70,18 @@ export default function OffersRanking(props) {
         <Typography variant="h5" sx={{ mt: 1, fontWeight: "bold" }}>
           Offers Ranking
         </Typography>
-        <FormControl>
-          <Select value={mode} onChange={handleChange} displayEmpty>
-            <MenuItem value="">Num of sold - asc</MenuItem>
-            <MenuItem value={1}>Num of sold - desc</MenuItem>
-            <MenuItem value={2}>Popularity - desc</MenuItem>
-            <MenuItem value={3}>Turnover - desc</MenuItem>
-          </Select>
-        </FormControl>
+        <MySelect
+          default={{ value: opt1 }}
+          items={[
+            { value: opt1 },
+            { value: opt2 },
+            { value: opt3 },
+            { value: opt4 },
+          ]}
+          theme={props.theme}
+          width={180}
+          onHandleChange={handleChange}
+        />
       </Box>
       {sortOffers()
         .slice(0, 5)
