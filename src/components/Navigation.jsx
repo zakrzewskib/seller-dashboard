@@ -26,13 +26,13 @@ export default function Navigation(props) {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const profileItemProps = {
-    currentAccountPrimaryText: "John Temporary",
+    currentAccountPrimaryText: props.username,
     currentAccountSecondaryText: "Seller",
   };
 
   console.log(isMobile);
 
-  const handleMenu = (event) => {
+  const handleMenu = event => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -40,7 +40,7 @@ export default function Navigation(props) {
     setAnchorEl(null);
   };
 
-  const handleThemeChanged = (e) => {
+  const handleThemeChanged = e => {
     props.handleChange(e);
   };
 
@@ -95,15 +95,8 @@ export default function Navigation(props) {
     <AppBar position="fixed" sx={{ bgcolor: props.theme.palette.navbar }}>
       <Container maxWidth="xl">
         <Toolbar style={{ padding: 0 }}>
-          <DashboardIcon
-            fontSize="large"
-            sx={{ color: props.theme.palette.navBarLogo }}
-          />
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, m: 1, color: props.theme.palette.navBarLogo }}
-          >
+          <DashboardIcon fontSize="large" sx={{ color: props.theme.palette.navBarLogo }} />
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, m: 1, color: props.theme.palette.navBarLogo }}>
             Dashboard
           </Typography>
 
@@ -152,16 +145,10 @@ export default function Navigation(props) {
                   </MenuItem>
                   <Divider />
                   <MenuItem onClick={handleClose}>
-                    <ListItemWithImage
-                      primary={profileItemProps.currentAccountPrimaryText}
-                      secondary={null}
-                    />
+                    <ListItemWithImage primary={profileItemProps.currentAccountPrimaryText} secondary={null} />
                   </MenuItem>
                   <MenuItem onClick={handleClose}>
-                    <ListItemWithImage
-                      primary={profileItemProps.currentAccountPrimaryText}
-                      secondary={null}
-                    />
+                    <ListItemWithImage primary={profileItemProps.currentAccountPrimaryText} secondary={null} />
                   </MenuItem>
                   <Divider />
                   <RouterLink
@@ -192,7 +179,7 @@ export default function Navigation(props) {
                   endIcon={<KeyboardArrowDownIcon />}
                   startIcon={<Avatar sx={{ width: 32, height: 32 }}>M</Avatar>}
                 >
-                  profile
+                  {profileItemProps.currentAccountPrimaryText}
                 </Button>
                 <Menu
                   id="demo-customized-menu"
@@ -217,16 +204,10 @@ export default function Navigation(props) {
                   </MenuItem>
                   <Divider />
                   <MenuItem onClick={handleClose}>
-                    <ListItemWithImage
-                      primary={profileItemProps.currentAccountPrimaryText}
-                      secondary={null}
-                    />
+                    <ListItemWithImage primary={profileItemProps.currentAccountPrimaryText} secondary={null} />
                   </MenuItem>
                   <MenuItem onClick={handleClose}>
-                    <ListItemWithImage
-                      primary={profileItemProps.currentAccountPrimaryText}
-                      secondary={null}
-                    />
+                    <ListItemWithImage primary={profileItemProps.currentAccountPrimaryText} secondary={null} />
                   </MenuItem>
                   <Divider />
                   <RouterLink

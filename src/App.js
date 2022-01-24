@@ -5,7 +5,7 @@ import { ThemeProvider } from "@emotion/react";
 import { useState } from "react";
 import Dashboard from "./pages/Dashboard";
 import LoginPage from "./pages/LoginPage";
-import {PrivateRoute} from "./pages/LoginPage"
+import { PrivateRoute } from "./pages/LoginPage";
 
 import { CssBaseline } from "@mui/material";
 import Navigation from "./components/Navigation";
@@ -72,7 +72,7 @@ function App() {
   const [theme, setTheme] = useState(darkTheme);
   const [checkedForTheme, setCheckedForTheme] = useState(true);
 
-  const onHandleChange = (e) => {
+  const onHandleChange = e => {
     setCheckedForTheme(e.target.checked);
     const theme = checkedForTheme ? lightTheme : darkTheme;
     setTheme(theme);
@@ -85,6 +85,7 @@ function App() {
           theme={theme}
           checkedForSwitch={checkedForTheme}
           handleChange={onHandleChange}
+          username={"Robert Lewandowski"}
         />
         <CssBaseline />
         <Routes>
@@ -92,7 +93,11 @@ function App() {
           <Route
             exact
             path="/dashboard"
-            element={<PrivateRoute theme={theme}><Dashboard theme={theme} /></PrivateRoute>}
+            element={
+              <PrivateRoute theme={theme}>
+                <Dashboard theme={theme} />
+              </PrivateRoute>
+            }
           />
         </Routes>
       </ThemeProvider>
