@@ -32,7 +32,7 @@ function Copyright(props) {
 export const PrivateRoute = props => {
   let navigate = useNavigate();
   if (!mockAuth.isAuthenticated) {
-    return <LoginPage wasRedirected={true} theme={props.theme} />;
+    return <LoginPage wasRedirected={true} theme={props.theme} usernameLoggedIn={props.usernameLoggedIn} />;
   }
   return <div>{props.children}</div>;
 };
@@ -41,7 +41,7 @@ export const mockAuth = {
   isAuthenticated: false,
   wrongPassword: false,
 
-  login(username, password, callbackFunction) {
+  login(username, password, callbackFunction, usernameLoggedIn) {
     if (username === "test" && password === "test") {
       this.isAuthenticated = true;
       callbackFunction();
@@ -116,7 +116,10 @@ export default function LoginPage(props) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    mockAuth.login(email, password, () => navigate("/dashboard", { replace: true }));
+    mockAuth.login(email, password, () => {
+      navigate("/dashboard", { replace: true });
+      props.usernameLoggedIn(email);
+    });
   };
 
   return (

@@ -71,11 +71,16 @@ function App() {
 
   const [theme, setTheme] = useState(darkTheme);
   const [checkedForTheme, setCheckedForTheme] = useState(true);
+  const [username, setUsername] = useState("Please log in");
 
   const onHandleChange = e => {
     setCheckedForTheme(e.target.checked);
     const theme = checkedForTheme ? lightTheme : darkTheme;
     setTheme(theme);
+  };
+
+  const usernameLoggedIn = username => {
+    setUsername(username);
   };
 
   return (
@@ -85,16 +90,16 @@ function App() {
           theme={theme}
           checkedForSwitch={checkedForTheme}
           handleChange={onHandleChange}
-          username={"Robert Lewandowski"}
+          username={username}
         />
         <CssBaseline />
         <Routes>
-          <Route exact path="/" element={<LoginPage theme={theme} />} />
+          <Route exact path="/" element={<LoginPage theme={theme} usernameLoggedIn={usernameLoggedIn} />} />
           <Route
             exact
             path="/dashboard"
             element={
-              <PrivateRoute theme={theme}>
+              <PrivateRoute theme={theme} usernameLoggedIn={usernameLoggedIn}>
                 <Dashboard theme={theme} />
               </PrivateRoute>
             }
