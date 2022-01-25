@@ -6,6 +6,10 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 export default function OfferItem(props) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down(500)); //na oko 500px ale mozna zmienic
+  //var opt1 = "Num of sold - asc";
+  var opt2 = "Num of sold - des";
+  //var opt3 = "Popularity - desc";
+  var opt4 = "Turnover - desc";
   return (
     <Box
       sx={{
@@ -55,9 +59,15 @@ export default function OfferItem(props) {
         <Box component="span" sx={{ fontSize: 14 }}>
           number of sold units: {props.numberOfSoldUnits}
         </Box>
-        <Box component="span" sx={{ fontSize: 14 }}>
-          second param: {props.secondParam}
-        </Box>
+        {props.mode === opt2 || props.mode === opt4 ? (
+          <Box component="span" sx={{ fontSize: 14 }}>
+            turnover: {props.secondParam} $
+          </Box>
+        ) : (
+          <Box component="span" sx={{ fontSize: 14 }}>
+            popularity: {props.secondParam} views
+          </Box>
+        )}
       </Box>
     </Box>
   );
