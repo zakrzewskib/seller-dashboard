@@ -194,8 +194,8 @@ export default function Navigation(props) {
                 );
               })}
               <Divider />
-              <RouterLink
-                to="/"
+              <a
+                href="/"
                 style={{
                   textDecoration: "none",
                   color: props.theme.palette.font,
@@ -207,7 +207,7 @@ export default function Navigation(props) {
                   </ListItemIcon>
                   <Typography style={{ color: props.theme.palette.font }}>Logout</Typography>
                 </MenuItem>
-              </RouterLink>
+              </a>
             </Menu>
           </div>
         </Toolbar>
