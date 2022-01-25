@@ -30,6 +30,8 @@ export default function Navigation(props) {
     currentAccountSecondaryText: "Seller",
   };
 
+  const otherProfiles = ["first", "second"];
+
   console.log(isMobile);
 
   const handleMenu = event => {
@@ -108,144 +110,79 @@ export default function Navigation(props) {
 
           <div>
             {isMobile ? (
-              <>
-                <Tooltip title="Account settings">
-                  <IconButton
-                    size="large"
-                    edge="start"
-                    color="inherit"
-                    aria-label="menu"
-                    onClick={handleMenu}
-                    sx={{ ml: 2 }}
-                  >
-                    <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
-                  </IconButton>
-                </Tooltip>
-
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  <MenuItem onClick={handleClose}>
-                    <ListItemWithImage
-                      theme={props.theme}
-                      primary={profileItemProps.currentAccountPrimaryText}
-                      secondary={profileItemProps.currentAccountSecondaryText}
-                    />
-                  </MenuItem>
-                  <Divider />
-                  <MenuItem onClick={handleClose}>
-                    <ListItemWithImage
-                      theme={props.theme}
-                      primary={profileItemProps.currentAccountPrimaryText}
-                      secondary={null}
-                    />
-                  </MenuItem>
-                  <MenuItem onClick={handleClose}>
-                    <ListItemWithImage
-                      theme={props.theme}
-                      primary={profileItemProps.currentAccountPrimaryText}
-                      secondary={null}
-                    />
-                  </MenuItem>
-                  <Divider />
-                  <RouterLink
-                    to="/"
-                    style={{
-                      textDecoration: "none",
-                      color: props.theme.palette.font,
-                    }}
-                  >
-                    <MenuItem>
-                      <ListItemIcon>
-                        <Logout fontSize="small" />
-                      </ListItemIcon>
-                      <Typography style={{ color: props.theme.palette.font }}>Logout</Typography>
-                    </MenuItem>
-                  </RouterLink>
-                </Menu>
-              </>
-            ) : (
-              <>
-                <Button
-                  aria-controls="demo-customized-menu"
-                  aria-haspopup="true"
-                  variant="contained"
-                  color="primary"
-                  disableElevation
+              <Tooltip title="Account settings">
+                <IconButton
+                  size="large"
+                  edge="start"
+                  color="inherit"
+                  aria-label="menu"
                   onClick={handleMenu}
-                  endIcon={<KeyboardArrowDownIcon />}
-                  startIcon={<Avatar sx={{ width: 32, height: 32 }}>M</Avatar>}
+                  sx={{ ml: 2 }}
                 >
-                  {profileItemProps.currentAccountPrimaryText}
-                </Button>
-
-                <Menu
-                  id="demo-customized-menu"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  <MenuItem onClick={handleClose}>
-                    <ListItemWithImage
-                      theme={props.theme}
-                      primary={profileItemProps.currentAccountPrimaryText}
-                      secondary={profileItemProps.currentAccountSecondaryText}
-                    />
-                  </MenuItem>
-                  <Divider />
-                  <MenuItem onClick={handleClose}>
-                    <ListItemWithImage
-                      theme={props.theme}
-                      primary={profileItemProps.currentAccountPrimaryText}
-                      secondary={null}
-                    />
-                  </MenuItem>
-                  <MenuItem onClick={handleClose}>
-                    <ListItemWithImage
-                      theme={props.theme}
-                      primary={profileItemProps.currentAccountPrimaryText}
-                      secondary={null}
-                    />
-                  </MenuItem>
-                  <Divider />
-                  <RouterLink
-                    to="/"
-                    style={{
-                      textDecoration: "none",
-                      color: props.theme.palette.font,
-                    }}
-                  >
-                    <MenuItem>
-                      <ListItemIcon>
-                        <Logout fontSize="small" />
-                      </ListItemIcon>
-                      <Typography style={{ color: props.theme.palette.font }}>Logout</Typography>
-                    </MenuItem>
-                  </RouterLink>
-                </Menu>
-              </>
+                  <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <Button
+                aria-controls="demo-customized-menu"
+                aria-haspopup="true"
+                variant="contained"
+                color="primary"
+                disableElevation
+                onClick={handleMenu}
+                endIcon={<KeyboardArrowDownIcon />}
+                startIcon={<Avatar sx={{ width: 32, height: 32 }}>M</Avatar>}
+              >
+                {profileItemProps.currentAccountPrimaryText}
+              </Button>
             )}
+
+            <Menu
+              id="menu"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleClose}>
+                <ListItemWithImage
+                  theme={props.theme}
+                  primary={profileItemProps.currentAccountPrimaryText}
+                  secondary={profileItemProps.currentAccountSecondaryText}
+                />
+              </MenuItem>
+
+              {otherProfiles.map(name => {
+                return (
+                  <MenuItem onClick={handleClose}>
+                    <ListItemWithImage theme={props.theme} primary={name} secondary={null} />
+                  </MenuItem>
+                );
+              })}
+              <Divider />
+              <RouterLink
+                to="/"
+                style={{
+                  textDecoration: "none",
+                  color: props.theme.palette.font,
+                }}
+              >
+                <MenuItem>
+                  <ListItemIcon>
+                    <Logout fontSize="small" />
+                  </ListItemIcon>
+                  <Typography style={{ color: props.theme.palette.font }}>Logout</Typography>
+                </MenuItem>
+              </RouterLink>
+            </Menu>
           </div>
         </Toolbar>
       </Container>
