@@ -53,6 +53,7 @@ export default function Navigation(props) {
     if (index !== -1) {
       const a = [...otherProfiles];
       console.log(index);
+      console.log("val: " + value);
       a[index] = profileItemProps.currentAccountPrimaryText;
       setOtherProfiles(a);
     }
@@ -61,7 +62,7 @@ export default function Navigation(props) {
 
     handleClose();
 
-    props.onChangeProfile();
+    props.onChangeProfile(value);
   };
 
   const handleClose = () => {
