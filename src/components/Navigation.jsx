@@ -60,6 +60,8 @@ export default function Navigation(props) {
     setProfileItemProps({ ...profileItemProps, currentAccountPrimaryText: value });
 
     handleClose();
+
+    props.onChangeProfile();
   };
 
   const handleClose = () => {

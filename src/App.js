@@ -85,6 +85,10 @@ function App() {
     setOtherProfiles(otherProfiles);
   };
 
+  const changeProfile = () => {
+    console.log("change profile");
+  };
+
   return (
     <Router>
       <ThemeProvider theme={theme}>
@@ -94,6 +98,7 @@ function App() {
           handleChange={onHandleChange}
           username={username}
           otherProfiles={otherProfiles}
+          onChangeProfile={changeProfile}
         />
         <CssBaseline />
         <Routes>
