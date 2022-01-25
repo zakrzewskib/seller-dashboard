@@ -5,6 +5,8 @@ import { ThemeProvider } from "@emotion/react";
 import { useState } from "react";
 import Dashboard from "./pages/Dashboard";
 import LoginPage from "./pages/LoginPage";
+import { PrivateRoute } from "./pages/LoginPage";
+
 import { CssBaseline } from "@mui/material";
 import Navigation from "./components/Navigation";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -69,15 +71,22 @@ function App() {
 
   const [theme, setTheme] = useState(darkTheme);
   const [checkedForTheme, setCheckedForTheme] = useState(true);
+  const [username, setUsername] = useState("Please log in");
+  const [otherProfiles, setOtherProfiles] = useState([]);
 
-  const [key, setKey] = useState(1);
-
-  const onHandleChange = (e) => {
+  const onHandleChange = e => {
     setCheckedForTheme(e.target.checked);
     const theme = checkedForTheme ? lightTheme : darkTheme;
     setTheme(theme);
+  };
 
-    setKey(Math.random());
+  const usernameLoggedIn = (username, otherProfiles) => {
+    setUsername(username);
+    setOtherProfiles(otherProfiles);
+  };
+
+  const changeProfile = () => {
+    console.log("change profile");
   };
 
   return (
@@ -87,17 +96,24 @@ function App() {
           theme={theme}
           checkedForSwitch={checkedForTheme}
           handleChange={onHandleChange}
-        />{" "}
+          username={username}
+          otherProfiles={otherProfiles}
+          onChangeProfile={changeProfile}
+        />
         <CssBaseline />
         <Routes>
-          <Route exact path="/" element={<LoginPage theme={theme} />} />
+          <Route exact path="/" element={<LoginPage theme={theme} usernameLoggedIn={usernameLoggedIn} />} />
           <Route
             exact
             path="/dashboard"
-            element={<Dashboard theme={theme} keyToMountAgain={key} />}
+            element={
+              <PrivateRoute theme={theme} usernameLoggedIn={usernameLoggedIn}>
+                <Dashboard theme={theme} />
+              </PrivateRoute>
+            }
           />
-        </Routes>{" "}
-      </ThemeProvider>{" "}
+        </Routes>
+      </ThemeProvider>
     </Router>
   );
 }

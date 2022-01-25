@@ -19,6 +19,15 @@ import {
 import { chart, setOptions } from "highcharts";
 
 export default function SellerChart(props) {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      console.log("loading finished");
+      setLoading(false);
+    }, 3000);
+  }, []);
+
   const [time, setTime] = useState(localStorage.getItem("time") == null ? "Today" : localStorage.getItem("time"));
   const [valuesType, setValuesType] = useState(
     localStorage.getItem("valuesType") == null ? "Total profit" : localStorage.getItem("valuesType")
@@ -217,6 +226,7 @@ export default function SellerChart(props) {
 
   return (
     <MyChart
+      loading={loading}
       data={data}
       options={defaultOptions}
       previousData={previousData}

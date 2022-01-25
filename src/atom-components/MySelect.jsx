@@ -5,17 +5,15 @@ import FormControl from "@mui/material/FormControl";
 import GlobalStyles from "@mui/material/GlobalStyles";
 
 export default function MySelect(props) {
-  const [dataOption, setDataOption] = useState(props.default.value);
+  const [option, setOption] = useState(props.default.value);
 
-  const handleChange = (event) => {
-    setDataOption(event.target.value);
+  const handleChange = event => {
+    setOption(event.target.value);
     props.onHandleChange(event.target.value);
   };
 
   return (
-    <FormControl
-      sx={{ m: 1, minWidth: props.width == null ? 150 : props.width }}
-    >
+    <FormControl sx={{ m: 1, minWidth: props.width == null ? 150 : props.width }}>
       <GlobalStyles
         styles={{
           ".MuiList-root.MuiList-padding.MuiMenu-list": {
@@ -25,7 +23,7 @@ export default function MySelect(props) {
       />
       <Select
         variant="outlined"
-        value={dataOption}
+        value={option}
         onChange={handleChange}
         inputProps={{ "aria-label": "Without label" }}
         sx={{
@@ -38,7 +36,7 @@ export default function MySelect(props) {
           },
         }}
       >
-        {props.items.map((item) => (
+        {props.items.map(item => (
           <MenuItem
             value={item.value}
             key={Math.random()}
