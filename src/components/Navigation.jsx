@@ -20,7 +20,7 @@ import { Container, Switch } from "@mui/material";
 import { styled } from "@mui/system";
 import { Link as RouterLink } from "react-router-dom";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Navigation(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -28,19 +28,31 @@ export default function Navigation(props) {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [profileItemProps, setProfileItemProps] = useState({
-    currentAccountPrimaryText: props.username,
+    currentAccountPrimaryText: "Please log in",
     currentAccountSecondaryText: "Seller",
   });
 
-  const [otherProfiles, setOtherProfiles] = useState(props.otherProfiles === undefined ? [] : props.otherProfiles);
+  const [otherProfiles, setOtherProfiles] = useState([]);
+
+  useEffect(() => {
+    setOtherProfiles(props.otherProfiles);
+    console.log("useEffect");
+  }, [props.otherProfiles]);
+
+  useEffect(() => {
+    setProfileItemProps({ ...profileItemProps, currentAccountPrimaryText: props.username });
+    console.log("useEffect");
+  }, [props.username]);
 
   const handleMenu = event => {
     setAnchorEl(event.currentTarget);
   };
 
   const changeProfile = (value, index) => {
+    console.log("change profile");
     if (index !== -1) {
       const a = [...otherProfiles];
+      console.log(index);
       a[index] = profileItemProps.currentAccountPrimaryText;
       setOtherProfiles(a);
     }
@@ -174,9 +186,9 @@ export default function Navigation(props) {
                 />
               </MenuItem>
 
-              {otherProfiles.map(name => {
+              {otherProfiles.map((name, idx) => {
                 return (
-                  <MenuItem onClick={() => changeProfile(name)}>
+                  <MenuItem onClick={() => changeProfile(name, idx)}>
                     <ListItemWithImage theme={props.theme} primary={name} secondary={null} />
                   </MenuItem>
                 );
