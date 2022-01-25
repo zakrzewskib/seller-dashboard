@@ -5,10 +5,8 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function OfferItem(props) {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down(500)); //na oko 500px ale mozna zmienic
-  //var opt1 = "Num of sold - asc";
+  const isMobile = useMediaQuery(theme.breakpoints.down(500));
   var opt2 = "Num of sold - des";
-  //var opt3 = "Popularity - desc";
   var opt4 = "Turnover - desc";
   return (
     <Box

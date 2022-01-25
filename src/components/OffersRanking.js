@@ -1,12 +1,8 @@
 import React from "react";
 import { offers } from "../data-our-db-mock/user1-data";
 import OfferItem from "../components/OfferItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import zIndex from "@mui/material/styles/zIndex";
 import MySelect from "../atom-components/MySelect.jsx";
 
 export default function OffersRanking(props) {
