@@ -41,7 +41,7 @@ export const mockAuth = {
   isAuthenticated: false,
   wrongPassword: false,
 
-  login(username, password, callbackFunction, usernameLoggedIn) {
+  login(username, password, callbackFunction) {
     if (username === "test" && password === "test") {
       this.isAuthenticated = true;
       callbackFunction();
@@ -114,11 +114,13 @@ export default function LoginPage(props) {
   const [password, setPassword] = useState("");
   let navigate = useNavigate();
 
+  const otherProfiles = ["first", "second"];
+
   const handleSubmit = e => {
     e.preventDefault();
     mockAuth.login(email, password, () => {
       navigate("/dashboard", { replace: true });
-      props.usernameLoggedIn(email);
+      props.usernameLoggedIn(email, otherProfiles);
     });
   };
 

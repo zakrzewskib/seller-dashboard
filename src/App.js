@@ -72,6 +72,7 @@ function App() {
   const [theme, setTheme] = useState(darkTheme);
   const [checkedForTheme, setCheckedForTheme] = useState(true);
   const [username, setUsername] = useState("Please log in");
+  const [otherProfiles, setOtherProfiles] = useState([]);
 
   const onHandleChange = e => {
     setCheckedForTheme(e.target.checked);
@@ -79,8 +80,9 @@ function App() {
     setTheme(theme);
   };
 
-  const usernameLoggedIn = username => {
+  const usernameLoggedIn = (username, otherProfiles) => {
     setUsername(username);
+    setOtherProfiles(otherProfiles);
   };
 
   return (
@@ -91,6 +93,7 @@ function App() {
           checkedForSwitch={checkedForTheme}
           handleChange={onHandleChange}
           username={username}
+          otherProfiles={otherProfiles}
         />
         <CssBaseline />
         <Routes>

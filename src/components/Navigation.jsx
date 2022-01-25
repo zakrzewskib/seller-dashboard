@@ -20,22 +20,34 @@ import { Container, Switch } from "@mui/material";
 import { styled } from "@mui/system";
 import { Link as RouterLink } from "react-router-dom";
 
+import { useState } from "react";
+
 export default function Navigation(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const profileItemProps = {
+  const [profileItemProps, setProfileItemProps] = useState({
     currentAccountPrimaryText: props.username,
     currentAccountSecondaryText: "Seller",
-  };
+  });
 
-  const otherProfiles = ["first", "second"];
-
-  console.log(isMobile);
+  const [otherProfiles, setOtherProfiles] = useState(props.otherProfiles === undefined ? [] : props.otherProfiles);
 
   const handleMenu = event => {
     setAnchorEl(event.currentTarget);
+  };
+
+  const changeProfile = (value, index) => {
+    if (index !== -1) {
+      const a = [...otherProfiles];
+      a[index] = profileItemProps.currentAccountPrimaryText;
+      setOtherProfiles(a);
+    }
+
+    setProfileItemProps({ ...profileItemProps, currentAccountPrimaryText: value });
+
+    handleClose();
   };
 
   const handleClose = () => {
@@ -119,7 +131,7 @@ export default function Navigation(props) {
                   onClick={handleMenu}
                   sx={{ ml: 2 }}
                 >
-                  <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                  <Avatar sx={{ width: 32, height: 32 }}>{profileItemProps.currentAccountPrimaryText[0]}</Avatar>
                 </IconButton>
               </Tooltip>
             ) : (
@@ -131,7 +143,9 @@ export default function Navigation(props) {
                 disableElevation
                 onClick={handleMenu}
                 endIcon={<KeyboardArrowDownIcon />}
-                startIcon={<Avatar sx={{ width: 32, height: 32 }}>M</Avatar>}
+                startIcon={
+                  <Avatar sx={{ width: 32, height: 32 }}>{profileItemProps.currentAccountPrimaryText[0]}</Avatar>
+                }
               >
                 {profileItemProps.currentAccountPrimaryText}
               </Button>
@@ -152,7 +166,7 @@ export default function Navigation(props) {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>
+              <MenuItem onClick={() => changeProfile(profileItemProps.currentAccountPrimaryText)}>
                 <ListItemWithImage
                   theme={props.theme}
                   primary={profileItemProps.currentAccountPrimaryText}
@@ -162,7 +176,7 @@ export default function Navigation(props) {
 
               {otherProfiles.map(name => {
                 return (
-                  <MenuItem onClick={handleClose}>
+                  <MenuItem onClick={() => changeProfile(name)}>
                     <ListItemWithImage theme={props.theme} primary={name} secondary={null} />
                   </MenuItem>
                 );
