@@ -125,19 +125,25 @@ export default function MyChart(props) {
         height: isDownFromLg ? "900px" : "650px",
       }}
     >
-      <SellerChartMenu
-        theme={props.theme}
-        onIncludePreviousData={props.includePreviousData}
-        isPreviousDataIncluded={props.isPreviousDataIncluded}
-        onChangeGraphType={props.changeGraphType}
-        onChangeValuesType={props.changeValuesType}
-        onChangeDataTime={props.changeTime}
-        time={props.time}
-        valuesType={props.valuesType}
-        chartType={props.chartType === "line" ? "Line graph" : "Bar graph"}
-      ></SellerChartMenu>
+      {props.loading ? (
+        <h1>Loading...</h1>
+      ) : (
+        <>
+          <SellerChartMenu
+            theme={props.theme}
+            onIncludePreviousData={props.includePreviousData}
+            isPreviousDataIncluded={props.isPreviousDataIncluded}
+            onChangeGraphType={props.changeGraphType}
+            onChangeValuesType={props.changeValuesType}
+            onChangeDataTime={props.changeTime}
+            time={props.time}
+            valuesType={props.valuesType}
+            chartType={props.chartType === "line" ? "Line graph" : "Bar graph"}
+          ></SellerChartMenu>
 
-      <HighchartsComponent options={options} theme={props.theme} />
+          <HighchartsComponent options={options} theme={props.theme} />
+        </>
+      )}
     </Box>
   );
 }
