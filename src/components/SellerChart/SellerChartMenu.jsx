@@ -11,7 +11,7 @@ export default function SellerChartMenu(props) {
   const includePreviousDataWidth = 233;
 
   const includePreviousData = () => {
-    props.onIncludePreviousData(!props.isPreviousDataIncluded);
+    props.onIncludePreviousData(props.isPreviousDataIncluded);
   };
 
   return (

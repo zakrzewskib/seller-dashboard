@@ -32,7 +32,11 @@ export default function SellerChart(props) {
     localStorage.getItem("valuesType") == null ? "Total profit" : localStorage.getItem("valuesType")
   );
   const [isPreviousDataIncluded, setIsPreviousDataIncluded] = useState(
-    localStorage.getItem("isPreviousDataIncluded") == null ? false : localStorage.getItem("isPreviousDataIncluded")
+    localStorage.getItem("isPreviousDataIncluded") === null ||
+      localStorage.getItem("isPreviousDataIncluded") === false ||
+      localStorage.getItem("isPreviousDataIncluded") === "false"
+      ? false
+      : true
   );
   const [chartType, setChartType] = useState(
     localStorage.getItem("chartType") == null ? "line" : localStorage.getItem("chartType")
@@ -208,8 +212,9 @@ export default function SellerChart(props) {
   };
 
   const includePreviousData = value => {
-    setIsPreviousDataIncluded(value);
-    localStorage.setItem("isPreviousDataIncluded", value);
+    console.log(!value);
+    setIsPreviousDataIncluded(!value);
+    localStorage.setItem("isPreviousDataIncluded", !value);
   };
 
   const changeGraphType = value => {
