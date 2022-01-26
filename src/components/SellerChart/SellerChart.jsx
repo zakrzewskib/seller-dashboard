@@ -198,7 +198,6 @@ export default function SellerChart(props) {
         setPreviousData(yesterdaySeriesNumberOfItems);
       }
     }
-    console.log({ isPreviousDataIncluded });
     if (!isPreviousDataIncluded) {
       setPreviousData(null);
     }

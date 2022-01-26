@@ -18,7 +18,6 @@ import Logout from "@mui/icons-material/Logout";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import { Container, Switch } from "@mui/material";
 import { styled } from "@mui/system";
-import { Link as RouterLink } from "react-router-dom";
 
 import { useState, useEffect } from "react";
 
@@ -36,12 +35,10 @@ export default function Navigation(props) {
 
   useEffect(() => {
     setOtherProfiles(props.otherProfiles);
-    console.log("useEffect");
   }, [props.otherProfiles]);
 
   useEffect(() => {
     setProfileItemProps({ ...profileItemProps, currentAccountPrimaryText: props.username });
-    console.log("useEffect");
   }, [props.username]);
 
   const handleMenu = event => {
@@ -49,18 +46,14 @@ export default function Navigation(props) {
   };
 
   const changeProfile = (value, index) => {
-    console.log("change profile");
     if (index !== -1) {
       const a = [...otherProfiles];
-      console.log(index);
       a[index] = profileItemProps.currentAccountPrimaryText;
       setOtherProfiles(a);
     }
 
     setProfileItemProps({ ...profileItemProps, currentAccountPrimaryText: value });
-
     handleClose();
-
     props.onChangeProfile();
   };
 
