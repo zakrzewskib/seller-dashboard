@@ -16,24 +16,27 @@ import {
   yesterdaySeriesTotalProfit,
   lastYearSeriesTotalProfit,
 } from "../../data-our-db-mock/user1-data";
-import { chart, setOptions } from "highcharts";
 
 export default function SellerChart(props) {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setTimeout(() => {
-      console.log("loading finished");
-      setLoading(false);
-    }, 3000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     console.log("loading finished");
+  //     setLoading(false);
+  //   }, 3000);
+  // }, []);
 
   const [time, setTime] = useState(localStorage.getItem("time") == null ? "Today" : localStorage.getItem("time"));
   const [valuesType, setValuesType] = useState(
     localStorage.getItem("valuesType") == null ? "Total profit" : localStorage.getItem("valuesType")
   );
   const [isPreviousDataIncluded, setIsPreviousDataIncluded] = useState(
-    localStorage.getItem("isPreviousDataIncluded") == null ? false : localStorage.getItem("isPreviousDataIncluded")
+    localStorage.getItem("isPreviousDataIncluded") === null ||
+      localStorage.getItem("isPreviousDataIncluded") === false ||
+      localStorage.getItem("isPreviousDataIncluded") === "false"
+      ? false
+      : true
   );
   const [chartType, setChartType] = useState(
     localStorage.getItem("chartType") == null ? "line" : localStorage.getItem("chartType")
@@ -198,7 +201,6 @@ export default function SellerChart(props) {
         setPreviousData(yesterdaySeriesNumberOfItems);
       }
     }
-    console.log({ isPreviousDataIncluded });
     if (!isPreviousDataIncluded) {
       setPreviousData(null);
     }
@@ -210,8 +212,9 @@ export default function SellerChart(props) {
   };
 
   const includePreviousData = value => {
-    setIsPreviousDataIncluded(value);
-    localStorage.setItem("isPreviousDataIncluded", value);
+    console.log(!value);
+    setIsPreviousDataIncluded(!value);
+    localStorage.setItem("isPreviousDataIncluded", !value);
   };
 
   const changeGraphType = value => {
