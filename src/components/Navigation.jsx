@@ -183,7 +183,7 @@ export default function Navigation(props) {
 
               {otherProfiles.map((name, idx) => {
                 return (
-                  <MenuItem onClick={() => changeProfile(name, idx)}>
+                  <MenuItem key={idx} onClick={() => changeProfile(name, idx)}>
                     <ListItemWithImage theme={props.theme} primary={name} secondary={null} />
                   </MenuItem>
                 );
