@@ -1,7 +1,7 @@
 # How to run a project
 
 1. npm install
-2. npm start
+2. npm run start
 
 # Authors
 - Bartłomiej Czekaj
