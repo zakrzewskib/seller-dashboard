@@ -1,4 +1,5 @@
 import React from "react";
+import { offers2 } from "../data-our-db-mock/user2-data";
 import { offers } from "../data-our-db-mock/user1-data";
 import OfferItem from "../components/OfferItem";
 import Box from "@mui/material/Box";
@@ -7,7 +8,8 @@ import MySelect from "../atom-components/MySelect.jsx";
 
 export default function OffersRanking(props) {
   const [mode, setMode] = React.useState("");
-
+  const [user_offers2, setUserOffers] = React.useState(offers);
+  var user_offers = null;
   var opt1 = "Num of sold - asc";
   var opt2 = "Num of sold - des";
   var opt3 = "Popularity - desc";
@@ -17,20 +19,26 @@ export default function OffersRanking(props) {
     setMode(value);
   };
 
-  function sortOffers() {
+  function sortOffers(dataset) {
+    if (dataset === 1) {
+      user_offers = offers;
+    }
+    if (dataset === 2) {
+      user_offers = offers2;
+    }
     let o;
     switch (mode) {
       case opt2:
-        o = offers.sort(compareNumbersDesc);
+        o = user_offers.sort(compareNumbersDesc);
         break;
       case opt3:
-        o = offers.sort(comparePopularityDesc);
+        o = user_offers.sort(comparePopularityDesc);
         break;
       case opt4:
-        o = offers.sort(compareTurnoverDesc);
+        o = user_offers.sort(compareTurnoverDesc);
         break;
       default:
-        o = offers.sort(compareNumbersAsc);
+        o = user_offers.sort(compareNumbersAsc);
     }
     return o;
   }
@@ -79,31 +87,42 @@ export default function OffersRanking(props) {
           onHandleChange={handleChange}
         />
       </Box>
-      {sortOffers()
-        .slice(0, 5)
-        .map((x) =>
-          mode === 1 || mode === 3 ? (
-            <OfferItem
-              key={Math.random()}
-              theme={props.theme}
-              offerTitle={x.title}
-              numberOfSoldUnits={x.numberOfSoldUnits}
-              secondParam={x.turnover}
-              mode={mode}
-              img={x.img}
-            />
-          ) : (
-            <OfferItem
-              key={Math.random()}
-              theme={props.theme}
-              offerTitle={x.title}
-              numberOfSoldUnits={x.numberOfSoldUnits}
-              secondParam={x.views}
-              mode={mode}
-              img={x.img}
-            />
+      {props.user === 3 ? (
+        <>
+          <Typography variant="h6" sx={{ mt: 5, textAlign: "center" }}>
+            You don't have any offers
+          </Typography>
+          <Typography variant="h6" sx={{ textAlign: "center" }}>
+            Lets make some deals!
+          </Typography>
+        </>
+      ) : (
+        sortOffers(props.user)
+          .slice(0, 5)
+          .map((x) =>
+            mode === opt2 || mode === opt4 ? (
+              <OfferItem
+                key={Math.random()}
+                theme={props.theme}
+                offerTitle={x.title}
+                numberOfSoldUnits={x.numberOfSoldUnits}
+                secondParam={x.turnover}
+                mode={mode}
+                img={x.img}
+              />
+            ) : (
+              <OfferItem
+                key={Math.random()}
+                theme={props.theme}
+                offerTitle={x.title}
+                numberOfSoldUnits={x.numberOfSoldUnits}
+                secondParam={x.views}
+                mode={mode}
+                img={x.img}
+              />
+            )
           )
-        )}
+      )}
     </Box>
   );
 }

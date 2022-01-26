@@ -6,7 +6,6 @@ import { useState } from "react";
 import Dashboard from "./pages/Dashboard";
 import LoginPage from "./pages/LoginPage";
 import { PrivateRoute } from "./pages/LoginPage";
-
 import { CssBaseline } from "@mui/material";
 import Navigation from "./components/Navigation";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -73,6 +72,7 @@ function App() {
   const [checkedForTheme, setCheckedForTheme] = useState(true);
   const [username, setUsername] = useState("Please log in");
   const [otherProfiles, setOtherProfiles] = useState([]);
+  const [user, setUser] = useState(1);
 
   const onHandleChange = e => {
     setCheckedForTheme(e.target.checked);
@@ -85,7 +85,15 @@ function App() {
     setOtherProfiles(otherProfiles);
   };
 
-  const changeProfile = () => {
+  //w przypadku zmiany nazwy tu zmienic!
+  const changeProfile = (value) => {
+    if(value === "test"){
+      setUser(1);
+    } else if(value === "first") {
+      setUser(2);
+    } else {
+      setUser(3);
+    }
     console.log("change profile");
   };
 
@@ -108,7 +116,7 @@ function App() {
             path="/dashboard"
             element={
               <PrivateRoute theme={theme} usernameLoggedIn={usernameLoggedIn}>
-                <Dashboard theme={theme} />
+                <Dashboard theme={theme} user={user}/>
               </PrivateRoute>
             }
           />

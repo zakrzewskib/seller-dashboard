@@ -18,7 +18,7 @@ export default function Dashboard(props) {
 
         <Grid item xs={12} sm={12} md={12} lg={4}>
           <Widget theme={props.theme}>
-            <OffersRanking theme={props.theme} />
+            <OffersRanking theme={props.theme} user={props.user} />
           </Widget>
         </Grid>
 
