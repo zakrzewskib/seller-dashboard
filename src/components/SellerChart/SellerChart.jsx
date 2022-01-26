@@ -16,7 +16,6 @@ import {
   yesterdaySeriesTotalProfit,
   lastYearSeriesTotalProfit,
 } from "../../data-our-db-mock/user1-data";
-import { chart, setOptions } from "highcharts";
 
 export default function SellerChart(props) {
   const [loading, setLoading] = useState(true);
