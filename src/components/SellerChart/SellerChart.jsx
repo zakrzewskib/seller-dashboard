@@ -212,7 +212,6 @@ export default function SellerChart(props) {
   };
 
   const includePreviousData = value => {
-    console.log(!value);
     setIsPreviousDataIncluded(!value);
     localStorage.setItem("isPreviousDataIncluded", !value);
   };

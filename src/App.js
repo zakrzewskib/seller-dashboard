@@ -86,15 +86,14 @@ function App() {
   };
 
   //w przypadku zmiany nazwy tu zmienic!
-  const changeProfile = (value) => {
-    if(value === "test"){
+  const changeProfile = value => {
+    if (value === "test") {
       setUser(1);
-    } else if(value === "first") {
+    } else if (value === "first") {
       setUser(2);
     } else {
       setUser(3);
     }
-    console.log("change profile");
   };
 
   return (
@@ -116,7 +115,7 @@ function App() {
             path="/dashboard"
             element={
               <PrivateRoute theme={theme} usernameLoggedIn={usernameLoggedIn}>
-                <Dashboard theme={theme} user={user}/>
+                <Dashboard theme={theme} user={user} />
               </PrivateRoute>
             }
           />
