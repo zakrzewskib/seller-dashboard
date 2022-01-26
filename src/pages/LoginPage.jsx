@@ -15,7 +15,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import Alert from "@mui/material/Alert";
 
 import { styled } from "@mui/material/styles";
 
@@ -30,7 +29,6 @@ function Copyright(props) {
 }
 
 export const PrivateRoute = props => {
-  let navigate = useNavigate();
   if (!mockAuth.isAuthenticated) {
     return <LoginPage wasRedirected={true} theme={props.theme} usernameLoggedIn={props.usernameLoggedIn} />;
   }
@@ -39,14 +37,12 @@ export const PrivateRoute = props => {
 
 export const mockAuth = {
   isAuthenticated: false,
-  wrongPassword: false,
 
   login(username, password, callbackFunction) {
     if (username === "test" && password === "test") {
       this.isAuthenticated = true;
       callbackFunction();
     } else {
-      this.wrongPassword = true;
       alert("Incorrect username or password");
     }
   },
@@ -112,6 +108,7 @@ const CustomTextFieldLight = styled(TextField)(({ theme }) => ({
 export default function LoginPage(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   let navigate = useNavigate();
 
   const otherProfiles = ["first", "second"];
@@ -169,7 +166,6 @@ export default function LoginPage(props) {
             {props.wasRedirected ? "You were redirected ->" : ""} Sign in
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-            {/* {mockAuth.wrongPassword ? <Alert severity="error">Incorrect username or password</Alert> : <div></div>} */}
             {props.theme.name === "darkTheme" ? (
               <div>
                 <CustomTextFieldDark

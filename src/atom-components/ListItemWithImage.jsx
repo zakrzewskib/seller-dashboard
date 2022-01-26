@@ -10,7 +10,7 @@ import GlobalStyles from "@mui/material/GlobalStyles";
 
 export default function ListItemWithImage(props) {
   return (
-    <ListItem>
+    <div>
       <GlobalStyles
         styles={{
           ".MuiList-root.MuiList-padding.MuiMenu-list": {
@@ -27,6 +27,6 @@ export default function ListItemWithImage(props) {
         primary={<Typography style={{ color: props.theme.palette.font }}>{props.primary}</Typography>}
         secondary={<Typography style={{ color: props.theme.palette.font }}>{props.secondary}</Typography>}
       />
-    </ListItem>
+    </div>
   );
 }
