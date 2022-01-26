@@ -18,14 +18,14 @@ import {
 } from "../../data-our-db-mock/user1-data";
 
 export default function SellerChart(props) {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setTimeout(() => {
-      console.log("loading finished");
-      setLoading(false);
-    }, 3000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     console.log("loading finished");
+  //     setLoading(false);
+  //   }, 3000);
+  // }, []);
 
   const [time, setTime] = useState(localStorage.getItem("time") == null ? "Today" : localStorage.getItem("time"));
   const [valuesType, setValuesType] = useState(
