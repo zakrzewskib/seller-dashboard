@@ -3,6 +3,8 @@
 1. npm install
 2. npm run start
 
+Log in with username=test and password=test
+
 # Authors
 - Bartłomiej Czekaj
 - Bartosz Zakrzewski
