@@ -9,7 +9,9 @@ Log in with username=test and password=test
 - Bartłomiej Czekaj
 - Bartosz Zakrzewski
 
-<img src="https://github.com/zakrzewskib/seller-dashboard/blob/master/screenshot.png" width="300"/>
+ <img src="https://github.com/zakrzewskib/seller-dashboard/blob/master/screenshot-2.png" />
+ <img src="https://github.com/zakrzewskib/seller-dashboard/blob/master/screenshot.png" width="300"/>
+
 
 <!--
 
